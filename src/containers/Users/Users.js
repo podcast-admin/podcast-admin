@@ -15,18 +15,17 @@ import {
   TableHead,
   TableRow,
   Avatar,
-  Button,
 } from '@mui/material';
 
 const Users = () => {
   const [t] = useTranslation();
   const { podcastId } = useParams();
   const [users, setUsers] = useState([]);
-  const userList = httpsCallable(functions, 'users-list');
+  const usersList = httpsCallable(functions, 'users-list');
 
   useEffect(() => {
     const getUsers = async () => {
-      userList({ podcastId })
+      usersList({ podcastId })
         .then((result) => {
           setUsers(result.data);
         })
@@ -36,7 +35,7 @@ const Users = () => {
     };
 
     getUsers();
-  }, []);
+  }, [usersList, podcastId]);
 
   return (
     <Container
