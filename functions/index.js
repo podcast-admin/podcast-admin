@@ -59,3 +59,5 @@ exports.updateCustomClaims = require('./updateCustomClaims');
 exports.setCustomClaims = require('./setCustomClaims');
 
 exports.scheduledFirestoreExport = require('./firestoreBackups');
+
+exports.users = require('./users');

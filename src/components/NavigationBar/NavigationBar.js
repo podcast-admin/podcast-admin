@@ -25,6 +25,7 @@ import {
   Settings,
   Logout,
   Language,
+  People,
 } from '@mui/icons-material';
 
 import { auth } from '../../helpers/Firebase';
@@ -155,6 +156,12 @@ const NavigationBar = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <MenuItem component={Link} href={`/podcasts/${podcastId}/users`}>
+          <ListItemIcon>
+            <People fontSize="small" />
+          </ListItemIcon>
+          {t('NavigationBar.users')}
+        </MenuItem>
         <MenuItem component={Link} href={`/podcasts/${podcastId}/intro-outro`}>
           <ListItemIcon>
             <AudioFile fontSize="small" />

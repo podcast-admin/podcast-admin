@@ -2,6 +2,7 @@
     "NavigationBar.accountSettings": "Kontoeinstellungen",
     "NavigationBar.langSwitch.de": "Switch to English",
     "NavigationBar.signout": "Abmelden",
+    "NavigationBar.users": "Nutzer",
     "NavigationBar.editIntroOutro": "Intro / Outro bearbeiten",
     "NavigationBar.editPodcast": "Podcast bearbeiten",
     "NavigationBar.allEpisodes": "Alle Episoden",
@@ -71,5 +72,13 @@
     "ListIntroOutro.all-files-processed": "Alle Audio-Dateien haben die richtigen Intros und Outros.",
 
     "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
-    "Episodes.no-episodes.link": "Erstelle eine neue."
+    "Episodes.no-episodes.link": "Erstelle eine neue.",
+
+    "Users.title": "Nutzer",
+    "Users.displayName": "Name",
+    "Users.email": "E-Mail-Adresse",
+    "Users.creationTime": "Registriert am",
+    "Users.lastSignInTime": "Letzter Login",
+    "Users.providerIds": "Anbieter",
+    "Users.intlDateTime": "{{val, datetime}}"
 }
