@@ -17,7 +17,7 @@ Podcast Admin is a light, simple, reliable podcast platform that focuses on high
 
 Of course, simply click the link below. But don't expect too much. It works but user experience and user onboarding needs improvements.
 
-[View live app that is running our podcast](https://podcast-admin.firebaseapp.com/)
+[View live app that is running our podcast](https://podcast-admin.com/)
 
 ## What's the business model
 
@@ -36,7 +36,7 @@ Everyone is invited to contribute. There is no clear plan with no instructions. 
 
 The project is set up to run out of the box on [Gitpod](https://gitpod.io/).
 
-[Simply click here to start a new workspace.](https://gitpod.io/#https://github.com/jonaspiela/podcast-admin)
+[Simply click here to start a new workspace.](https://gitpod.io/#https://github.com/podcast-admin/podcast-admin)
 
 It should automatically start a react development server as well as Firebase emulators. You probably need to install the [Gitpod Local Companion](https://www.gitpod.io/blog/local-app) to mirror all open Gitpod ports to your local machine.
 
