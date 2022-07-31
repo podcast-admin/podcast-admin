@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+    <channel>
+        <title><![CDATA[My Podcast]]></title>
+        <description><![CDATA[This is my super duper test podcast.]]></description>
+        <link>http://example.org</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Tue, 12 Jul 2022 15:20:03 GMT</lastBuildDate>
+        <atom:link href="http://podcast-admin.firebaseapp.com/feed/my-podcast" rel="self" type="application/rss+xml"/>
+        <copyright><![CDATA[My Company]]></copyright>
+        <language><![CDATA[English]]></language>
+        <category><![CDATA[Business]]></category>
+        <googleplay:author>John Doe</googleplay:author>
+        <googleplay:category>Business</googleplay:category>
+        <googleplay:description>This is my super duper test podcast.</googleplay:description>
+        <googleplay:explicit>no</googleplay:explicit>
+        <googleplay:image href="undefined"/>
+        <itunes:author>John Doe</itunes:author>
+        <itunes:summary>This is my super duper test podcast.</itunes:summary>
+        <itunes:category text="Business"/>
+        <itunes:explicit>no</itunes:explicit>
+        <itunes:subtitle>About my journey as a React developer</itunes:subtitle>
+        <itunes:image href="undefined"/>
+        <itunes:owner>
+            <itunes:name>John Doe</itunes:name>
+            <itunes:email>john@doe.com</itunes:email>
+        </itunes:owner>
+        <item>
+            <title><![CDATA[My Test Wisdom]]></title>
+            <description><![CDATA[<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+<hr />
+<p><a href="http://example.org/contact">Get in touch</a></p>]]></description>
+            <link>undefinedmytestwisdom</link>
+            <guid isPermaLink="false">mytestwisdom</guid>
+            <dc:creator><![CDATA[John Doe]]></dc:creator>
+            <pubDate>Mon, 11 Jul 2022 22:00:00 GMT</pubDate>
+            <enclosure url="http://localhost:9199/v0/b/podcast-admin.appspot.com/o/podcasts%2Fmy-podcast%2Fepisodes%2Fmytestwisdom%2Fmytestwisdom.mp3?alt=media&amp;token=617a4e3e-0eaf-4755-9ced-b9366960f02e" length="231675" type="audio/mpeg"/>
+            <itunes:author>John Doe</itunes:author>
+            <itunes:subtitle>Everything I know</itunes:subtitle>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:image href="http://localhost:9199/v0/b/podcast-admin.appspot.com/o/podcasts%2Fmy-podcast%2Fepisodes%2Fmytestwisdom%2Fmytestwisdom.jpg?alt=media&amp;token=7f9e5dce-2ac8-43d1-bf88-3bb83c50dd77"/>
+            <itunes:duration></itunes:duration>
+        </item>
+    </channel>
+</rss>

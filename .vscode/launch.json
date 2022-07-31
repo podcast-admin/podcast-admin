@@ -1,0 +1,43 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  "version": "0.2.0",
+  "configurations": [
+
+  
+    {
+      "type": "node-terminal",
+      "name": "Debug Firebase functions",
+      "request": "launch",
+      "command": "firebase emulators:start --only functions --inspect-functions",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Debug Firebase functions shell",
+      "request": "launch",
+      "command": "firebase functions:shell --inspect-functions",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Debug Firebase functions tests",
+      "request": "launch",
+      "command": "firebase emulators:exec 'npm run test' --inspect-functions",
+      "cwd": "${workspaceFolder}/functions"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Run Firebase emulators",
+      "request": "launch",
+      "command": "firebase emulators:start --only functions,firestore,storage,auth --inspect-functions --import=./emulator_seeds",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Debug Jest Tests",
+      "request": "launch",
+      "command": "npm run test",
+    }
+  ]
+}

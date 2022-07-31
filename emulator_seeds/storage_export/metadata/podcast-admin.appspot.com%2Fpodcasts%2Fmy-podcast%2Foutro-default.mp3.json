@@ -1,0 +1,20 @@
+{
+  "name": "podcasts/my-podcast/outro-default.mp3",
+  "bucket": "podcast-admin.appspot.com",
+  "contentType": "audio/mpeg",
+  "metageneration": 1,
+  "generation": 1657629345985,
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "cacheControl": "public, max-age=3600",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "b3992e58-25cb-45fd-b6b5-0819693d97e0"
+  ],
+  "etag": "sdKHoomeQwcTOjKAZ7oUoyUyp8w",
+  "timeCreated": "2022-07-12T12:35:45.984Z",
+  "updated": "2022-07-12T12:35:45.985Z",
+  "size": 203463,
+  "md5Hash": "pPK8rgS06kJhzp8JX2T+QA==",
+  "crc32c": "420523990"
+}

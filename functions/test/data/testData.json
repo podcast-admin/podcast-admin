@@ -1,0 +1,23 @@
+{
+  "kind": "storage#object", 
+  "contentType": "audio/mpeg", 
+  "name": "podcasts/2T9aVqEJhvd1Fck2vVPp/episodes/test/counting.mp3", 
+  "etag": "CNWC9NjLxu8CEAE=", 
+  "generation": "1616508570370389", 
+  "md5Hash": "ksC6xVxnpl7mIwDp/XS9dA==", 
+  "bucket": "podcast-admin.appspot.com", 
+  "contentDisposition": "inline; filename*=utf-8''counting.mp3", 
+  "metadata": {
+    "firebaseStorageDownloadTokens": "1916ec68-9f84-4bd2-bb27-55d545ef1762"
+  }, 
+  "crc32c": "a/YEQg==", 
+  "metageneration": "1", 
+  "mediaLink": "https://www.googleapis.com/download/storage/v1/b/podcast-admin.appspot.com/o/podcasts%2F2T9aVqEJhvd1Fck2vVPp%2Fepisodes%2Ftest%2Fcounting.mp3?generation=1616508570370389&alt=media", 
+  "timeStorageClassUpdated": "2021-03-23T14:09:30.438Z", 
+  "updated": "2021-03-23T14:09:30.438Z", 
+  "size": "671995", 
+  "timeCreated": "2021-03-23T14:09:30.438Z", 
+  "id": "podcast-admin.appspot.com/podcasts/2T9aVqEJhvd1Fck2vVPp/episodes/test/counting.mp3/1616508570370389", 
+  "selfLink": "https://www.googleapis.com/storage/v1/b/podcast-admin.appspot.com/o/podcasts%2F2T9aVqEJhvd1Fck2vVPp%2Fepisodes%2Ftest%2Fcounting.mp3", 
+  "storageClass": "STANDARD"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "podcasts/my-podcast/intro-expert.mp3",
+  "bucket": "podcast-admin.appspot.com",
+  "contentType": "audio/mpeg",
+  "metageneration": 1,
+  "generation": 1657629336468,
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "cacheControl": "public, max-age=3600",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "4a483dc0-1a3f-4b4d-9ebc-17533be05e65"
+  ],
+  "etag": "NqApg0DCdwVY3nKmr9gU43Glguk",
+  "timeCreated": "2022-07-12T12:35:36.467Z",
+  "updated": "2022-07-12T12:35:36.468Z",
+  "size": 200955,
+  "md5Hash": "AxL404bUlcWsPScTo6yIuA==",
+  "crc32c": "2989109651"
+}

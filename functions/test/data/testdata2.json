@@ -1,0 +1,23 @@
+{
+  "kind": "storage#object", 
+  "contentType": "audio/mpeg", 
+  "name": "podcasts/2T9aVqEJhvd1Fck2vVPp/episodes/arag-zouhair-haddou-app/Jonas Piela Podcast Ep Zouhair Haddou 128kBits.mp3", 
+  "etag": "CJrr8d3Qw+8CEAE=", 
+  "generation": "1616406843782554", 
+  "md5Hash": "zxK36mwlfxaI1xDLNkk5Jg==", 
+  "bucket": "podcast-admin.appspot.com", 
+  "contentDisposition": "inline; filename*=utf-8''Jonas%20Piela%20Podcast%20Ep%20Zouhair%20Haddou%20128kBits.mp3", 
+  "metadata": {
+    "firebaseStorageDownloadTokens": "7b2473f9-4eb4-4273-ab2b-f4ab3788e78b"
+  }, 
+  "crc32c": "oBrgyg==", 
+  "metageneration": "1", 
+  "mediaLink": "https://www.googleapis.com/download/storage/v1/b/podcast-admin.appspot.com/o/podcasts%2F2T9aVqEJhvd1Fck2vVPp%2Fepisodes%2Farag-zouhair-haddou-app%2FJonas%20Piela%20Podcast%20Ep%20Zouhair%20Haddou%20128kBits.mp3?generation=1616406843782554&alt=media", 
+  "timeStorageClassUpdated": "2021-03-22T09:54:03.864Z", 
+  "updated": "2021-03-22T09:54:03.864Z", 
+  "size": "33342614", 
+  "timeCreated": "2021-03-22T09:54:03.864Z", 
+  "id": "podcast-admin.appspot.com/podcasts/2T9aVqEJhvd1Fck2vVPp/episodes/arag-zouhair-haddou-app/Jonas Piela Podcast Ep Zouhair Haddou 128kBits.mp3/1616406843782554", 
+  "selfLink": "https://www.googleapis.com/storage/v1/b/podcast-admin.appspot.com/o/podcasts%2F2T9aVqEJhvd1Fck2vVPp%2Fepisodes%2Farag-zouhair-haddou-app%2FJonas%20Piela%20Podcast%20Ep%20Zouhair%20Haddou%20128kBits.mp3", 
+  "storageClass": "STANDARD"
+}

@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /podcasts/{podcastId}/{allPaths=**} {
+      allow read;
+      allow write: if podcastId in request.auth.token.podcasts;
+    }
+  }
+}

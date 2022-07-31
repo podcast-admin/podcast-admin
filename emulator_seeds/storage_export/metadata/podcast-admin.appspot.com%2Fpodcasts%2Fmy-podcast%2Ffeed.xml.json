@@ -1,0 +1,18 @@
+{
+  "name": "podcasts/my-podcast/feed.xml",
+  "bucket": "podcast-admin.appspot.com",
+  "contentType": "application/rss+xml",
+  "metageneration": 1,
+  "generation": 1657639203104,
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "cacheControl": "public, max-age=3600",
+  "contentEncoding": "identity",
+  "downloadTokens": [],
+  "etag": "OxYyyIpbYYsy4mRtDoP4SifJjdo",
+  "timeCreated": "2022-07-12T15:20:03.101Z",
+  "updated": "2022-07-12T15:20:03.111Z",
+  "size": 3418,
+  "md5Hash": "fPWu3nA3WpNTZEsB2myEZw==",
+  "crc32c": "167728206"
+}

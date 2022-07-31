@@ -1,0 +1,20 @@
+{
+  "name": "podcasts/my-podcast/episodes/mytestwisdom/original-audio-1657635984929.mp3",
+  "bucket": "podcast-admin.appspot.com",
+  "contentType": "audio/mpeg",
+  "metageneration": 1,
+  "generation": 1657635985124,
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "cacheControl": "public, max-age=3600",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "51309770-e2ac-4ee4-80df-a2d5a5822572"
+  ],
+  "etag": "FQEZOQTJYf10G1hG2lN6S89X2Kw",
+  "timeCreated": "2022-07-12T14:26:25.123Z",
+  "updated": "2022-07-12T14:26:25.126Z",
+  "size": 231675,
+  "md5Hash": "WIZPqLRch07mEI3lkB4ZNQ==",
+  "crc32c": "4123128444"
+}
