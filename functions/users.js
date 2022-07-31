@@ -9,8 +9,12 @@ exports.list = functions
   .region('europe-west1')
   .https.onCall(async (data, context) => {
     const { podcastId } = data;
-
-    if (!context.auth.token.podcasts.includes(podcastId)) {
+    if (!context.auth) {
+      throw new functions.https.HttpsError(
+        'permission-denied',
+        'The user is not authorized.',
+      );
+    } else if (!context.auth.token.podcasts.includes(podcastId)) {
       throw new functions.https.HttpsError(
         'permission-denied',
         'The user is not authorized to access users of this podcast.',

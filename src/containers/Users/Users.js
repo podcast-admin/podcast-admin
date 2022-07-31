@@ -15,6 +15,7 @@ import {
   TableHead,
   TableRow,
   Avatar,
+  CircularProgress,
 } from '@mui/material';
 
 const Users = () => {
@@ -35,7 +36,8 @@ const Users = () => {
     };
 
     getUsers();
-  }, [usersList, podcastId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container
@@ -61,51 +63,59 @@ const Users = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
-              <TableRow
-                key={user.displayName}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell sx={{ width: '40px' }}>
-                  <Avatar src={user.photoURL} />
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {user.displayName}
-                </TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  {t('Users.intlDateTime', {
-                    val: Date.parse(user.creationTime),
-                    formatParams: {
-                      val: {
-                        weekday: 'short',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
+            {users.length > 0 ? (
+              users.map((user) => (
+                <TableRow
+                  key={user.displayName}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell sx={{ width: '40px' }}>
+                    <Avatar src={user.photoURL} />
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {user.displayName}
+                  </TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>
+                    {t('Users.intlDateTime', {
+                      val: Date.parse(user.creationTime),
+                      formatParams: {
+                        val: {
+                          weekday: 'short',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: 'numeric',
+                        },
                       },
-                    },
-                  })}
-                </TableCell>
-                <TableCell>
-                  {t('Users.intlDateTime', {
-                    val: Date.parse(user.lastSignInTime),
-                    formatParams: {
-                      val: {
-                        weekday: 'short',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
+                    })}
+                  </TableCell>
+                  <TableCell>
+                    {t('Users.intlDateTime', {
+                      val: Date.parse(user.lastSignInTime),
+                      formatParams: {
+                        val: {
+                          weekday: 'short',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: 'numeric',
+                        },
                       },
-                    },
-                  })}
+                    })}
+                  </TableCell>
+                  <TableCell>{user.providerIds.join(', ')}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell align="center" colSpan={7}>
+                  <CircularProgress />
                 </TableCell>
-                <TableCell>{user.providerIds.join(', ')}</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
