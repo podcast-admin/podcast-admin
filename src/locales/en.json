@@ -2,6 +2,7 @@
     "NavigationBar.accountSettings": "Account Settings",
     "NavigationBar.langSwitch.en": "Zu Deutsch wechseln",
     "NavigationBar.signout": "Sign Out",
+    "NavigationBar.users": "Users",
     "NavigationBar.editIntroOutro": "Edit Intro / Outro",
     "NavigationBar.editPodcast": "Edit Podcast",
     "NavigationBar.allEpisodes": "All Episodes",
@@ -71,5 +72,7 @@
     "ListIntroOutro.all-files-processed": "All episodes have been processed.",
 
     "Episodes.no-episodes.text": "You don't have any episodes yet.",
-    "Episodes.no-episodes.link": "Create a new one."
+    "Episodes.no-episodes.link": "Create a new one.",
+
+    "Users.title": "Users"
 }

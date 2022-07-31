@@ -10,6 +10,7 @@ import PodcastEdit from '../../containers/PodcastEdit';
 import PodcastNew from '../../containers/PodcastNew';
 import Login from '../../containers/Login';
 import Home from '../../containers/Home';
+import Users from '../../containers/Users';
 
 const Routing = () => {
   return (
@@ -24,6 +25,7 @@ const Routing = () => {
           <Route path="edit" element={<PodcastEdit />} />
           <Route path="episodes" element={<ListEpisodes />} />
           <Route path="intro-outro" element={<ListIntroOutro />} />
+          <Route path="users" element={<Users />} />
         </Route>
       </Route>
     </Routes>
