@@ -15,6 +15,7 @@ import {
   TableHead,
   TableRow,
   Avatar,
+  Button,
 } from '@mui/material';
 
 const Users = () => {
@@ -44,7 +45,7 @@ const Users = () => {
         padding: 2,
       }}
     >
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h3" gutterBottom>
         {t('Users.title')}
       </Typography>
       <TableContainer component={Paper}>
@@ -54,6 +55,10 @@ const Users = () => {
               <TableCell>&nbsp;</TableCell>
               <TableCell>{t('Users.displayName')}</TableCell>
               <TableCell>{t('Users.email')}</TableCell>
+              <TableCell>{t('Users.creationTime')}</TableCell>
+              <TableCell>{t('Users.lastSignInTime')}</TableCell>
+              <TableCell>{t('Users.providerIds')}</TableCell>
+              <TableCell>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -62,13 +67,44 @@ const Users = () => {
                 key={user.displayName}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell>
+                <TableCell sx={{ width: '40px' }}>
                   <Avatar src={user.photoURL} />
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {user.displayName}
                 </TableCell>
                 <TableCell>{user.email}</TableCell>
+                <TableCell>
+                  {t('Users.intlDateTime', {
+                    val: Date.parse(user.creationTime),
+                    formatParams: {
+                      val: {
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                      },
+                    },
+                  })}
+                </TableCell>
+                <TableCell>
+                  {t('Users.intlDateTime', {
+                    val: Date.parse(user.lastSignInTime),
+                    formatParams: {
+                      val: {
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                      },
+                    },
+                  })}
+                </TableCell>
+                <TableCell>{user.providerIds.join(', ')}</TableCell>
               </TableRow>
             ))}
           </TableBody>

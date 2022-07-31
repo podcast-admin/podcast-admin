@@ -74,5 +74,11 @@
     "Episodes.no-episodes.text": "You don't have any episodes yet.",
     "Episodes.no-episodes.link": "Create a new one.",
 
-    "Users.title": "Users"
+    "Users.title": "Users",
+    "Users.displayName": "Name",
+    "Users.email": "Email Address",
+    "Users.creationTime": "Registered on",
+    "Users.lastSignInTime": "Last login on",
+    "Users.providerIds": "Identity provider",
+    "Users.intlDateTime": "{{val, datetime}}"
 }
