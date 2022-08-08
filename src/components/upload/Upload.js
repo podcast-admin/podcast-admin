@@ -243,9 +243,10 @@ class Upload extends Component {
               <Dropzone
                 onFilesAdded={this.handleFilesAdded}
                 disabled={this.state.uploading}
+                sx={{ marginBottom: 2, height: '200px', width: '200px' }}
               >
                 <PublishIcon />
-                <span>{this.t('Upload.dropZone.label')}</span>
+                <Typography>{this.t('Upload.dropZone.label')}</Typography>
               </Dropzone>
             </Box>
             <Box
