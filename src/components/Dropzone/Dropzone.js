@@ -56,7 +56,6 @@ const Dropzone = (props) => {
 
   return (
     <Box
-      className={`Dropzone`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
