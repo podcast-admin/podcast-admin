@@ -80,5 +80,7 @@
     "Users.creationTime": "Registriert am",
     "Users.lastSignInTime": "Letzter Login",
     "Users.providerIds": "Anbieter",
-    "Users.intlDateTime": "{{val, datetime}}"
+    "Users.intlDateTime": "{{val, datetime}}",
+    
+    "ImageDropzone.label": "Upload Image"
 }

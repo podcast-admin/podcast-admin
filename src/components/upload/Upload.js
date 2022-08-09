@@ -20,7 +20,7 @@ import {
   LinearProgress,
   Link,
 } from '@mui/material';
-import PublishIcon from '@mui/icons-material/Publish';
+import { Publish } from '@mui/icons-material/';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -37,7 +37,7 @@ import {
 } from 'firebase/storage';
 
 import { db, storage } from '../../helpers/Firebase';
-import Dropzone from '../Dropzone';
+import Dropzone, { ImageDropzone } from '../Dropzone';
 import DeleteButton from '../DeleteButton';
 
 class Upload extends Component {
@@ -239,15 +239,27 @@ class Upload extends Component {
               width: '100%',
             }}
           >
-            <Box>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={2}
+            >
+              <ImageDropzone
+                onFilesAdded={this.handleFilesAdded}
+                disabled={this.state.uploading}
+                sx={{ marginBottom: 2, height: '200px', width: '200px' }}
+                imageSrc={this.state.episode.image}
+              />
               <Dropzone
                 onFilesAdded={this.handleFilesAdded}
                 disabled={this.state.uploading}
+                sx={{ marginBottom: 2, height: '200px', width: '200px' }}
               >
-                <PublishIcon />
-                <span>{this.t('Upload.dropZone.label')}</span>
+                <Publish />
+                <Typography>{this.t('Upload.dropZone.label')}</Typography>
               </Dropzone>
-            </Box>
+            </Stack>
             <Box
               sx={{
                 marginLeft: 4,
