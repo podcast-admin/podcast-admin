@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import Slugify from 'slugify';
+import Slugify from '../../helpers/Slugify';
 import {
   Button,
   Container,
@@ -125,7 +125,7 @@ class PodcastForm extends Component {
   }
 
   handleDocIdBlur(event) {
-    const slugified_id = Slugify(event.target.value, { lower: true });
+    const slugified_id = Slugify(event.target.value);
     this.setState({
       doc:
         slugified_id.length > 0
