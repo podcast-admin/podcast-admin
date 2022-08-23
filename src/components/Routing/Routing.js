@@ -15,17 +15,21 @@ import Users from '../../containers/Users';
 const Routing = () => {
   return (
     <Routes>
-      <Route exact path="/" element={<NavigationBar />}>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/podcasts/new" element={<PodcastNew />} />
-        <Route path="/podcasts/:podcastId/">
-          <Route path="episodes/new" element={<Upload />} />
-          <Route path="episodes/:episodeId/edit" element={<EditEpisode />} />
-          <Route path="edit" element={<PodcastEdit />} />
-          <Route path="episodes" element={<ListEpisodes />} />
-          <Route path="intro-outro" element={<ListIntroOutro />} />
-          <Route path="users" element={<Users />} />
+      <Route path="/" element={<NavigationBar />}>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="podcasts">
+          <Route path="new" element={<PodcastNew />} />
+          <Route path=":podcastId">
+            <Route path="episodes">
+              <Route index element={<ListEpisodes />} />
+              <Route path="new" element={<Upload />} />
+              <Route path=":episodeId/edit" element={<EditEpisode />} />
+            </Route>
+            <Route path="edit" element={<PodcastEdit />} />
+            <Route path="intro-outro" element={<ListIntroOutro />} />
+            <Route path="users" element={<Users />} />
+          </Route>
         </Route>
       </Route>
     </Routes>
