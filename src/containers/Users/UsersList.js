@@ -18,7 +18,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-const Users = () => {
+const UsersList = () => {
   const [t] = useTranslation();
   const { podcastId } = useParams();
   const [users, setUsers] = useState([]);
@@ -123,4 +123,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UsersList;

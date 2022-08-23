@@ -10,26 +10,27 @@ import PodcastEdit from '../../containers/PodcastEdit';
 import PodcastNew from '../../containers/PodcastNew';
 import Login from '../../containers/Login';
 import Home from '../../containers/Home';
-import Users from '../../containers/Users';
+import { UsersOverview, UsersInvite } from '../../containers/Users';
 
 const Routing = () => {
   return (
     <Routes>
-      <Route path="/" element={<NavigationBar />}>
+      <Route exact path="/" element={<NavigationBar />}>
         <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="podcasts">
-          <Route path="new" element={<PodcastNew />} />
-          <Route path=":podcastId">
-            <Route path="episodes">
-              <Route index element={<ListEpisodes />} />
-              <Route path="new" element={<Upload />} />
-              <Route path=":episodeId/edit" element={<EditEpisode />} />
-            </Route>
-            <Route path="edit" element={<PodcastEdit />} />
-            <Route path="intro-outro" element={<ListIntroOutro />} />
-            <Route path="users" element={<Users />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/podcasts/new" element={<PodcastNew />} />
+        <Route path="/podcasts/:podcastId/">
+          <Route path="episodes">
+            <Route index element={<ListEpisodes />} />
+            <Route path="new" element={<Upload />} />
+            <Route path=":episodeId/edit" element={<EditEpisode />} />
           </Route>
+          <Route path="users">
+            <Route index element={<UsersOverview />} />
+            <Route path="invite" element={<UsersInvite />} />
+          </Route>
+          <Route path="edit" element={<PodcastEdit />} />
+          <Route path="intro-outro" element={<ListIntroOutro />} />
         </Route>
       </Route>
     </Routes>
