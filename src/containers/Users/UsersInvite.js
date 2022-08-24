@@ -18,7 +18,20 @@ import {
 const UsersInvite = () => {
   const [t] = useTranslation();
 
-  return <></>;
+  return (
+    <Container
+      maxWidth="lg"
+      sx={{
+        padding: 2,
+      }}
+    >
+      <Paper sx={{ padding: 2 }}>
+        <Typography variant="h3" gutterBottom>
+          {t('UsersList.title')}
+        </Typography>
+      </Paper>
+    </Container>
+  );
 };
 
 export default UsersInvite;

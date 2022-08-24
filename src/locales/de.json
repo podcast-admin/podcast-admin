@@ -74,11 +74,12 @@
     "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
     "Episodes.no-episodes.link": "Erstelle eine neue.",
 
-    "Users.title": "Nutzer",
-    "Users.displayName": "Name",
-    "Users.email": "E-Mail-Adresse",
-    "Users.creationTime": "Registriert am",
-    "Users.lastSignInTime": "Letzter Login",
-    "Users.providerIds": "Anbieter",
-    "Users.intlDateTime": "{{val, datetime}}"
+    "UsersList.title": "Nutzer",
+    "UsersList.displayName": "Name",
+    "UsersList.email": "E-Mail-Adresse",
+    "UsersList.creationTime": "Registriert am",
+    "UsersList.lastSignInTime": "Letzter Login",
+    "UsersList.providerIds": "Anbieter",
+    "UsersList.intlDateTime": "{{val, datetime}}",
+    "UsersList.inviteButtonLabel": "Nutzer einladen"
 }

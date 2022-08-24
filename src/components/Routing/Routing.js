@@ -20,6 +20,7 @@ const Routing = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/podcasts/new" element={<PodcastNew />} />
         <Route path="/podcasts/:podcastId/">
+<<<<<<< HEAD
           <Route path="episodes">
             <Route index element={<ListEpisodes />} />
             <Route path="new" element={<Upload />} />
@@ -27,6 +28,15 @@ const Routing = () => {
           </Route>
           <Route path="users">
             <Route index element={<UsersOverview />} />
+=======
+          <Route path="episodes/new" element={<Upload />} />
+          <Route path="episodes/:episodeId/edit" element={<EditEpisode />} />
+          <Route path="edit" element={<PodcastEdit />} />
+          <Route path="episodes" element={<ListEpisodes />} />
+          <Route path="intro-outro" element={<ListIntroOutro />} />
+          <Route path="users">
+            <Route index element={<UsersList />} />
+>>>>>>> bb116b2 (Next iteration)
             <Route path="invite" element={<UsersInvite />} />
           </Route>
           <Route path="edit" element={<PodcastEdit />} />

@@ -6,6 +6,8 @@ import { functions } from '../../helpers/Firebase';
 
 import {
   Container,
+  Stack,
+  Button,
   Paper,
   Typography,
   Table,
@@ -46,25 +48,28 @@ const UsersList = () => {
         padding: 2,
       }}
     >
-      <Typography variant="h3" gutterBottom>
-        {t('Users.title')}
-      </Typography>
+      <Stack direction="row" justifyContent="space-between">
+        <Typography variant="h3" gutterBottom>
+          {t('UsersList.title')}
+        </Typography>
+        <Button href="users/invite">{t('UsersList.inviteButtonLabel')}</Button>
+      </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>&nbsp;</TableCell>
-              <TableCell>{t('Users.displayName')}</TableCell>
-              <TableCell>{t('Users.email')}</TableCell>
-              <TableCell>{t('Users.creationTime')}</TableCell>
-              <TableCell>{t('Users.lastSignInTime')}</TableCell>
-              <TableCell>{t('Users.providerIds')}</TableCell>
+              <TableCell>{t('UsersList.displayName')}</TableCell>
+              <TableCell>{t('UsersList.email')}</TableCell>
+              <TableCell>{t('UsersList.creationTime')}</TableCell>
+              <TableCell>{t('UsersList.lastSignInTime')}</TableCell>
+              <TableCell>{t('UsersList.providerIds')}</TableCell>
               <TableCell>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.length > 0 ? (
-              users.map((user) => (
+            {UsersList.length > 0 ? (
+              UsersList.map((user) => (
                 <TableRow
                   key={user.displayName}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -77,7 +82,7 @@ const UsersList = () => {
                   </TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
-                    {t('Users.intlDateTime', {
+                    {t('UsersList.intlDateTime', {
                       val: Date.parse(user.creationTime),
                       formatParams: {
                         val: {
@@ -92,7 +97,7 @@ const UsersList = () => {
                     })}
                   </TableCell>
                   <TableCell>
-                    {t('Users.intlDateTime', {
+                    {t('UsersList.intlDateTime', {
                       val: Date.parse(user.lastSignInTime),
                       formatParams: {
                         val: {
