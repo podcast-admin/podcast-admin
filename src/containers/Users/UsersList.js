@@ -68,8 +68,8 @@ const UsersList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {UsersList.length > 0 ? (
-              UsersList.map((user) => (
+            {users.length > 0 ? (
+              users.map((user) => (
                 <TableRow
                   key={user.displayName}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
