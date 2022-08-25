@@ -86,9 +86,13 @@
     "UsersInvite.title": "Invite Users",
     "UsersInvite.infoText": "The email address will be saved. As soon as a new user registers with this email addres, he or she will be added to this podcast automatically.",
     "UsersInvite.form.email": "Email Address",
-    "UsersInvite.form.button": "Save",
+    "UsersInvite.form.button.save": "Save",
+    "UsersInvite.form.button.back": "Back",
 
     "ListOfInvites.title": "Invited Users",
     "ListOfInvites.email": "Email Address",
-    "ListOfInvites.createdAt": "Invited on"
+    "ListOfInvites.createdAt": "Invited on",
+    "ListOfInvites.intlDateTime": "{{val, datetime}}",
+    "ListOfInvites.noInvites.text": "No one is invited.",
+    "ListOfInvites.noInvites.link": "Invite someone."
 }

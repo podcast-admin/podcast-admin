@@ -32,6 +32,10 @@ const UsersInvite = () => {
     }
   };
 
+  const navigateBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Container
       maxWidth="md"
@@ -57,8 +61,15 @@ const UsersInvite = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button onClick={handleSavePodcast} color="primary">
-              {t('UsersInvite.form.button')}
+            <Button
+              onClick={handleSavePodcast}
+              color="primary"
+              variant="contained"
+            >
+              {t('UsersInvite.form.button.save')}
+            </Button>
+            <Button onClick={navigateBack} color="primary">
+              {t('UsersInvite.form.button.back')}
             </Button>
           </Grid>
         </Grid>
