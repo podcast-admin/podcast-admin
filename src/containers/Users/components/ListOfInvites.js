@@ -58,27 +58,12 @@ const ListOfInvites = () => {
   };
 
   const renderHasInvites = () => {
-    return invites.map((invite) => (
+    return invites.map((email) => (
       <TableRow
-        key={invite.email}
+        key={email}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
       >
-        <TableCell>{invite.email}</TableCell>
-        <TableCell>
-          {t('ListOfInvites.intlDateTime', {
-            val: Date.parse(invite.createdAt.toDate()),
-            formatParams: {
-              val: {
-                weekday: 'short',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-              },
-            },
-          })}
-        </TableCell>
+        <TableCell>{email}</TableCell>
       </TableRow>
     ));
   };
@@ -95,12 +80,11 @@ const ListOfInvites = () => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer sx={{ maxWidth: 400 }} component={Paper}>
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>{t('ListOfInvites.email')}</TableCell>
-            <TableCell>{t('ListOfInvites.createdAt')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{renderTableBody()}</TableBody>

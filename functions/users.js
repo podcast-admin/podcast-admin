@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const { getAuth } = require('firebase-admin/auth');
-const { getFirestore } = require('firebase-admin/firestore');
+const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 
 const db = getFirestore();
 const collectionRef = db.collection('podcasts');
@@ -38,4 +38,33 @@ exports.list = functions
     }
 
     return userList;
+  });
+
+exports.processInvites = functions
+  .region('europe-west1')
+  .https.onCall(async (data, context) => {
+    const { uid, email } = context.auth.token;
+    let shouldRefreshIdToken = false;
+
+    const podcastsSnap = await collectionRef
+      .where('invitedAdmins', 'array-contains', email)
+      .get();
+
+    let podcastIds = [];
+    for (const doc of podcastsSnap.docs) {
+      podcastIds.push(doc.id);
+      await doc.ref.update({
+        admins: FieldValue.arrayUnion(uid),
+        invitedAdmins: FieldValue.arrayRemove(email),
+      });
+    }
+
+    if (podcastIds.length > 0) {
+      await getAuth().setCustomUserClaims(uid, {
+        podcasts: podcastIds,
+      });
+      shouldRefreshIdToken = true;
+    }
+
+    return { shouldRefreshIdToken };
   });

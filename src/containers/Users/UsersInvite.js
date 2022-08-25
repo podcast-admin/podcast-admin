@@ -25,7 +25,7 @@ const UsersInvite = () => {
     setIsSubmitted(true);
     if (email) {
       await updateDoc(doc(db, `podcasts/${podcastId}`), {
-        invitedAdmins: arrayUnion({ createdAt: new Date(), email }),
+        invitedAdmins: arrayUnion(email),
       });
 
       navigate(`/podcasts/${podcastId}/users`);
