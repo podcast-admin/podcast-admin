@@ -20,33 +20,13 @@ const Routing = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/podcasts/new" element={<PodcastNew />} />
         <Route path="/podcasts/:podcastId/">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 41b8779 (Simplies routing)
           <Route path="episodes">
             <Route index element={<ListEpisodes />} />
             <Route path="new" element={<Upload />} />
             <Route path=":episodeId/edit" element={<EditEpisode />} />
           </Route>
-<<<<<<< HEAD
           <Route path="users">
             <Route index element={<UsersOverview />} />
-=======
-          <Route path="episodes/new" element={<Upload />} />
-          <Route path="episodes/:episodeId/edit" element={<EditEpisode />} />
-          <Route path="edit" element={<PodcastEdit />} />
-          <Route path="episodes" element={<ListEpisodes />} />
-          <Route path="intro-outro" element={<ListIntroOutro />} />
-=======
->>>>>>> 41b8779 (Simplies routing)
-          <Route path="users">
-<<<<<<< HEAD
-            <Route index element={<UsersList />} />
->>>>>>> bb116b2 (Next iteration)
-=======
-            <Route index element={<UsersOverview />} />
->>>>>>> ec2f444 (Adds translations, refactors user overview)
             <Route path="invite" element={<UsersInvite />} />
           </Route>
           <Route path="edit" element={<PodcastEdit />} />
