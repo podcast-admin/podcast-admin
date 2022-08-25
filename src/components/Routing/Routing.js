@@ -35,8 +35,12 @@ const Routing = () => {
           <Route path="episodes" element={<ListEpisodes />} />
           <Route path="intro-outro" element={<ListIntroOutro />} />
           <Route path="users">
+<<<<<<< HEAD
             <Route index element={<UsersList />} />
 >>>>>>> bb116b2 (Next iteration)
+=======
+            <Route index element={<UsersOverview />} />
+>>>>>>> ec2f444 (Adds translations, refactors user overview)
             <Route path="invite" element={<UsersInvite />} />
           </Route>
           <Route path="edit" element={<PodcastEdit />} />

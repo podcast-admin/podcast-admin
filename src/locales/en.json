@@ -74,17 +74,21 @@
     "Episodes.no-episodes.text": "You don't have any episodes yet.",
     "Episodes.no-episodes.link": "Create a new one.",
 
-    "UsersList.title": "Users",
-    "UsersList.displayName": "Name",
-    "UsersList.email": "Email Address",
-    "UsersList.creationTime": "Registered on",
-    "UsersList.lastSignInTime": "Last login on",
-    "UsersList.providerIds": "Identity provider",
-    "UsersList.intlDateTime": "{{val, datetime}}",
-    "UsersList.inviteButtonLabel": "Invite Users",
+    "UsersOverview.title": "Users",
+    "UsersOverview.displayName": "Name",
+    "UsersOverview.email": "Email Address",
+    "UsersOverview.creationTime": "Registered on",
+    "UsersOverview.lastSignInTime": "Last login on",
+    "UsersOverview.providerIds": "Identity provider",
+    "UsersOverview.intlDateTime": "{{val, datetime}}",
+    "UsersOverview.inviteButtonLabel": "Invite Users",
 
     "UsersInvite.title": "Invite Users",
     "UsersInvite.infoText": "The email address will be saved. As soon as a new user registers with this email addres, he or she will be added to this podcast automatically.",
     "UsersInvite.form.email": "Email Address",
-    "UsersInvite.form.button": "Save"
+    "UsersInvite.form.button": "Save",
+
+    "ListOfInvites.title": "Invited Users",
+    "ListOfInvites.email": "Email Address",
+    "ListOfInvites.createdAt": "Invited on"
 }

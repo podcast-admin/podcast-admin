@@ -52,7 +52,7 @@ const ListOfInvites = () => {
               >
                 <TableCell>{invite.email}</TableCell>
                 <TableCell>
-                  {t('UsersList.intlDateTime', {
+                  {t('UsersOverview.intlDateTime', {
                     val: Date.parse(invite.createdAt.toDate()),
                     formatParams: {
                       val: {

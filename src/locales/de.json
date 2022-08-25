@@ -74,17 +74,21 @@
     "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
     "Episodes.no-episodes.link": "Erstelle eine neue.",
 
-    "UsersList.title": "Nutzer",
-    "UsersList.displayName": "Name",
-    "UsersList.email": "E-Mail-Adresse",
-    "UsersList.creationTime": "Registriert am",
-    "UsersList.lastSignInTime": "Letzter Login",
-    "UsersList.providerIds": "Anbieter",
-    "UsersList.intlDateTime": "{{val, datetime}}",
-    "UsersList.inviteButtonLabel": "Nutzer einladen",
+    "UsersOverview.title": "Nutzer",
+    "UsersOverview.displayName": "Name",
+    "UsersOverview.email": "E-Mail-Adresse",
+    "UsersOverview.creationTime": "Registriert am",
+    "UsersOverview.lastSignInTime": "Letzter Login",
+    "UsersOverview.providerIds": "Anbieter",
+    "UsersOverview.intlDateTime": "{{val, datetime}}",
+    "UsersOverview.inviteButtonLabel": "Nutzer einladen",
 
     "UsersInvite.title": "Nutzer einladen",
     "UsersInvite.infoText": "Die E-Mail-Adresse wird hinterlegt. Wenn sich ein Nutzer mit dieser E-Mail-Adresse anmeldet, wird er direkt als Nutzer zu diesem Podcast hinzugefügt.",
     "UsersInvite.form.email": "E-Mail-Adresse",
-    "UsersInvite.form.button": "Speichern"
+    "UsersInvite.form.button": "Speichern",
+
+    "ListOfInvites.title": "Eingelade Nutzer",
+    "ListOfInvites.email": "E-Mail-Adresse",
+    "ListOfInvites.createdAt": "Eingeladen am"
 }

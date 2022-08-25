@@ -6,7 +6,7 @@ import { Container, Stack, Button, Typography } from '@mui/material';
 import ListOfUsers from './components/ListOfUsers';
 import ListOfInvites from './components/ListOfInvites';
 
-const UsersList = () => {
+const UsersOverview = () => {
   const [t] = useTranslation();
 
   return (
@@ -18,19 +18,21 @@ const UsersList = () => {
     >
       <Stack direction="row" justifyContent="space-between">
         <Typography variant="h3" gutterBottom>
-          {t('UsersList.title')}
+          {t('UsersOverview.title')}
         </Typography>
-        <Button href="users/invite">{t('UsersList.inviteButtonLabel')}</Button>
+        <Button href="users/invite">
+          {t('UsersOverview.inviteButtonLabel')}
+        </Button>
       </Stack>
 
       <ListOfUsers />
 
       <Typography variant="h3" gutterBottom mt={5}>
-        {t('UsersList.title')}
+        {t('ListOfInvites.title')}
       </Typography>
       <ListOfInvites />
     </Container>
   );
 };
 
-export default UsersList;
+export default UsersOverview;

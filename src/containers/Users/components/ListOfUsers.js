@@ -43,11 +43,11 @@ const ListOfUsers = () => {
         <TableHead>
           <TableRow>
             <TableCell>&nbsp;</TableCell>
-            <TableCell>{t('UsersList.displayName')}</TableCell>
-            <TableCell>{t('UsersList.email')}</TableCell>
-            <TableCell>{t('UsersList.creationTime')}</TableCell>
-            <TableCell>{t('UsersList.lastSignInTime')}</TableCell>
-            <TableCell>{t('UsersList.providerIds')}</TableCell>
+            <TableCell>{t('UsersOverview.displayName')}</TableCell>
+            <TableCell>{t('UsersOverview.email')}</TableCell>
+            <TableCell>{t('UsersOverview.creationTime')}</TableCell>
+            <TableCell>{t('UsersOverview.lastSignInTime')}</TableCell>
+            <TableCell>{t('UsersOverview.providerIds')}</TableCell>
             <TableCell>&nbsp;</TableCell>
           </TableRow>
         </TableHead>
@@ -66,7 +66,7 @@ const ListOfUsers = () => {
                 </TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
-                  {t('UsersList.intlDateTime', {
+                  {t('UsersOverview.intlDateTime', {
                     val: Date.parse(user.creationTime),
                     formatParams: {
                       val: {
@@ -81,7 +81,7 @@ const ListOfUsers = () => {
                   })}
                 </TableCell>
                 <TableCell>
-                  {t('UsersList.intlDateTime', {
+                  {t('UsersOverview.intlDateTime', {
                     val: Date.parse(user.lastSignInTime),
                     formatParams: {
                       val: {
