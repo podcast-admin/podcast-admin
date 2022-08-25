@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import withAuth from '../../helpers/WithAuth';
 
 import { Container, Stack, Button, Typography } from '@mui/material';
 
@@ -35,4 +36,4 @@ const UsersOverview = () => {
   );
 };
 
-export default UsersOverview;
+export default withAuth(UsersOverview);
