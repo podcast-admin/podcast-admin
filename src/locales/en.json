@@ -81,5 +81,10 @@
     "UsersList.lastSignInTime": "Last login on",
     "UsersList.providerIds": "Identity provider",
     "UsersList.intlDateTime": "{{val, datetime}}",
-    "UsersList.inviteButtonLabel": "Invite Users"
+    "UsersList.inviteButtonLabel": "Invite Users",
+
+    "UsersInvite.title": "Invite Users",
+    "UsersInvite.infoText": "The email address will be saved. As soon as a new user registers with this email addres, he or she will be added to this podcast automatically.",
+    "UsersInvite.form.email": "Email Address",
+    "UsersInvite.form.button": "Save"
 }
