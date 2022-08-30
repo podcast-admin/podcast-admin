@@ -38,7 +38,7 @@
     "Upload.form.title": "Titel",
     "Upload.form.subtitle": "Untertitel",
     "Upload.form.description": "Show Notes",
-    "Upload.form.description.helper-text": "Nutze Markdown für Formatierungen",
+    "Upload.form.description.editor.titleGroup": "Titel einfügen",
     "Upload.form.save": "Speichern",
 
     "DeleteButton.label": "Löschen",
