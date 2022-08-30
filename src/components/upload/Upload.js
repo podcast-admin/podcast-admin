@@ -417,17 +417,37 @@ class Upload extends Component {
                     name="description"
                     value={this.state.episode.description}
                     onChange={this.handleDescriptionChange}
-                    aria-describedby="description-helper-text"
+                    commands={[
+                      commands.bold,
+                      commands.italic,
+                      commands.group(
+                        [
+                          commands.title1,
+                          commands.title2,
+                          commands.title3,
+                          commands.title4,
+                          commands.title5,
+                          commands.title6,
+                        ],
+                        {
+                          name: 'title',
+                          groupName: 'title',
+                          buttonProps: {
+                            'aria-label': this.t(
+                              'Upload.form.description.editor.titleGroup',
+                            ),
+                          },
+                        },
+                      ),
+                      commands.divider,
+                      commands.unorderedListCommand,
+                      commands.orderedListCommand,
+                      commands.divider,
+                      commands.link,
+                      commands.image,
+                      commands.hr,
+                    ]}
                   />
-                  <FormHelperText id="description-helper-text">
-                    <Link
-                      href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {this.t('Upload.form.description.helper-text')}
-                    </Link>
-                  </FormHelperText>
                 </FormControl>
               </Grid>
             </Grid>
