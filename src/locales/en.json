@@ -74,6 +74,10 @@
     "Episodes.no-episodes.text": "You don't have any episodes yet.",
     "Episodes.no-episodes.link": "Create a new one.",
 
+    "Item.editEpisode": "Edit Episode",
+    "Item.copyEpisodeUrl.toolTip": "Copy episode URL to clipboard",
+    "Item.copyEpisodeUrl.success": "Copied episode URL to clipboard.",
+
     "UsersOverview.title": "Users",
     "UsersOverview.displayName": "Name",
     "UsersOverview.email": "Email Address",

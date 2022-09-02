@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazyload';
 import ReactMarkdown from 'react-markdown';
 import Moment from 'react-moment';
+import { useTranslation } from 'react-i18next';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import {
   Paper,
@@ -12,57 +14,27 @@ import {
   Typography,
   IconButton,
   Tooltip,
+  Snackbar,
 } from '@mui/material';
 
-import EditIcon from '@mui/icons-material/Edit';
-import ReplayIcon from '@mui/icons-material/Replay';
-import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-
-import { db } from '../../../helpers/Firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
 import { Timestamp } from 'firebase/firestore';
 
 const Item = ({
   podcastId,
   episodeId,
-  item: { date, title, subtitle, image, description, processing },
+  item: { date, title, subtitle, image, description, processing, url },
 }) => {
-  const reprocessAudio = async () => {
-    await updateDoc(doc(db, 'podcasts', podcastId, 'episodes', episodeId), {
-      processing: 'restart',
-    });
-  };
+  const [t] = useTranslation();
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
-  const renderProcessingStatusButton = () => {
-    if (processing === 'done') {
-      return (
-        <Tooltip title="Audio-Datei neu erstellen">
-          <IconButton
-            aria-label="reprocess"
-            onClick={reprocessAudio}
-            size="large"
-          >
-            <ReplayIcon />
-          </IconButton>
-        </Tooltip>
-      );
+  const handleCloseSuccessMessage = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
     }
-    if (processing === 'restart') {
-      return (
-        <Tooltip title="Audio-Datei wird neu erstellt...">
-          <IconButton
-            aria-label="reprocess"
-            onClick={reprocessAudio}
-            size="large"
-          >
-            <HourglassEmptyIcon />
-          </IconButton>
-        </Tooltip>
-      );
-    }
-    return false;
-  };
 
+    setSuccessMessageVisible(false);
+  };
   return (
     <Paper sx={{ padding: 2, marginBottom: 2 }}>
       <Stack spacing={0} mb={2}>
@@ -82,16 +54,49 @@ const Item = ({
               alt={title}
             />
           </LazyLoad>
-          <Tooltip title="Episode bearbeiten">
+          <Tooltip title={t('Item.editEpisode')}>
             <IconButton
-              aria-label="edit"
+              aria-label={t('Item.editEpisode')}
               href={`episodes/${episodeId}/edit`}
               size="large"
             >
-              <EditIcon />
+              <Edit />
             </IconButton>
           </Tooltip>
-          {renderProcessingStatusButton()}
+          {url && (
+            <>
+              <CopyToClipboard text={url} onCopy={setSuccessMessageVisible}>
+                <Tooltip title={t('Item.copyEpisodeUrl.toolTip')}>
+                  <IconButton
+                    aria-label={t('Item.copyEpisodeUrl.toolTip')}
+                    size="large"
+                  >
+                    <LinkIcon />
+                  </IconButton>
+                </Tooltip>
+              </CopyToClipboard>
+              <Snackbar
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                open={!!successMessageVisible}
+                autoHideDuration={6000}
+                onClose={handleCloseSuccessMessage}
+                message={t('Item.copyEpisodeUrl.success')}
+                action={
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={handleCloseSuccessMessage}
+                  >
+                    <Close fontSize="small" />
+                  </IconButton>
+                }
+              />
+            </>
+          )}
         </Grid>
         <Grid item xs={9}>
           <Typography variant="body1" component="div">
@@ -111,6 +116,7 @@ Item.propTypes = {
     image: PropTypes.string.isRequired,
     processing: PropTypes.string,
     date: PropTypes.instanceOf(Timestamp).isRequired,
+    url: PropTypes.string,
   }).isRequired,
   podcastId: PropTypes.string.isRequired,
   episodeId: PropTypes.string.isRequired,
