@@ -74,6 +74,10 @@
     "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
     "Episodes.no-episodes.link": "Erstelle eine neue.",
 
+    "Item.editEpisode": "Episode bearbeiten",
+    "Item.copyEpisodeUrl.toolTip": "Link zur Episode in die Zwischenablage kopieren",
+    "Item.copyEpisodeUrl.success": "Link zur Episode in die Zwischenablage kopiert.",
+
     "UsersOverview.title": "Nutzer",
     "UsersOverview.displayName": "Name",
     "UsersOverview.email": "E-Mail-Adresse",
