@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { functions } from '../../helpers/Firebase';
+import { httpsCallable } from 'firebase/functions';
 import {
   AppBar,
   Toolbar,
@@ -111,6 +113,19 @@ const NavigationBar = () => {
                   startIcon={<Album />}
                 >
                   {t('NavigationBar.allEpisodes')}
+                </Button>
+                <Button
+                  color="inherit"
+                  startIcon={<Album />}
+                  onClick={() => {
+                    const stats = httpsCallable(
+                      functions,
+                      'analytics-totalDownloads',
+                    );
+                    stats({ podcastId });
+                  }}
+                >
+                  Stats
                 </Button>
 
                 <Tooltip title="Podcast settings">
