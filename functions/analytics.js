@@ -30,13 +30,13 @@ exports.totalDownloads = functions
 
     const query = `
     SELECT
-      cs_object, COUNT(*) as num
+    REGEXP_EXTRACT(cs_object, r'^podcasts/.+/episodes/(.+)/') as episodeId, COUNT(*) as num
     FROM
       \`podcast-admin.${datasetId}.${tableId}\`
     WHERE
       SC_STATUS = 200
       AND CONTAINS_SUBSTR(cs_object, 'mp3')
-      AND CONTAINS_SUBSTR(cs_object, '${podcastId}')
+      AND CONTAINS_SUBSTR(cs_object, '2T9aVqEJhvd1Fck2vVPp')
     group by cs_object
     order by num desc`;
 

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { functions } from '../../helpers/Firebase';
-import { httpsCallable } from 'firebase/functions';
 import {
   AppBar,
   Toolbar,
@@ -28,6 +26,7 @@ import {
   Logout,
   Language,
   People,
+  BarChart as BarChartIcon,
 } from '@mui/icons-material';
 
 import { auth } from '../../helpers/Firebase';
@@ -116,16 +115,10 @@ const NavigationBar = () => {
                 </Button>
                 <Button
                   color="inherit"
-                  startIcon={<Album />}
-                  onClick={() => {
-                    const stats = httpsCallable(
-                      functions,
-                      'analytics-totalDownloads',
-                    );
-                    stats({ podcastId });
-                  }}
+                  startIcon={<BarChartIcon />}
+                  href={`/podcasts/${podcastId}/analytics`}
                 >
-                  Stats
+                  Analytics
                 </Button>
 
                 <Tooltip title="Podcast settings">
