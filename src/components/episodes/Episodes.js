@@ -29,12 +29,7 @@ const Episodes = () => {
     <>
       {state.episodes.length > 0 ? (
         state.episodes.map((doc) => (
-          <Item
-            key={doc.id}
-            episodeId={doc.id}
-            podcastId={podcastId}
-            item={doc.data()}
-          />
+          <Item key={doc.id} episodeId={doc.id} item={doc.data()} />
         ))
       ) : (
         <Typography align="center">
