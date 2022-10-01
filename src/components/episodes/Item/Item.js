@@ -4,7 +4,6 @@ import LazyLoad from 'react-lazyload';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from 'react-i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-
 import {
   Paper,
   Grid,
@@ -14,16 +13,14 @@ import {
   IconButton,
   Tooltip,
   Snackbar,
-  Chip,
 } from '@mui/material';
-
 import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
 import { Timestamp } from 'firebase/firestore';
 
-const Item = ({
-  episodeId,
-  item: { date, title, subtitle, image, description, url, intro, outro },
-}) => {
+import ItemChips from './ItemChips';
+
+const Item = ({ episodeId, item }) => {
+  const { title, subtitle, image, description, url } = item;
   const [t] = useTranslation();
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
@@ -37,89 +34,7 @@ const Item = ({
   return (
     <Paper sx={{ padding: 2, marginBottom: 2 }}>
       <Stack spacing={0} mb={2}>
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          spacing={0}
-          mb={1}
-          sx={{ flexWrap: 'wrap', gap: 1 }}
-        >
-          {date.toDate() > new Date() ? (
-            <Chip
-              label={t('Item.chips.date.scheduled', {
-                val: date.toDate(),
-                formatParams: {
-                  val: {
-                    weekday: 'short',
-                    year: '2-digit',
-                    month: '2-digit',
-                    day: '2-digit',
-                  },
-                },
-              })}
-              size="small"
-            />
-          ) : (
-            <Chip
-              label={t('Item.chips.date.published', {
-                val: date.toDate(),
-                formatParams: {
-                  val: {
-                    weekday: 'short',
-                    year: '2-digit',
-                    month: '2-digit',
-                    day: '2-digit',
-                  },
-                },
-              })}
-              color="success"
-              size="small"
-            />
-          )}
-          {!url && (
-            <Chip
-              label={t('Item.chips.missing.audio')}
-              color="error"
-              size="small"
-            />
-          )}
-          {!image && (
-            <Chip
-              label={t('Item.chips.missing.image')}
-              color="error"
-              size="small"
-            />
-          )}
-          {!description && (
-            <Chip
-              label={t('Item.chips.missing.description')}
-              color="error"
-              size="small"
-            />
-          )}
-          {!title && (
-            <Chip
-              label={t('Item.chips.missing.title')}
-              color="error"
-              size="small"
-            />
-          )}
-          {!subtitle && (
-            <Chip
-              label={t('Item.chips.missing.subtitle')}
-              color="error"
-              size="small"
-            />
-          )}
-
-          {intro && (
-            <Chip label={t('Item.chips.intro', { intro })} size="small" />
-          )}
-          {outro && (
-            <Chip label={t('Item.chips.outro', { outro })} size="small" />
-          )}
-        </Stack>
+        <ItemChips item={item} />
         <Typography variant="h4">{title}</Typography>
         <Typography variant="subtitle1">{subtitle}</Typography>
       </Stack>
