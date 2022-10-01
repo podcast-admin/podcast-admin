@@ -74,6 +74,16 @@
     "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
     "Episodes.no-episodes.link": "Erstelle eine neue.",
 
+    "ItemChips.date.published": "Veröffentlicht am {{val, datetime}}",
+    "ItemChips.date.scheduled": "Geplant für {{val, datetime}}",
+    "ItemChips.missing.title": "Titel fehlt",
+    "ItemChips.missing.subtitle": "Untertitel fehlt",
+    "ItemChips.missing.description": "Beschreibung fehlt",
+    "ItemChips.missing.image": "Cover Image fehlt",
+    "ItemChips.missing.audio": "Audio-Datei fehlt",
+    "ItemChips.intro": "Intro: '{{intro}}'",
+    "ItemChips.outro": "Outro: '{{outro}}'",
+    
     "Item.editEpisode": "Episode bearbeiten",
     "Item.copyEpisodeUrl.toolTip": "Link zur Episode in die Zwischenablage kopieren",
     "Item.copyEpisodeUrl.success": "Link zur Episode in die Zwischenablage kopiert.",

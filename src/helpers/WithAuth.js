@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-
 import { onAuthStateChanged } from 'firebase/auth';
-
-import CircularProgress from '@mui/material/CircularProgress';
-
+import { Stack, CircularProgress } from '@mui/material';
 import { auth } from '../helpers/Firebase';
 
 const SIGNED_IN = 'SIGNED_IN';
@@ -25,7 +22,11 @@ const withAuth = (Component) => (props) => {
   }, []);
 
   if (state === LOADING) {
-    return <CircularProgress />;
+    return (
+      <Stack mt={2} alignItems="center">
+        <CircularProgress />
+      </Stack>
+    );
   } else if (state === SIGNED_IN) {
     // eslint-disable-next-line react/jsx-props-no-spreading
     return <Component {...props} />;
