@@ -7,7 +7,6 @@ import {
   Toolbar,
   Button,
   Box,
-  Grid,
   Tooltip,
   IconButton,
   Menu,
@@ -99,51 +98,55 @@ const NavigationBar = () => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Link variant="h6" href={`/`} color="inherit" underline="none">
-              Podcast Admin
-            </Link>
-            {user ? (
-              <Box>
-                <Button
-                  color="inherit"
-                  href={`/podcasts/${podcastId}/episodes`}
-                  startIcon={<Album />}
-                >
-                  {t('NavigationBar.allEpisodes')}
-                </Button>
+          <Link
+            sx={{ display: { xs: 'none', sm: 'inline' }, flexGrow: 1 }}
+            variant="h6"
+            href={`/`}
+            color="inherit"
+            underline="none"
+          >
+            Podcast Admin
+          </Link>
+          {user ? (
+            <Box>
+              <Button
+                color="inherit"
+                href={`/podcasts/${podcastId}/episodes`}
+                startIcon={<Album />}
+              >
+                {t('NavigationBar.allEpisodes')}
+              </Button>
 
-                <Tooltip title="Podcast settings">
-                  <IconButton
-                    color="inherit"
-                    onClick={handleClickPodcastMenu}
-                    size="small"
-                    sx={{ ml: 2 }}
-                    aria-controls={openPodcastMenu ? 'podcast-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={openPodcastMenu ? 'true' : undefined}
-                  >
-                    <MoreVert />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title={t('NavigationBar.accountSettings')}>
-                  <IconButton
-                    color="inherit"
-                    onClick={handleClickAccountMenu}
-                    size="small"
-                    sx={{ ml: 2 }}
-                    aria-controls={openAccountMenu ? 'account-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={openAccountMenu ? 'true' : undefined}
-                  >
-                    <Avatar src={user.photoURL} />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            ) : (
-              <></>
-            )}
-          </Grid>
+              <Tooltip title="Podcast settings">
+                <IconButton
+                  color="inherit"
+                  onClick={handleClickPodcastMenu}
+                  size="small"
+                  sx={{ ml: 2 }}
+                  aria-controls={openPodcastMenu ? 'podcast-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openPodcastMenu ? 'true' : undefined}
+                >
+                  <MoreVert />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={t('NavigationBar.accountSettings')}>
+                <IconButton
+                  color="inherit"
+                  onClick={handleClickAccountMenu}
+                  size="small"
+                  sx={{ ml: 2 }}
+                  aria-controls={openAccountMenu ? 'account-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openAccountMenu ? 'true' : undefined}
+                >
+                  <Avatar src={user.photoURL} />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          ) : (
+            <></>
+          )}
         </Toolbar>
       </AppBar>
       <Menu
