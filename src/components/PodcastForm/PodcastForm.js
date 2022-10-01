@@ -142,7 +142,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   label={this.t('PodcastForm.name')}
@@ -152,7 +152,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   label={this.t('PodcastForm.subtitle')}
@@ -162,7 +162,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <TextField
                   required
                   label={this.t('PodcastForm.author')}
@@ -172,7 +172,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <TextField
                   required
                   label={this.t('PodcastForm.copyright')}
@@ -182,7 +182,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <TextField
                   required
                   label={this.t('PodcastForm.email')}
@@ -192,7 +192,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <TextField
                   required
                   label={this.t('PodcastForm.website')}
@@ -202,7 +202,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   label={this.t('PodcastForm.image')}
@@ -212,7 +212,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={12} sm={2}>
                 <TextField
                   required
                   label={this.t('PodcastForm.category')}
@@ -222,7 +222,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={12} sm={2}>
                 <TextField
                   required
                   label={this.t('PodcastForm.explicit')}
@@ -232,7 +232,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={12} sm={2}>
                 <TextField
                   required
                   label={this.t('PodcastForm.language')}
@@ -242,7 +242,7 @@ class PodcastForm extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   label={this.t('PodcastForm.description')}
@@ -254,7 +254,7 @@ class PodcastForm extends Component {
                   minRows={10}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <FormControl fullWidth required>
                   <InputLabel htmlFor="footer">
                     {this.t('PodcastForm.footer')}
