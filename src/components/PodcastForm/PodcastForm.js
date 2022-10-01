@@ -18,31 +18,9 @@ import {
   IconButton,
 } from '@mui/material';
 
-import withStyles from '@mui/styles/withStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { doc, getDoc, setDoc, collection } from 'firebase/firestore';
 import { db, auth } from '../../helpers/Firebase';
-
-const styles = (theme) => ({
-  root: {
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'flex-start',
-    textAlign: 'left',
-    overflow: 'hidden',
-
-    width: '100%',
-    margin: `${theme.spacing(3)} auto`,
-    padding: theme.spacing(4),
-
-    display: 'flex',
-  },
-
-  saveButton: {
-    marginLeft: '-8px',
-    marginTop: '16px',
-  },
-});
 
 class PodcastForm extends Component {
   constructor(props) {
@@ -137,10 +115,8 @@ class PodcastForm extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <Container maxWidth="lg" sx={{ paddingY: 2 }}>
+      <Container maxWidth="lg" sx={{ padding: 2 }}>
         <Paper sx={{ padding: 2 }}>
           <Typography variant="h4" gutterBottom>
             {this.state.podcast.name || this.t('PodcastForm.name.default')}
@@ -306,8 +282,8 @@ class PodcastForm extends Component {
               </Grid>
               <Grid container item xs={12} justifyContent="flex-end">
                 <Button
-                  className={classes.saveButton}
                   onClick={this.handleSavePodcast}
+                  variant="contained"
                   color="primary"
                 >
                   {this.t('PodcastForm.save')}
@@ -341,4 +317,4 @@ class PodcastForm extends Component {
   }
 }
 
-export default withTranslation()(withStyles(styles)(PodcastForm));
+export default withTranslation()(PodcastForm);
