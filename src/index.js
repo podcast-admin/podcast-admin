@@ -1,44 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import {
-  ThemeProvider,
-  StyledEngineProvider,
-  createTheme,
-} from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Routing from './components/Routing';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 import * as serviceWorker from './serviceWorker';
 
 import './helpers/i18n';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#fff',
-      main: '#1976d2',
-      dark: '#000',
-    },
-    secondary: {
-      main: '#f44336',
-    },
-    background: {
-      default: '#f5f5f5',
-    },
-  },
-  typography: {
-    useNextVariants: true,
-  },
-});
+import App from './App';
 
 ReactDOM.render(
   <BrowserRouter>
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Routing />
-      </ThemeProvider>
+      <App />
     </StyledEngineProvider>
   </BrowserRouter>,
   document.getElementById('root'),

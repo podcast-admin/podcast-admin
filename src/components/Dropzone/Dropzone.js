@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import './Dropzone.css';
+import { Box } from '@mui/material';
 
 class Dropzone extends Component {
   constructor(props) {
@@ -64,24 +63,38 @@ class Dropzone extends Component {
 
   render() {
     return (
-      <div
-        className={`Dropzone ${this.state.hightlight ? 'Highlight' : ''}`}
+      <Box
+        sx={{
+          height: '200px',
+          width: '200px',
+          backgroundColor: this.state.hightlight ? 'action.hover' : '',
+          border: 2,
+          borderColor: 'text.secondary',
+          borderRadius: '50%',
+          borderStyle: 'dashed',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          fontSize: 4,
+          cursor: this.props.disabled ? 'default' : 'pointer',
+        }}
         onDragOver={this.handleDragOver}
         onDragLeave={this.handleDragLeave}
         onDrop={this.handleDrop}
         onClick={this.handleOpenFileDialog}
-        style={{ cursor: this.props.disabled ? 'default' : 'pointer' }}
       >
-        <input
+        <Box
+          component="input"
           ref={this.fileInputRef}
-          className="FileInput"
+          sx={{ display: 'none' }}
           type="file"
           accept={this.props.accept}
           multiple={this.props.multiple || false}
           onChange={this.handleFilesAdded}
         />
         {this.props.children}
-      </div>
+      </Box>
     );
   }
 }
