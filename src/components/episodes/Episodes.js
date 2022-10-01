@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { Typography, Link } from '@mui/material';
+import { Typography, Link, CircularProgress, Stack } from '@mui/material';
 import { db } from '../../helpers/Firebase';
 
 import Item from './Item';
@@ -10,6 +10,7 @@ import Item from './Item';
 const Episodes = () => {
   const [t] = useTranslation();
   const { podcastId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [state, setState] = useState({
     episodes: [],
   });
@@ -22,23 +23,28 @@ const Episodes = () => {
       setState({
         episodes: snapshot.docs,
       });
+      setIsLoading(false);
     });
   }, [podcastId]);
 
-  return (
-    <>
-      {state.episodes.length > 0 ? (
-        state.episodes.map((doc) => (
-          <Item key={doc.id} episodeId={doc.id} item={doc.data()} />
-        ))
-      ) : (
-        <Typography align="center">
-          {t('Episodes.no-episodes.text')}{' '}
-          <Link href={`episodes/new`}>{t('Episodes.no-episodes.link')}</Link>
-        </Typography>
-      )}
-    </>
-  );
+  if (isLoading) {
+    return (
+      <Stack alignItems="center">
+        <CircularProgress />
+      </Stack>
+    );
+  } else if (!isLoading && state.episodes.length > 0) {
+    return state.episodes.map((doc) => (
+      <Item key={doc.id} episodeId={doc.id} item={doc.data()} />
+    ));
+  } else {
+    return (
+      <Typography align="center">
+        {t('Episodes.no-episodes.text')}{' '}
+        <Link href={`episodes/new`}>{t('Episodes.no-episodes.link')}</Link>
+      </Typography>
+    );
+  }
 };
 
 export default Episodes;
