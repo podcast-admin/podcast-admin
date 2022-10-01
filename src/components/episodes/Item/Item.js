@@ -41,8 +41,9 @@ const Item = ({
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
-          spacing={1}
+          spacing={0}
           mb={1}
+          sx={{ flexWrap: 'wrap', gap: 1 }}
         >
           {date.toDate() > new Date() ? (
             <Chip
