@@ -39,7 +39,7 @@ const Item = ({ episodeId, item }) => {
         <Typography variant="subtitle1">{subtitle}</Typography>
       </Stack>
       <Grid container spacing={2}>
-        <Grid item sx={12} sm={3}>
+        <Grid item xs={12} sm={3}>
           <LazyLoad>
             <Box
               component="img"
