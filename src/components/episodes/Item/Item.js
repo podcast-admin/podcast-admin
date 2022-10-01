@@ -100,7 +100,25 @@ const Item = ({ episodeId, item }) => {
         </Grid>
         <Grid item xs={12} sm={9}>
           <Typography variant="body1" component="div">
-            <ReactMarkdown linkTarget="_blank">{description}</ReactMarkdown>
+            <ReactMarkdown
+              children={description}
+              linkTarget="_blank"
+              components={{
+                img: ({ alt, src, title }) => {
+                  return (
+                    <LazyLoad>
+                      <Box
+                        component="img"
+                        sx={{ width: '100%' }}
+                        src={src}
+                        title={title}
+                        alt={alt}
+                      />
+                    </LazyLoad>
+                  );
+                },
+              }}
+            />
           </Typography>
         </Grid>
       </Grid>
