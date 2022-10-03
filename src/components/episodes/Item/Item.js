@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazyload';
-import ReactMarkdown from 'react-markdown';
 import { useTranslation } from 'react-i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
@@ -18,6 +17,7 @@ import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
 import { Timestamp } from 'firebase/firestore';
 
 import ItemChips from './ItemChips';
+import Markdown from './Markdown';
 
 const Item = ({ episodeId, item }) => {
   const { title, subtitle, image, description, url } = item;
@@ -99,27 +99,7 @@ const Item = ({ episodeId, item }) => {
           </Stack>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography variant="body1" component="div">
-            <ReactMarkdown
-              children={description}
-              linkTarget="_blank"
-              components={{
-                img: ({ alt, src, title }) => {
-                  return (
-                    <LazyLoad>
-                      <Box
-                        component="img"
-                        sx={{ width: '100%' }}
-                        src={src}
-                        title={title}
-                        alt={alt}
-                      />
-                    </LazyLoad>
-                  );
-                },
-              }}
-            />
-          </Typography>
+          <Markdown>{description}</Markdown>
         </Grid>
       </Grid>
     </Paper>

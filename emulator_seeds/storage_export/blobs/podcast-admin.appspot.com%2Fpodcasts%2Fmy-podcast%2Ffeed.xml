@@ -4,7 +4,7 @@
         <description><![CDATA[This is my super duper test podcast.]]></description>
         <link>http://example.org</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 12 Jul 2022 15:20:03 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 03 Oct 2022 18:35:58 GMT</lastBuildDate>
         <atom:link href="http://podcast-admin.firebaseapp.com/feed/my-podcast" rel="self" type="application/rss+xml"/>
         <copyright><![CDATA[My Company]]></copyright>
         <language><![CDATA[English]]></language>
@@ -27,6 +27,44 @@
         <item>
             <title><![CDATA[My Test Wisdom]]></title>
             <description><![CDATA[<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+<h1 id="formatting">Formatting</h1>
+<p>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
+<p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
+<p>Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p>
+<h2 id="lists">Lists</h2>
+<ol>
+<li>First ordered list item</li>
+<li>Another item</li>
+<li>Actual numbers don't matter, just that it's a number</li>
+<li>And another item.</li>
+</ol>
+<ul>
+<li>Unordered list can use asterisks</li>
+<li>Or minuses</li>
+<li>Or pluses</li>
+</ul>
+<h3 id="links">Links</h3>
+<p><a href="https://www.google.com">I'm an inline-style link</a></p>
+<p><a href="https://www.google.com" title="Google's Homepage">I'm an inline-style link with title</a></p>
+<p><a href="https://www.mozilla.org">I'm a reference-style link</a></p>
+<p><a href="../blob/master/LICENSE">I'm a relative reference to a repository file</a></p>
+<p><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
+<p>Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a>.</p>
+<p>URLs and URLs in angle brackets will automatically get turned into links. 
+http://www.example.com or <a href="http://www.example.com">http://www.example.com</a> and sometimes 
+example.com (but not on Github, for example).</p>
+<p>Some text to show that the reference links can follow later.</p>
+<h4 id="code">Code</h4>
+<p>Inline <code>code</code> has <code>back-ticks around</code> it.</p>
+<h5 id="testing">Testing</h5>
+<p>In dieser Folge des Digital Insurance Podcast spreche ich mit Prof. Dr. Alexander Braun, Professor an der Universität St. Gallen.</p>
+<p>Prof. Dr. Alexander Braun ist Professor an der Universität St. Gallen für Versicherung und Kapitalmärkte. Des Weiteren ist er Direktor am dortigen Institut für Versicherungswirtschaft. Sein Schwerpunkt liegt im Bereich Innovation.</p>
+<p>Alexander Braun hat auf der diesjährigen InsureNXT eine Rede zur Zukunft der Versicherungsbranche gehalten. Im Mittelpunkt stand die Frage über den richtigen Zeitpunkt für Innovationen. Alex kommt während unseres Gesprächs auf das Innovator's Dilemma zu sprechen. Hierin wird das Problem beschrieben, dass in produktiven Jahren kein Veränderungsdruck auf den Unternehmen liegt. Alex meint hingegen, dass gerade dann Veränderungen nötig seien. Mit Embedded Insurance nennt er ein Beispiel für eine gerade stattfindende Transformation.</p>
+<p>Mit den InsurTechs hat es einen Ruck durch die Versicherungsbranche gegeben. Das wirke sich auf die etablierten Versicherer aus. Für Start-ups sei es einfacher, eine Wette auf ein spezifisches Geschäftsmodell zu platzieren. Die großen Versicherer haben hingegen die Mittel, mehrere Strategien zu fahren, erklärt Alex.</p>
+<p><strong>Links in dieser Ausgabe</strong><br />
+<a href="https://pielaco.com/consulting/">Zur Homepage von Jonas Piela</a><br />
+<a href="https://de.linkedin.com/in/jonaspiela/de">Zum LinkedIn-Profil von Jonas Piela</a><br />
+<a href="https://www.linkedin.com/in/alexander-braun-6b6697a/">Zum LinkedIn-Profil von Prof. Dr. Alexander Braun</a>  </p>
 <hr />
 <p><a href="http://example.org/contact">Get in touch</a></p>]]></description>
             <link>undefinedmytestwisdom</link>
