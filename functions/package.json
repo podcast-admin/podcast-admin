@@ -25,7 +25,7 @@
     "jsonexport": "^3.2.0",
     "podcast-user-agent-parser": "^0.0.2",
     "rss": "^1.2.2",
-    "showdown": "^1.9.1",
+    "showdown": "^2.1.0",
     "sinon": "^11.1.2",
     "winston": "^3.8.0"
   },

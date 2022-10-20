@@ -4,7 +4,7 @@
         <description><![CDATA[This is my super duper test podcast.]]></description>
         <link>http://example.org</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 03 Oct 2022 18:35:58 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Oct 2022 18:41:46 GMT</lastBuildDate>
         <atom:link href="http://podcast-admin.firebaseapp.com/feed/my-podcast" rel="self" type="application/rss+xml"/>
         <copyright><![CDATA[My Company]]></copyright>
         <language><![CDATA[English]]></language>
@@ -57,14 +57,9 @@ example.com (but not on Github, for example).</p>
 <h4 id="code">Code</h4>
 <p>Inline <code>code</code> has <code>back-ticks around</code> it.</p>
 <h5 id="testing">Testing</h5>
-<p>In dieser Folge des Digital Insurance Podcast spreche ich mit Prof. Dr. Alexander Braun, Professor an der Universität St. Gallen.</p>
-<p>Prof. Dr. Alexander Braun ist Professor an der Universität St. Gallen für Versicherung und Kapitalmärkte. Des Weiteren ist er Direktor am dortigen Institut für Versicherungswirtschaft. Sein Schwerpunkt liegt im Bereich Innovation.</p>
-<p>Alexander Braun hat auf der diesjährigen InsureNXT eine Rede zur Zukunft der Versicherungsbranche gehalten. Im Mittelpunkt stand die Frage über den richtigen Zeitpunkt für Innovationen. Alex kommt während unseres Gesprächs auf das Innovator's Dilemma zu sprechen. Hierin wird das Problem beschrieben, dass in produktiven Jahren kein Veränderungsdruck auf den Unternehmen liegt. Alex meint hingegen, dass gerade dann Veränderungen nötig seien. Mit Embedded Insurance nennt er ein Beispiel für eine gerade stattfindende Transformation.</p>
-<p>Mit den InsurTechs hat es einen Ruck durch die Versicherungsbranche gegeben. Das wirke sich auf die etablierten Versicherer aus. Für Start-ups sei es einfacher, eine Wette auf ein spezifisches Geschäftsmodell zu platzieren. Die großen Versicherer haben hingegen die Mittel, mehrere Strategien zu fahren, erklärt Alex.</p>
-<p><strong>Links in dieser Ausgabe</strong><br />
-<a href="https://pielaco.com/consulting/">Zur Homepage von Jonas Piela</a><br />
-<a href="https://de.linkedin.com/in/jonaspiela/de">Zum LinkedIn-Profil von Jonas Piela</a><br />
-<a href="https://www.linkedin.com/in/alexander-braun-6b6697a/">Zum LinkedIn-Profil von Prof. Dr. Alexander Braun</a>  </p>
+<p>A heading needs a space after the # otherwiths its a</p>
+<p>#tag and not a </p>
+<h1 id="heading">heading</h1>
 <hr />
 <p><a href="http://example.org/contact">Get in touch</a></p>]]></description>
             <link>undefinedmytestwisdom</link>

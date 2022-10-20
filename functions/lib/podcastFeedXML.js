@@ -9,7 +9,9 @@ exports.getFeedXML = async (podcastId) => {
 
   const db = getFirestore();
   const collectionRef = db.collection('podcasts');
-  const converter = new showdown.Converter();
+  const converter = new showdown.Converter({
+    requireSpaceBeforeHeadingText: true,
+  });
   var podcastRef = collectionRef.doc(podcastId);
   var episodesRef = collectionRef.doc(podcastId).collection('episodes');
 
