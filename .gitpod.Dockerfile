@@ -4,4 +4,4 @@ RUN bash -c 'VERSION="16.14.2" && source $HOME/.nvm/nvm.sh && nvm install $VERSI
 
 RUN echo "nvm use default &>/dev/null" >> ~/.bashrc.d/51-nvm-fix
 
-RUN npm i -g firebase-tools gatsby-cli
+RUN npm i -g firebase-tools
