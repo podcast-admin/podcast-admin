@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { StyledEngineProvider } from '@mui/material/styles';
 
@@ -9,13 +9,15 @@ import './helpers/i18n';
 
 import App from './App';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <BrowserRouter>
     <StyledEngineProvider injectFirst>
       <App />
     </StyledEngineProvider>
   </BrowserRouter>,
-  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
