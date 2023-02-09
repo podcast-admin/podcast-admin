@@ -23,7 +23,7 @@
       "type": "node-terminal",
       "name": "Debug Firebase functions tests",
       "request": "launch",
-      "command": "firebase emulators:exec 'npm run test' --inspect-functions",
+      "command": "firebase emulators:exec 'npm run test' --inspect-functions  --import=../emulator_seeds --ui",
       "cwd": "${workspaceFolder}/functions"
     },
     {
