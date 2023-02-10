@@ -30,6 +30,7 @@ import {
   Logout,
   Language,
   People,
+  BarChart as BarChartIcon,
 } from '@mui/icons-material';
 
 import { auth } from '../../helpers/Firebase';
@@ -121,6 +122,13 @@ const NavigationBar = () => {
                 startIcon={<Album />}
               >
                 {t('NavigationBar.allEpisodes')}
+              </Button>
+              <Button
+                color="inherit"
+                startIcon={<BarChartIcon />}
+                onClick={() => navigate(`/podcasts/${podcastId}/analytics`)}
+              >
+                Analytics
               </Button>
               <Tooltip title="Podcast settings">
                 <IconButton
