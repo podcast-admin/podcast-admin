@@ -6,22 +6,26 @@ import { CircularProgress, Stack, Link } from '@mui/material';
 import { auth } from '../../helpers/Firebase';
 import withAuth from '../../helpers/WithAuth';
 
-const LOADING = 'LOADING';
-
 const Home = () => {
-  const [podcasts, setPodcasts] = useState(LOADING);
+  const [podcasts, setPodcasts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const idTokenResult = await auth.currentUser.getIdTokenResult();
       setPodcasts(idTokenResult.claims.podcasts || []);
+      setIsLoading(false);
     };
 
     fetchData();
   }, []);
 
-  if (podcasts === LOADING) {
-    return <CircularProgress />;
+  if (isLoading) {
+    return (
+      <Stack mt={2} alignItems="center">
+        <CircularProgress />
+      </Stack>
+    );
   } else if (podcasts.length === 0) {
     return <Navigate to="/podcasts/new" replace />;
   } else if (podcasts.length === 1) {

@@ -3,16 +3,18 @@
   "bucket": "podcast-admin.appspot.com",
   "contentType": "application/rss+xml",
   "metageneration": 1,
-  "generation": 1657639203104,
+  "generation": 1675191676202,
   "storageClass": "STANDARD",
   "contentDisposition": "inline",
   "cacheControl": "public, max-age=3600",
   "contentEncoding": "identity",
-  "downloadTokens": [],
-  "etag": "OxYyyIpbYYsy4mRtDoP4SifJjdo",
-  "timeCreated": "2022-07-12T15:20:03.101Z",
-  "updated": "2022-07-12T15:20:03.111Z",
-  "size": 3418,
-  "md5Hash": "fPWu3nA3WpNTZEsB2myEZw==",
-  "crc32c": "167728206"
+  "downloadTokens": [
+    "d4b567c0-9d14-4ecd-bb2f-5e2026b4437b"
+  ],
+  "etag": "iBuXtQDHtyqL2vMknsqgbF3rU/Q",
+  "timeCreated": "2023-01-31T19:01:16.200Z",
+  "updated": "2023-01-31T19:01:16.214Z",
+  "size": 5093,
+  "md5Hash": "cVtvQN8N/yz0PJujrl8Kmw==",
+  "crc32c": "211615175"
 }

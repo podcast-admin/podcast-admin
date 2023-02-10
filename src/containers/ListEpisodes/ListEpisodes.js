@@ -37,7 +37,7 @@ const ListEpisodes = (props) => {
     <Container
       maxWidth="lg"
       sx={{
-        padding: 4,
+        padding: { xs: 2, sm: 4 },
       }}
     >
       <Grid container justifyContent="space-between" mb={2} alignItems="center">

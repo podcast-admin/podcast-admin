@@ -18,22 +18,22 @@
     "@google-cloud/storage": "^5.1.2",
     "csv-parser": "^3.0.0",
     "ffmpeg-static": "^4.2.8",
-    "firebase-admin": "^11.0.1",
-    "firebase-functions": "^3.22.0",
+    "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.2.1",
     "fluent-ffmpeg": "^2.1.2",
     "js2xmlparser": "^4.0.1",
     "jsonexport": "^3.2.0",
     "podcast-user-agent-parser": "^0.0.2",
     "rss": "^1.2.2",
-    "showdown": "^1.9.1",
+    "showdown": "^2.1.0",
     "sinon": "^11.1.2",
     "winston": "^3.8.0"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^2.0.0",
-    "@google-cloud/functions-framework": "^1.7.1",
-    "firebase-functions-test": "^0.1.6",
-    "jest": "^27.1.1"
+    "firebase-functions-test": "^3.0.0",
+    "jest": "^29.4.2",
+    "xmldoc": "^1.2.0"
   },
   "private": true
 }

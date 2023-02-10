@@ -307,7 +307,7 @@ class Upload extends Component {
                   </FormHelperText>
                 </FormControl>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label={this.t('Upload.form.date')}
@@ -317,7 +317,7 @@ class Upload extends Component {
                   />
                 </LocalizationProvider>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <FormControl fullWidth required>
                   <InputLabel id="type">
                     {this.t('Upload.form.type')}
@@ -341,7 +341,7 @@ class Upload extends Component {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <FormControl fullWidth>
                   <InputLabel id="intro">
                     {this.t('Upload.form.intro')}
@@ -371,7 +371,7 @@ class Upload extends Component {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <FormControl fullWidth>
                   <InputLabel id="outro">
                     {this.t('Upload.form.outro')}

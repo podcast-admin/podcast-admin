@@ -2,6 +2,16 @@ const { getFirestore, Timestamp } = require('firebase-admin/firestore');
 const RSS = require('rss');
 const showdown = require('showdown');
 
+const getUNIXTimestamp = () => {
+  return Math.floor(Date.now() / 1000);
+};
+
+const addTimestampToUrl = (url) => {
+  url = new URL(url);
+  url.searchParams.set('t', getUNIXTimestamp());
+  return url.toString();
+};
+
 exports.getFeedXML = async (podcastId) => {
   if (!podcastId) {
     return Promise.reject(new PodcastNotFoundException('Empty podcastId'));
@@ -9,7 +19,9 @@ exports.getFeedXML = async (podcastId) => {
 
   const db = getFirestore();
   const collectionRef = db.collection('podcasts');
-  const converter = new showdown.Converter();
+  const converter = new showdown.Converter({
+    requireSpaceBeforeHeadingText: true,
+  });
   var podcastRef = collectionRef.doc(podcastId);
   var episodesRef = collectionRef.doc(podcastId).collection('episodes');
 
@@ -86,7 +98,7 @@ exports.getFeedXML = async (podcastId) => {
         author: episodeData.author || podcastData.author,
         date: episodeData.date.toDate(),
         enclosure: {
-          url: episodeData.url,
+          url: addTimestampToUrl(episodeData.url),
           type: 'audio/mpeg',
           size: episodeData.length,
         },

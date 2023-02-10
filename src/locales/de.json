@@ -74,13 +74,39 @@
     "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
     "Episodes.no-episodes.link": "Erstelle eine neue.",
 
-    "Users.title": "Nutzer",
-    "Users.displayName": "Name",
-    "Users.email": "E-Mail-Adresse",
-    "Users.creationTime": "Registriert am",
-    "Users.lastSignInTime": "Letzter Login",
-    "Users.providerIds": "Anbieter",
-    "Users.intlDateTime": "{{val, datetime}}",
+    "ItemChips.date.published": "Veröffentlicht am {{val, datetime}}",
+    "ItemChips.date.scheduled": "Geplant für {{val, datetime}}",
+    "ItemChips.missing.title": "Titel fehlt",
+    "ItemChips.missing.subtitle": "Untertitel fehlt",
+    "ItemChips.missing.description": "Beschreibung fehlt",
+    "ItemChips.missing.image": "Cover Image fehlt",
+    "ItemChips.missing.audio": "Audio-Datei fehlt",
+    "ItemChips.intro": "Intro: '{{intro}}'",
+    "ItemChips.outro": "Outro: '{{outro}}'",
     
-    "ImageDropzone.label": "Upload Image"
+    "Item.editEpisode": "Episode bearbeiten",
+    "Item.copyEpisodeUrl.toolTip": "Link zur Episode in die Zwischenablage kopieren",
+    "Item.copyEpisodeUrl.success": "Link zur Episode in die Zwischenablage kopiert.",
+
+    "UsersOverview.title": "Nutzer",
+    "UsersOverview.displayName": "Name",
+    "UsersOverview.email": "E-Mail-Adresse",
+    "UsersOverview.creationTime": "Registriert am",
+    "UsersOverview.lastSignInTime": "Letzter Login",
+    "UsersOverview.providerIds": "Anbieter",
+    "UsersOverview.intlDateTime": "{{val, datetime}}",
+    "UsersOverview.inviteButtonLabel": "Nutzer einladen",
+
+    "UsersInvite.title": "Nutzer einladen",
+    "UsersInvite.infoText": "Die E-Mail-Adresse wird hinterlegt. Wenn sich ein Nutzer mit dieser E-Mail-Adresse anmeldet, wird er direkt als Nutzer zu diesem Podcast hinzugefügt.",
+    "UsersInvite.form.email": "E-Mail-Adresse",
+    "UsersInvite.form.button.save": "Speichern",
+    "UsersInvite.form.button.back": "Zurück",
+
+    "ListOfInvites.title": "Eingelade Nutzer",
+    "ListOfInvites.email": "E-Mail-Adresse",
+    "ListOfInvites.createdAt": "Eingeladen am",
+    "ListOfInvites.intlDateTime": "{{val, datetime}}",
+    "ListOfInvites.noInvites.text": "Es wurde niemand eingeladen.",
+    "ListOfInvites.noInvites.link": "Lade einen Nutzer ein."
 }
