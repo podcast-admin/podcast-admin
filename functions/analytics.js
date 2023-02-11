@@ -29,6 +29,7 @@ exports.totalDownloads = functions
     const tableId = 'episode_requests';
 
     const query = `
+    CREATE TEMP TABLE episodeIds(episodeId STRING, num INT64) AS
     SELECT
     REGEXP_EXTRACT(cs_object, r'^podcasts/.+/episodes/(.+)/') as episodeId, COUNT(*) as num
     FROM
@@ -37,8 +38,16 @@ exports.totalDownloads = functions
       SC_STATUS = 200
       AND CONTAINS_SUBSTR(cs_object, 'mp3')
       AND CONTAINS_SUBSTR(cs_object, '2T9aVqEJhvd1Fck2vVPp')
-    group by cs_object
-    order by num desc`;
+    group by cs_object;
+
+    SELECT
+      episodeId,
+      SUM(num) as num
+    FROM
+      episodeIds
+    GROUP BY
+      episodeId
+      ORDER BY num DESC`;
 
     // For all options, see https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     const options = {
@@ -54,7 +63,7 @@ exports.totalDownloads = functions
       // Wait for the query to finish
       const [rows] = await job.getQueryResults();
 
-       return rows;
+      return rows;
     } catch (e) {
       return e;
     }
