@@ -54,7 +54,7 @@ exports.totalDownloads = functions
       // Wait for the query to finish
       const [rows] = await job.getQueryResults();
 
-      return rows;
+       return rows;
     } catch (e) {
       return e;
     }

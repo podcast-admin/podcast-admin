@@ -19,87 +19,18 @@ const Analytics = () => {
         'analytics-totalDownloads',
       );
 
-      try {
-        setData(
-          await getTotalDownloads({
-            podcastId,
-          }),
-        );
-      } catch (e) {
-        console.error(e);
-      }
+      getTotalDownloads({
+        podcastId,
+      })
+        .then(({ data }) => {
+          setData(data);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     };
     getData();
   }, [podcastId]);
-
-  const data2 = [
-    {
-      name: t('Analytics.month', {
-        val: new Date(Date.UTC(2012, 11, 1, 0, 0, 0)),
-        formatParams: {
-          val: { year: 'numeric', month: 'short' },
-        },
-      }),
-      pv: 2400,
-    },
-    {
-      name: t('Analytics.month', {
-        val: new Date(Date.UTC(2012, 12, 1, 0, 0, 0)),
-        formatParams: {
-          val: { year: 'numeric', month: 'short' },
-        },
-      }),
-      pv: 1398,
-    },
-    {
-      name: t('Analytics.month', {
-        val: new Date(Date.UTC(2013, 1, 1, 0, 0, 0)),
-        formatParams: {
-          val: { year: 'numeric', month: 'short' },
-        },
-      }),
-      pv: 9800,
-    },
-    {
-      name: t('Analytics.month', {
-        val: new Date(Date.UTC(2013, 2, 1, 0, 0, 0)),
-        formatParams: {
-          val: { year: 'numeric', month: 'short' },
-        },
-      }),
-      pv: 3908,
-    },
-    {
-      name: t('Analytics.month', {
-        val: new Date(Date.UTC(2013, 3, 1, 0, 0, 0)),
-        formatParams: {
-          val: { year: 'numeric', month: 'short' },
-        },
-      }),
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: t('Analytics.month', {
-        val: new Date(Date.UTC(2013, 4, 1, 0, 0, 0)),
-        formatParams: {
-          val: { year: 'numeric', month: 'short' },
-        },
-      }),
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: t('Analytics.month', {
-        val: new Date(Date.UTC(2013, 5, 1, 0, 0, 0)),
-        formatParams: {
-          val: { year: 'numeric', month: 'short' },
-        },
-      }),
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
 
   return (
     <Container maxWidth="lg" sx={{ paddingY: 2 }}>
