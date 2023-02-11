@@ -21,7 +21,7 @@ exports.totalDownloads = functions
     } else if (!context.auth.token.podcasts.includes(podcastId)) {
       throw new functions.https.HttpsError(
         'permission-denied',
-        'The user is not authorized to access users of this podcast.',
+        'The user is not authorized to access statistics of this podcast.',
       );
     }
 
