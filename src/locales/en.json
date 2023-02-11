@@ -39,6 +39,13 @@
     "Upload.form.subtitle": "Subtitle",
     "Upload.form.description": "Show Notes",
     "Upload.form.description.editor.titleGroup": "Insert Title",
+    "Upload.form.description.editor.bold": "Add bold text (ctrl + b)",
+    "Upload.form.description.editor.italic": "Add italic text (ctrl + i)",
+    "Upload.form.description.editor.unorderedListCommand": "Add unordered list (ctrl + shift + u)",
+    "Upload.form.description.editor.orderedListCommand": "Add ordered list (ctrl + shift + o)",
+    "Upload.form.description.editor.link": "Add a link (ctrl + l)",
+    "Upload.form.description.editor.image": "Add image (ctrl + k)",
+    "Upload.form.description.editor.hr": "Insert HR (ctrl + h)",
     "Upload.form.save": "Save",
 
     "DeleteButton.label": "Delete",

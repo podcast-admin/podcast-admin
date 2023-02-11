@@ -228,6 +228,43 @@ class Upload extends Component {
       this.handleEpisodeDataChange('date', date);
     };
 
+    commands.bold.buttonProps = {
+      'aria-label': this.t('Upload.form.description.editor.bold'),
+      title: this.t('Upload.form.description.editor.bold'),
+    };
+
+    commands.italic.buttonProps = {
+      'aria-label': this.t('Upload.form.description.editor.italic'),
+      title: this.t('Upload.form.description.editor.italic'),
+    };
+
+    commands.unorderedListCommand.buttonProps = {
+      'aria-label': this.t(
+        'Upload.form.description.editor.unorderedListCommand',
+      ),
+      title: this.t('Upload.form.description.editor.unorderedListCommand'),
+    };
+
+    commands.orderedListCommand.buttonProps = {
+      'aria-label': this.t('Upload.form.description.editor.orderedListCommand'),
+      title: this.t('Upload.form.description.editor.orderedListCommand'),
+    };
+
+    commands.link.buttonProps = {
+      'aria-label': this.t('Upload.form.description.editor.link'),
+      title: this.t('Upload.form.description.editor.link'),
+    };
+
+    commands.image.buttonProps = {
+      'aria-label': this.t('Upload.form.description.editor.image'),
+      title: this.t('Upload.form.description.editor.image'),
+    };
+
+    commands.hr.buttonProps = {
+      'aria-label': this.t('Upload.form.description.editor.hr'),
+      title: this.t('Upload.form.description.editor.hr'),
+    };
+
     return (
       <Container
         maxWidth="lg"
@@ -434,6 +471,9 @@ class Upload extends Component {
                           groupName: 'title',
                           buttonProps: {
                             'aria-label': this.t(
+                              'Upload.form.description.editor.titleGroup',
+                            ),
+                            title: this.t(
                               'Upload.form.description.editor.titleGroup',
                             ),
                           },
