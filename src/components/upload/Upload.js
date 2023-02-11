@@ -420,28 +420,29 @@ class Upload extends Component {
                   />
                 </FormControl>
               </Grid>
+              <Grid item xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <DeleteButton
+                    disabled={!this.state.wasCreated}
+                    doc={this.state.doc}
+                    redirectTo="/"
+                  />
+                  <Button
+                    onClick={this.handleButtonSaveClick}
+                    variant="contained"
+                    color="primary"
+                  >
+                    {this.t('Upload.form.save')}
+                  </Button>
+                </Stack>
+              </Grid>
             </Grid>
           </Box>
-
-          <Stack
-            direction="row"
-            justifyContent="flex-end"
-            alignItems="center"
-            spacing={2}
-          >
-            <DeleteButton
-              disabled={!this.state.wasCreated}
-              doc={this.state.doc}
-              redirectTo="/"
-            />
-            <Button
-              onClick={this.handleButtonSaveClick}
-              variant="contained"
-              color="primary"
-            >
-              {this.t('Upload.form.save')}
-            </Button>
-          </Stack>
         </Paper>
       </Container>
     );
