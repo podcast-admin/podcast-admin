@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 
-const MarkdownEditor = ({ id, name, value, onChange }) => {
+const MarkdownEditor = ({ id, name, value, height, onChange }) => {
   const [t] = useTranslation();
 
   commands.bold.buttonProps = {
@@ -84,6 +84,7 @@ const MarkdownEditor = ({ id, name, value, onChange }) => {
       name={name}
       value={value}
       onChange={onChange}
+      height={height ? `${height}px` : undefined}
       commands={[
         commands.bold,
         commands.italic,
@@ -121,6 +122,7 @@ MarkdownEditor.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
+  height: PropTypes.number,
   onChange: PropTypes.func,
 };
 

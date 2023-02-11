@@ -415,6 +415,7 @@ class Upload extends Component {
                     id="description"
                     name="description"
                     value={this.state.episode.description}
+                    height="500"
                     onChange={this.handleDescriptionChange}
                   />
                 </FormControl>
