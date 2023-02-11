@@ -16,6 +16,42 @@ const MarkdownEditor = ({ id, name, value, onChange }) => {
     title: t('Upload.form.description.editor.italic'),
   };
 
+  commands.title1.icon = (
+    <div style={{ fontSize: 18, textAlign: 'left' }}>
+      {t('Upload.form.description.editor.title', { number: 1 })}
+    </div>
+  );
+
+  commands.title2.icon = (
+    <div style={{ fontSize: 16, textAlign: 'left' }}>
+      {t('Upload.form.description.editor.title', { number: 2 })}
+    </div>
+  );
+
+  commands.title3.icon = (
+    <div style={{ fontSize: 15, textAlign: 'left' }}>
+      {t('Upload.form.description.editor.title', { number: 3 })}
+    </div>
+  );
+
+  commands.title4.icon = (
+    <div style={{ fontSize: 14, textAlign: 'left' }}>
+      {t('Upload.form.description.editor.title', { number: 4 })}
+    </div>
+  );
+
+  commands.title5.icon = (
+    <div style={{ fontSize: 13, textAlign: 'left' }}>
+      {t('Upload.form.description.editor.title', { number: 5 })}
+    </div>
+  );
+
+  commands.title6.icon = (
+    <div style={{ fontSize: 12, textAlign: 'left' }}>
+      {t('Upload.form.description.editor.title', { number: 6 })}
+    </div>
+  );
+
   commands.unorderedListCommand.buttonProps = {
     'aria-label': t('Upload.form.description.editor.unorderedListCommand'),
     title: t('Upload.form.description.editor.unorderedListCommand'),
