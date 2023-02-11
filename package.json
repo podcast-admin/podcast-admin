@@ -15,6 +15,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@uiw/react-md-editor": "^3.20.2",
     "date-fns": "^2.0.0-beta.5",
     "firebase": "^9.8.3",
     "get-mp3-duration": "^1.0.0",

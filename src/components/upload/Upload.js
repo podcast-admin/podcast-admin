@@ -39,6 +39,7 @@ import {
 import { db, storage } from '../../helpers/Firebase';
 import Dropzone from '../Dropzone';
 import DeleteButton from '../DeleteButton';
+import MarkdownEditor from '../MarkdownEditor';
 
 class Upload extends Component {
   constructor(props) {
@@ -80,8 +81,9 @@ class Upload extends Component {
 
     this.handleFilesAdded = this.handleFilesAdded.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleDocIdBlur = this.handleDocIdBlur.bind(this);
-    this.onEpisodeDataChange = this.onEpisodeDataChange.bind(this);
+    this.handleEpisodeDataChange = this.handleEpisodeDataChange.bind(this);
     this.uploadFiles = this.uploadFiles.bind(this);
     this.saveEpisode = this.saveEpisode.bind(this);
     this.handleButtonSaveClick = this.handleButtonSaveClick.bind(this);
@@ -142,10 +144,13 @@ class Upload extends Component {
 
         if (metadata.contentType.includes('image')) {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          this.onEpisodeDataChange('image', downloadURL);
+          this.handleEpisodeDataChange('image', downloadURL);
         } else if (metadata.contentType.includes('audio')) {
-          this.onEpisodeDataChange('audio_original', fileRef.fullPath);
-          this.onEpisodeDataChange('length', uploadTask.snapshot.totalBytes);
+          this.handleEpisodeDataChange('audio_original', fileRef.fullPath);
+          this.handleEpisodeDataChange(
+            'length',
+            uploadTask.snapshot.totalBytes,
+          );
         }
 
         this.saveEpisode();
@@ -178,10 +183,14 @@ class Upload extends Component {
   }
 
   handleFormChange(event) {
-    this.onEpisodeDataChange(event.target.name, event.target.value);
+    this.handleEpisodeDataChange(event.target.name, event.target.value);
   }
 
-  onEpisodeDataChange(key, value) {
+  handleDescriptionChange(value) {
+    this.handleEpisodeDataChange('description', value);
+  }
+
+  handleEpisodeDataChange(key, value) {
     this.setState((prevState) => ({
       episode: { ...prevState.episode, [key]: value },
     }));
@@ -216,7 +225,7 @@ class Upload extends Component {
   render() {
     const handleDateChange = (date) => {
       date.setHours(0, 0, 0, 0);
-      this.onEpisodeDataChange('date', date);
+      this.handleEpisodeDataChange('date', date);
     };
 
     return (
@@ -402,50 +411,38 @@ class Upload extends Component {
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth required>
-                  <InputLabel htmlFor="description">
-                    {this.t('Upload.form.description')}
-                  </InputLabel>
-                  <OutlinedInput
+                  <MarkdownEditor
                     id="description"
                     name="description"
-                    onChange={this.handleFormChange}
                     value={this.state.episode.description}
-                    multiline
-                    aria-describedby="description-helper-text"
+                    height="500"
+                    onChange={this.handleDescriptionChange}
                   />
-                  <FormHelperText id="description-helper-text">
-                    <Link
-                      href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {this.t('Upload.form.description.helper-text')}
-                    </Link>
-                  </FormHelperText>
                 </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <DeleteButton
+                    disabled={!this.state.wasCreated}
+                    doc={this.state.doc}
+                    redirectTo="/"
+                  />
+                  <Button
+                    onClick={this.handleButtonSaveClick}
+                    variant="contained"
+                    color="primary"
+                  >
+                    {this.t('Upload.form.save')}
+                  </Button>
+                </Stack>
               </Grid>
             </Grid>
           </Box>
-
-          <Stack
-            direction="row"
-            justifyContent="flex-end"
-            alignItems="center"
-            spacing={2}
-          >
-            <DeleteButton
-              disabled={!this.state.wasCreated}
-              doc={this.state.doc}
-              redirectTo="/"
-            />
-            <Button
-              onClick={this.handleButtonSaveClick}
-              variant="contained"
-              color="primary"
-            >
-              {this.t('Upload.form.save')}
-            </Button>
-          </Stack>
         </Paper>
       </Container>
     );
