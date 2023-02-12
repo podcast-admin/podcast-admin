@@ -116,5 +116,5 @@
     "ListOfInvites.noInvites.text": "Es wurde niemand eingeladen.",
     "ListOfInvites.noInvites.link": "Lade einen Nutzer ein.",
 
-    "Analytics.month": "{{val, datetime}}"
+    "Analytics.title": "TOP 10 Episoden"
 }

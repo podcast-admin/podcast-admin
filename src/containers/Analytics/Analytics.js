@@ -36,7 +36,7 @@ const Analytics = () => {
     <Container maxWidth="lg" sx={{ paddingY: 2 }}>
       <Paper sx={{ padding: 2 }}>
         <Typography variant="h4" gutterBottom>
-          Some Title
+          {t('Analytics.title')}
         </Typography>
         <BarChart data={data} />
       </Paper>
