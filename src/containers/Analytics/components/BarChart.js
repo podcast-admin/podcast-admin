@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
 import {
   BarChart as BarChartRecharts,
   Bar,
@@ -6,10 +7,11 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from 'recharts';
 
 const BarChart = ({ data }) => {
+  const theme = useTheme();
+
   return (
     <BarChartRecharts
       width={500}
@@ -22,11 +24,11 @@ const BarChart = ({ data }) => {
         bottom: 5,
       }}
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <CartesianGrid strokeDasharray="3 1" vertical={false} />
       <XAxis dataKey="episodeId" />
       <YAxis />
       <Tooltip />
-      <Bar dataKey="num" fill="#8884d8" />
+      <Bar dataKey="num" fill={theme.palette.primary.main} />
     </BarChartRecharts>
   );
 };
