@@ -23,7 +23,7 @@ const Analytics = () => {
         podcastId,
       })
         .then(({ data }) => {
-          setData(data);
+          setData(data.slice(0, 10));
         })
         .catch((e) => {
           console.error(e);
