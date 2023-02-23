@@ -1,9 +1,9 @@
 {
   "name": "podcasts/my-podcast/episodes/mytestwisdom/mytestwisdom.mp3",
   "bucket": "podcast-admin.appspot.com",
-  "contentType": "audio/mpeg",
   "metageneration": 1,
   "generation": 1657638782220,
+  "contentType": "audio/mpeg",
   "storageClass": "STANDARD",
   "contentDisposition": "inline",
   "cacheControl": "public, max-age=3600",

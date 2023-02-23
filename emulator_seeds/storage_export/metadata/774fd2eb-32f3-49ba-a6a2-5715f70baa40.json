@@ -1,9 +1,9 @@
 {
   "name": "podcasts/my-podcast/outro-default.mp3",
   "bucket": "podcast-admin.appspot.com",
-  "contentType": "audio/mpeg",
   "metageneration": 1,
   "generation": 1657629345985,
+  "contentType": "audio/mpeg",
   "storageClass": "STANDARD",
   "contentDisposition": "inline",
   "cacheControl": "public, max-age=3600",

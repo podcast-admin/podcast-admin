@@ -2,13 +2,11 @@ const { getFirestore, Timestamp } = require('firebase-admin/firestore');
 const RSS = require('rss');
 const showdown = require('showdown');
 
-const getUNIXTimestamp = () => {
-  return Math.floor(Date.now() / 1000);
-};
-
-const addTimestampToUrl = (url) => {
-  url = new URL(url);
-  url.searchParams.set('t', getUNIXTimestamp());
+const getUrl = (episodeData) => {
+  let url = new URL(episodeData.url);
+  if (episodeData.audioProcessedAt) {
+    url.searchParams.set('t', episodeData.audioProcessedAt.toDate().getTime());
+  }
   return url.toString();
 };
 
@@ -98,7 +96,7 @@ exports.getFeedXML = async (podcastId) => {
         author: episodeData.author || podcastData.author,
         date: episodeData.date.toDate(),
         enclosure: {
-          url: addTimestampToUrl(episodeData.url),
+          url: getUrl(episodeData),
           type: 'audio/mpeg',
           size: episodeData.length,
         },

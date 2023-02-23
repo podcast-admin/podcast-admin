@@ -119,6 +119,7 @@ const saveEpisode = async (dbPath, duration, epsiodeUrl) => {
         duration: Math.round(duration),
         url: epsiodeUrl,
         processing: 'done',
+        audioProcessedAt: new Date(),
       },
       { merge: true },
     );

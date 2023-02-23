@@ -1,19 +1,19 @@
 {
-  "name": "podcasts/my-podcast/intro-sponsored.mp3",
+  "name": "podcasts/my-podcast/intro-monologue.mp3",
   "bucket": "podcast-admin.appspot.com",
-  "contentType": "audio/mpeg",
   "metageneration": 1,
-  "generation": 1657629339977,
+  "generation": 1657629342860,
+  "contentType": "audio/mpeg",
   "storageClass": "STANDARD",
   "contentDisposition": "inline",
   "cacheControl": "public, max-age=3600",
   "contentEncoding": "identity",
   "downloadTokens": [
-    "6b84af98-0af1-4936-ab13-11a94a95b2d2"
+    "3661ab48-e0c9-4b64-87d7-036bc53d0ffa"
   ],
-  "etag": "TYWmHj70dUHn5A9XbnTsK10uKgg",
-  "timeCreated": "2022-07-12T12:35:39.976Z",
-  "updated": "2022-07-12T12:35:39.977Z",
+  "etag": "IJUenvNN+KsXGHGJWc81mJ/HS3g",
+  "timeCreated": "2022-07-12T12:35:42.859Z",
+  "updated": "2022-07-12T12:35:42.859Z",
   "size": 200955,
   "md5Hash": "AxL404bUlcWsPScTo6yIuA==",
   "crc32c": "2989109651"

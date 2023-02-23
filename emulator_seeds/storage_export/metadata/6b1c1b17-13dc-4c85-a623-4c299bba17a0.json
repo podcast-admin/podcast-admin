@@ -1,9 +1,9 @@
 {
   "name": "podcasts/my-podcast/episodes/mytestwisdom/original-audio-1657635984929.mp3",
   "bucket": "podcast-admin.appspot.com",
-  "contentType": "audio/mpeg",
   "metageneration": 1,
   "generation": 1657635985124,
+  "contentType": "audio/mpeg",
   "storageClass": "STANDARD",
   "contentDisposition": "inline",
   "cacheControl": "public, max-age=3600",

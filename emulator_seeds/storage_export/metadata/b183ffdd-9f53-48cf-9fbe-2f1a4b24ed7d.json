@@ -1,9 +1,9 @@
 {
   "name": "podcasts/my-podcast/episodes/mytestwisdom/mytestwisdom.jpg",
   "bucket": "podcast-admin.appspot.com",
-  "contentType": "image/jpeg",
   "metageneration": 1,
   "generation": 1657629760735,
+  "contentType": "image/jpeg",
   "storageClass": "STANDARD",
   "contentDisposition": "inline",
   "cacheControl": "public, max-age=3600",
