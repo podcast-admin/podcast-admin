@@ -91,6 +91,7 @@
     "ItemChips.missing.audio": "Audio-Datei fehlt",
     "ItemChips.intro": "Intro: '{{intro}}'",
     "ItemChips.outro": "Outro: '{{outro}}'",
+    "ItemChips.processing": "Audio wird verarbeitet...",
     
     "Item.editEpisode": "Episode bearbeiten",
     "Item.copyEpisodeUrl.toolTip": "Link zur Episode in die Zwischenablage kopieren",

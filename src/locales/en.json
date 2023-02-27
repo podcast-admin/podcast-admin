@@ -91,6 +91,7 @@
     "ItemChips.missing.audio": "Audio-File missing",
     "ItemChips.intro": "Intro: '{{intro}}'",
     "ItemChips.outro": "Outro: '{{outro}}'",
+    "ItemChips.processing": "Mixing audio files...",
     
     "Item.editEpisode": "Edit Episode",
     "Item.copyEpisodeUrl.toolTip": "Copy episode URL to clipboard",
