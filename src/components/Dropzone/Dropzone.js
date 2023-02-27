@@ -1,7 +1,16 @@
 import { useState, createRef } from 'react';
-import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import { Box, Typography } from '@mui/material';
 
-const Dropzone = ({ children, disabled, accept, multiple, onFilesAdded }) => {
+const Dropzone = ({
+  children,
+  disabled,
+  accept,
+  multiple,
+  onFilesAdded,
+  icon,
+  label,
+}) => {
   const [state, setState] = useState({ hightlight: false });
   const fileInputRef = createRef();
 
@@ -66,7 +75,6 @@ const Dropzone = ({ children, disabled, accept, multiple, onFilesAdded }) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        fontSize: 4,
         cursor: disabled ? 'default' : 'pointer',
       }}
       onDragOver={handleDragOver}
@@ -83,9 +91,21 @@ const Dropzone = ({ children, disabled, accept, multiple, onFilesAdded }) => {
         multiple={multiple || false}
         onChange={handleFilesAdded}
       />
+      {icon}
+      <Typography>{label}</Typography>
       {children}
     </Box>
   );
+};
+
+Dropzone.propTypes = {
+  children: PropTypes.array,
+  icon: PropTypes.object,
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  accept: PropTypes.string,
+  multiple: PropTypes.bool,
+  onFilesAdded: PropTypes.func.isRequired,
 };
 
 export default Dropzone;
