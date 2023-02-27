@@ -144,16 +144,19 @@ class Upload extends Component {
 
         if (metadata.contentType.includes('image')) {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          this.handleEpisodeDataChange('image', downloadURL);
-        } else if (metadata.contentType.includes('audio')) {
-          this.handleEpisodeDataChange('audio_original', fileRef.fullPath);
           this.handleEpisodeDataChange(
-            'length',
-            uploadTask.snapshot.totalBytes,
+            { image: downloadURL },
+            this.saveEpisode,
+          );
+        } else if (metadata.contentType.includes('audio')) {
+          this.handleEpisodeDataChange(
+            {
+              audio_original: fileRef.fullPath,
+              length: uploadTask.snapshot.totalBytes,
+            },
+            this.saveEpisode,
           );
         }
-
-        this.saveEpisode();
       },
     );
   }
@@ -183,17 +186,27 @@ class Upload extends Component {
   }
 
   handleFormChange(event) {
-    this.handleEpisodeDataChange(event.target.name, event.target.value);
+    let data = {};
+    data[event.target.name] = event.target.value;
+    this.handleEpisodeDataChange(data);
   }
 
   handleDescriptionChange(value) {
-    this.handleEpisodeDataChange('description', value);
+    this.handleEpisodeDataChange({ description: value });
   }
 
-  handleEpisodeDataChange(key, value) {
-    this.setState((prevState) => ({
-      episode: { ...prevState.episode, [key]: value },
-    }));
+  /**
+   * Takes and object and merges it with the current episode object. Callback is called once state has updated.
+   * @param {object} data
+   * @param {func} callback
+   */
+  handleEpisodeDataChange(data, callback) {
+    this.setState(
+      (prevState) => ({
+        episode: { ...prevState.episode, ...data },
+      }),
+      callback,
+    );
   }
 
   handleDocIdBlur(event) {
@@ -212,7 +225,7 @@ class Upload extends Component {
   render() {
     const handleDateChange = (date) => {
       date.setHours(0, 0, 0, 0);
-      this.handleEpisodeDataChange('date', date);
+      this.handleEpisodeDataChange({ date });
     };
 
     return (
