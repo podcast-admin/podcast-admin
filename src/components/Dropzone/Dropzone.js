@@ -1,102 +1,111 @@
-import React, { Component } from 'react';
-import { Box } from '@mui/material';
+import { useState, createRef } from 'react';
+import PropTypes from 'prop-types';
+import { Box, Typography } from '@mui/material';
 
-class Dropzone extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { hightlight: false };
-    this.fileInputRef = React.createRef();
+const Dropzone = ({
+  children,
+  disabled,
+  accept,
+  multiple,
+  onFilesAdded,
+  icon,
+  label,
+}) => {
+  const [state, setState] = useState({ hightlight: false });
+  const fileInputRef = createRef();
 
-    this.handleOpenFileDialog = this.handleOpenFileDialog.bind(this);
-    this.handleFilesAdded = this.handleFilesAdded.bind(this);
-    this.handleDragOver = this.handleDragOver.bind(this);
-    this.handleDragLeave = this.handleDragLeave.bind(this);
-    this.handleDrop = this.handleDrop.bind(this);
-  }
+  const handleOpenFileDialog = () => {
+    if (disabled) return;
+    fileInputRef.current.click();
+  };
 
-  handleOpenFileDialog() {
-    if (this.props.disabled) return;
-    this.fileInputRef.current.click();
-  }
-
-  handleFilesAdded(evt) {
-    if (this.props.disabled) return;
+  const handleFilesAdded = (evt) => {
+    if (disabled) return;
     const { files } = evt.target;
-    if (this.props.onFilesAdded) {
-      const array = this.fileListToArray(files);
-      this.props.onFilesAdded(array);
+    if (onFilesAdded) {
+      const array = fileListToArray(files);
+      onFilesAdded(array);
     }
-  }
+  };
 
-  handleDragOver(evt) {
+  const handleDragOver = (evt) => {
     evt.preventDefault();
 
-    if (this.props.disabled) return;
+    if (disabled) return;
 
-    this.setState({ hightlight: true });
-  }
+    setState({ hightlight: true });
+  };
 
-  handleDragLeave() {
-    this.setState({ hightlight: false });
-  }
+  const handleDragLeave = () => {
+    setState({ hightlight: false });
+  };
 
-  handleDrop(event) {
+  const handleDrop = (event) => {
     event.preventDefault();
 
-    if (this.props.disabled) return;
+    if (disabled) return;
 
     const { files } = event.dataTransfer;
-    if (this.props.onFilesAdded) {
-      const array = this.fileListToArray(files);
-      this.props.onFilesAdded(array);
+    if (onFilesAdded) {
+      const array = fileListToArray(files);
+      onFilesAdded(array);
     }
-    this.setState({ hightlight: false });
-  }
+    setState({ hightlight: false });
+  };
 
-  fileListToArray(list) {
+  const fileListToArray = (list) => {
     const array = [];
     for (let i = 0; i < list.length; i++) {
       array.push(list.item(i));
     }
     return array;
-  }
+  };
 
-  render() {
-    return (
+  return (
+    <Box
+      sx={{
+        height: '200px',
+        width: '200px',
+        backgroundColor: state.hightlight ? 'action.hover' : '',
+        border: 2,
+        borderColor: 'text.secondary',
+        borderRadius: '50%',
+        borderStyle: 'dashed',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        cursor: disabled ? 'default' : 'pointer',
+      }}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onClick={handleOpenFileDialog}
+    >
       <Box
-        sx={{
-          height: '200px',
-          width: '200px',
-          backgroundColor: this.state.hightlight ? 'action.hover' : '',
-          border: 2,
-          borderColor: 'text.secondary',
-          borderRadius: '50%',
-          borderStyle: 'dashed',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          fontSize: 4,
-          cursor: this.props.disabled ? 'default' : 'pointer',
-        }}
-        onDragOver={this.handleDragOver}
-        onDragLeave={this.handleDragLeave}
-        onDrop={this.handleDrop}
-        onClick={this.handleOpenFileDialog}
-      >
-        <Box
-          component="input"
-          ref={this.fileInputRef}
-          sx={{ display: 'none' }}
-          type="file"
-          accept={this.props.accept}
-          multiple={this.props.multiple || false}
-          onChange={this.handleFilesAdded}
-        />
-        {this.props.children}
-      </Box>
-    );
-  }
-}
+        component="input"
+        ref={fileInputRef}
+        sx={{ display: 'none' }}
+        type="file"
+        accept={accept}
+        multiple={multiple || false}
+        onChange={handleFilesAdded}
+      />
+      {icon}
+      <Typography>{label}</Typography>
+      {children}
+    </Box>
+  );
+};
+
+Dropzone.propTypes = {
+  children: PropTypes.array,
+  icon: PropTypes.object,
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  accept: PropTypes.string,
+  multiple: PropTypes.bool,
+  onFilesAdded: PropTypes.func.isRequired,
+};
 
 export default Dropzone;

@@ -5,7 +5,17 @@ import { Stack, Chip } from '@mui/material';
 import { Timestamp } from 'firebase/firestore';
 
 const Item = ({
-  item: { date, title, subtitle, image, description, url, intro, outro },
+  item: {
+    date,
+    title,
+    subtitle,
+    image,
+    description,
+    url,
+    intro,
+    outro,
+    processing,
+  },
 }) => {
   const [t] = useTranslation();
 
@@ -76,6 +86,9 @@ const Item = ({
 
       {intro && <Chip label={t('ItemChips.intro', { intro })} size="small" />}
       {outro && <Chip label={t('ItemChips.outro', { outro })} size="small" />}
+      {processing === 'restart' ? (
+        <Chip label={t('ItemChips.processing')} color="primary" size="small" />
+      ) : null}
     </Stack>
   );
 };

@@ -144,16 +144,19 @@ class Upload extends Component {
 
         if (metadata.contentType.includes('image')) {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          this.handleEpisodeDataChange('image', downloadURL);
-        } else if (metadata.contentType.includes('audio')) {
-          this.handleEpisodeDataChange('audio_original', fileRef.fullPath);
           this.handleEpisodeDataChange(
-            'length',
-            uploadTask.snapshot.totalBytes,
+            { image: downloadURL },
+            this.saveEpisode,
+          );
+        } else if (metadata.contentType.includes('audio')) {
+          this.handleEpisodeDataChange(
+            {
+              audio_original: fileRef.fullPath,
+              length: uploadTask.snapshot.totalBytes,
+            },
+            this.saveEpisode,
           );
         }
-
-        this.saveEpisode();
       },
     );
   }
@@ -183,17 +186,27 @@ class Upload extends Component {
   }
 
   handleFormChange(event) {
-    this.handleEpisodeDataChange(event.target.name, event.target.value);
+    let data = {};
+    data[event.target.name] = event.target.value;
+    this.handleEpisodeDataChange(data);
   }
 
   handleDescriptionChange(value) {
-    this.handleEpisodeDataChange('description', value);
+    this.handleEpisodeDataChange({ description: value });
   }
 
-  handleEpisodeDataChange(key, value) {
-    this.setState((prevState) => ({
-      episode: { ...prevState.episode, [key]: value },
-    }));
+  /**
+   * Takes and object and merges it with the current episode object. Callback is called once state has updated.
+   * @param {object} data
+   * @param {func} callback
+   */
+  handleEpisodeDataChange(data, callback) {
+    this.setState(
+      (prevState) => ({
+        episode: { ...prevState.episode, ...data },
+      }),
+      callback,
+    );
   }
 
   handleDocIdBlur(event) {
@@ -209,23 +222,10 @@ class Upload extends Component {
     event.target.value = slugified_id;
   }
 
-  renderProgress(file) {
-    if (this.state.uploading || this.state.successfullUploaded) {
-      return (
-        <div className="ProgressWrapper">
-          <LinearProgress
-            variant="determinate"
-            value={this.state.uploadProgress}
-          />
-        </div>
-      );
-    }
-  }
-
   render() {
     const handleDateChange = (date) => {
       date.setHours(0, 0, 0, 0);
-      this.handleEpisodeDataChange('date', date);
+      this.handleEpisodeDataChange({ date });
     };
 
     return (
@@ -236,40 +236,6 @@ class Upload extends Component {
         }}
       >
         <Paper sx={{ padding: 2 }}>
-          <Typography variant="h5" gutterBottom>
-            {this.state.episode.title || this.t('Upload.defaultTitle')}
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              paddingTop: 2,
-              boxSizing: 'border-box',
-              width: '100%',
-            }}
-          >
-            <Box>
-              <Dropzone
-                onFilesAdded={this.handleFilesAdded}
-                disabled={this.state.uploading}
-              >
-                <PublishIcon />
-                <span>{this.t('Upload.dropZone.label')}</span>
-              </Dropzone>
-            </Box>
-            <Box
-              sx={{
-                marginLeft: 4,
-                alignItems: 'flex-start',
-                justifyItems: 'flex-start',
-                flex: 1,
-                overflowY: 'auto',
-              }}
-            >
-              <span className="Filename">{this.state.file.name}</span>
-              {this.renderProgress(this.state.file)}
-            </Box>
-          </Box>
           <Box
             component="form"
             sx={{
@@ -279,6 +245,35 @@ class Upload extends Component {
             autoComplete="off"
           >
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="h5" gutterBottom>
+                  {this.state.episode.title || this.t('Upload.defaultTitle')}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <Dropzone
+                  onFilesAdded={this.handleFilesAdded}
+                  disabled={this.state.uploading}
+                  icon={<PublishIcon />}
+                  label={this.t('Upload.dropZone.label')}
+                />
+              </Grid>
+              <Grid item xs={12} sm={9}>
+                <Stack>
+                  <Typography className="Filename">
+                    {this.state.file.name}
+                  </Typography>
+                  {this.state.uploading || this.state.successfullUploaded ? (
+                    <LinearProgress
+                      variant="determinate"
+                      value={this.state.uploadProgress}
+                      color={
+                        this.state.successfullUploaded ? 'success' : 'inherit'
+                      }
+                    />
+                  ) : null}
+                </Stack>
+              </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth required>
                   <InputLabel htmlFor="id">
