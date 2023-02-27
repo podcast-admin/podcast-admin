@@ -209,19 +209,6 @@ class Upload extends Component {
     event.target.value = slugified_id;
   }
 
-  renderProgress(file) {
-    if (this.state.uploading || this.state.successfullUploaded) {
-      return (
-        <div className="ProgressWrapper">
-          <LinearProgress
-            variant="determinate"
-            value={this.state.uploadProgress}
-          />
-        </div>
-      );
-    }
-  }
-
   render() {
     const handleDateChange = (date) => {
       date.setHours(0, 0, 0, 0);
@@ -236,39 +223,6 @@ class Upload extends Component {
         }}
       >
         <Paper sx={{ padding: 2 }}>
-          <Typography variant="h5" gutterBottom>
-            {this.state.episode.title || this.t('Upload.defaultTitle')}
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              paddingTop: 2,
-              boxSizing: 'border-box',
-              width: '100%',
-            }}
-          >
-            <Box>
-              <Dropzone
-                onFilesAdded={this.handleFilesAdded}
-                disabled={this.state.uploading}
-                icon={<PublishIcon />}
-                label={this.t('Upload.dropZone.label')}
-              />
-            </Box>
-            <Box
-              sx={{
-                marginLeft: 4,
-                alignItems: 'flex-start',
-                justifyItems: 'flex-start',
-                flex: 1,
-                overflowY: 'auto',
-              }}
-            >
-              <span className="Filename">{this.state.file.name}</span>
-              {this.renderProgress(this.state.file)}
-            </Box>
-          </Box>
           <Box
             component="form"
             sx={{
@@ -278,6 +232,35 @@ class Upload extends Component {
             autoComplete="off"
           >
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="h5" gutterBottom>
+                  {this.state.episode.title || this.t('Upload.defaultTitle')}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <Dropzone
+                  onFilesAdded={this.handleFilesAdded}
+                  disabled={this.state.uploading}
+                  icon={<PublishIcon />}
+                  label={this.t('Upload.dropZone.label')}
+                />
+              </Grid>
+              <Grid item xs={12} sm={9}>
+                <Stack>
+                  <Typography className="Filename">
+                    {this.state.file.name}
+                  </Typography>
+                  {this.state.uploading || this.state.successfullUploaded ? (
+                    <LinearProgress
+                      variant="determinate"
+                      value={this.state.uploadProgress}
+                      color={
+                        this.state.successfullUploaded ? 'success' : 'inherit'
+                      }
+                    />
+                  ) : null}
+                </Stack>
+              </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth required>
                   <InputLabel htmlFor="id">
