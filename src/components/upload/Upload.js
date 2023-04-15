@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { startOfToday } from 'date-fns';
 import Slugify from '../../helpers/Slugify';
+import useIntroQuery from '../../hooks/useIntroQuery';
+import useOutroQuery from '../../hooks/useOutroQuery';
 
 import {
   Button,
@@ -68,6 +70,10 @@ const Upload = (props) => {
     length: 0,
     image: '',
   });
+
+  const { isSuccess: isIntrosSuccess, data: intros } = useIntroQuery(podcastId);
+
+  const { isSuccess: isOutrosSuccess, data: outros } = useOutroQuery(podcastId);
 
   const saveEpisode = useCallback(async () => {
     await setDoc(firestoreDoc, episode, { merge: true });
@@ -309,18 +315,12 @@ const Upload = (props) => {
                   onChange={handleFormChange}
                 >
                   <MenuItem value="">{t('Upload.form.intro.empty')}</MenuItem>
-                  <MenuItem value="main">
-                    {t('Upload.form.intro.main')}
-                  </MenuItem>
-                  <MenuItem value="expert">
-                    {t('Upload.form.intro.expert')}
-                  </MenuItem>
-                  <MenuItem value="sponsored">
-                    {t('Upload.form.intro.sponsored')}
-                  </MenuItem>
-                  <MenuItem value="monologue">
-                    {t('Upload.form.intro.monologue')}
-                  </MenuItem>
+                  {isIntrosSuccess &&
+                    Object.entries(intros).map(([key]) => (
+                      <MenuItem value={key} key={key}>
+                        {key}
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -335,9 +335,12 @@ const Upload = (props) => {
                   onChange={handleFormChange}
                 >
                   <MenuItem value="">{t('Upload.form.outro.empty')}</MenuItem>
-                  <MenuItem value="default">
-                    {t('Upload.form.outro.default')}
-                  </MenuItem>
+                  {isOutrosSuccess &&
+                    Object.entries(outros).map(([key]) => (
+                      <MenuItem value={key} key={key}>
+                        {key}
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormControl>
             </Grid>

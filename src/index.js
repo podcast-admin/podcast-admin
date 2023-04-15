@@ -1,4 +1,6 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { StyledEngineProvider } from '@mui/material/styles';
@@ -12,10 +14,16 @@ import App from './App';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+// Create a reactQuery client
+const queryClient = new QueryClient();
+
 root.render(
   <BrowserRouter>
     <StyledEngineProvider injectFirst>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </StyledEngineProvider>
   </BrowserRouter>,
 );
