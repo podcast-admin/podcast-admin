@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+import { startOfToday } from 'date-fns';
 import Slugify from '../../helpers/Slugify';
 
 import {
@@ -24,9 +26,6 @@ import PublishIcon from '@mui/icons-material/Publish';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import withRouter from '../../helpers/WithRouter';
-import withAuth from '../../helpers/WithAuth';
-
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 import {
@@ -41,407 +40,364 @@ import Dropzone from '../Dropzone';
 import DeleteButton from '../DeleteButton';
 import MarkdownEditor from '../MarkdownEditor';
 
-class Upload extends Component {
-  constructor(props) {
-    super(props);
+const Upload = (props) => {
+  const params = useParams();
 
-    const podcastId = this.props.podcastId || this.props.params.podcastId;
+  const { episodeId } = props;
+  const podcastId = props.podcastId || params.podcastId;
+  const episodeCollection = collection(db, 'podcasts', podcastId, 'episodes');
+  const [firestoreDoc, setFirestoreDoc] = useState(
+    episodeId ? doc(episodeCollection, episodeId) : doc(episodeCollection),
+  );
+  const [isSaved, setIsSaved] = useState(episodeId ? true : false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadWasSuccessful, setUploadWasSuccessful] = useState();
 
-    this.storageRef = ref(storage, `podcasts/${podcastId}/episodes`);
+  const [t] = useTranslation();
+  const [file, setFile] = useState();
+  const [episode, setEpisode] = useState({
+    title: '',
+    date: startOfToday(),
+    subtitle: '',
+    description: '',
+    type: '',
+    intro: '',
+    outro: 'default',
+    audio_original: '',
+    length: 0,
+    image: '',
+  });
 
-    const { episodeId } = this.props;
+  const saveEpisode = useCallback(async () => {
+    await setDoc(firestoreDoc, episode, { merge: true });
+    setIsSaved(true);
+  }, [firestoreDoc, episode]);
 
-    this.episodeCollection = collection(db, 'podcasts', podcastId, 'episodes');
-
-    const beginningOfToday = new Date();
-    beginningOfToday.setHours(0, 0, 0);
-
-    this.state = {
-      file: {},
-      uploading: false,
-      uploadProgress: 0,
-      successfullUploaded: false,
-      wasCreated: false,
-      doc: episodeId
-        ? doc(this.episodeCollection, episodeId)
-        : doc(this.episodeCollection),
-      episode: {
-        title: '',
-        date: beginningOfToday,
-        subtitle: '',
-        description: '',
-        type: '',
-        intro: '',
-        outro: 'default',
-        audio_original: '',
-        length: 0,
-        image: '',
-      },
-    };
-
-    this.handleFilesAdded = this.handleFilesAdded.bind(this);
-    this.handleFormChange = this.handleFormChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleDocIdBlur = this.handleDocIdBlur.bind(this);
-    this.handleEpisodeDataChange = this.handleEpisodeDataChange.bind(this);
-    this.uploadFiles = this.uploadFiles.bind(this);
-    this.saveEpisode = this.saveEpisode.bind(this);
-    this.handleButtonSaveClick = this.handleButtonSaveClick.bind(this);
-    this.loadEpisode = this.loadEpisode.bind(this);
-    this.t = this.props.t;
-
-    if (episodeId) {
-      this.loadEpisode();
-      this.state.wasCreated = true;
-    }
-  }
-
-  handleFilesAdded(files) {
-    this.setState(
-      (prevState) => ({
-        file: files[0],
-      }),
-      () => {
-        this.uploadFiles();
-      },
-    );
-  }
-
-  uploadFiles() {
-    this.setState({ uploadProgress: 0, uploading: true });
-
-    let uploadFileName = '';
-    if (this.state.file.type.includes('image')) {
-      uploadFileName = `${this.state.doc.id}.${this.getFileEnding()}`;
-    } else if (this.state.file.type.includes('audio')) {
-      uploadFileName = `original-audio-${Date.now()}.${this.getFileEnding()}`;
-    } else {
-      uploadFileName = this.state.file.name;
-    }
-
-    const fileRef = ref(
-      this.storageRef,
-      `${this.state.doc.id}/${uploadFileName}`,
-    );
-    const uploadTask = uploadBytesResumable(fileRef, this.state.file);
-
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        this.setState({
-          uploadProgress:
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
-        });
-      },
-      (error) => {
-        // Handle unsuccessful uploads
-        this.setState({ successfullUploaded: true, uploading: false });
-      },
-      async () => {
-        this.setState({ successfullUploaded: true, uploading: false });
-
-        const metadata = await getMetadata(fileRef);
-
-        if (metadata.contentType.includes('image')) {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          this.handleEpisodeDataChange(
-            { image: downloadURL },
-            this.saveEpisode,
-          );
-        } else if (metadata.contentType.includes('audio')) {
-          this.handleEpisodeDataChange(
-            {
-              audio_original: fileRef.fullPath,
-              length: uploadTask.snapshot.totalBytes,
-            },
-            this.saveEpisode,
-          );
-        }
-      },
-    );
-  }
-
-  getFileEnding() {
-    const parts = this.state.file.name.split('.');
-    return parts.pop();
-  }
-
-  async saveEpisode() {
-    await setDoc(this.state.doc, this.state.episode, { merge: true });
-    this.setState({ wasCreated: true });
-  }
-
-  async handleButtonSaveClick() {
-    await this.saveEpisode();
+  const handleButtonSaveClick = async () => {
+    await saveEpisode();
     window.location.href = '/';
-  }
+  };
 
-  async loadEpisode() {
-    const snapshot = await getDoc(this.state.doc);
-    const episodeObject = snapshot.data();
-    episodeObject.date = snapshot.data().date.toDate();
-    this.setState({
-      episode: episodeObject,
-    });
-  }
-
-  handleFormChange(event) {
+  const handleFormChange = (event) => {
     let data = {};
     data[event.target.name] = event.target.value;
-    this.handleEpisodeDataChange(data);
-  }
+    handleEpisodeDataChange(data);
+  };
 
-  handleDescriptionChange(value) {
-    this.handleEpisodeDataChange({ description: value });
-  }
+  const handleDescriptionChange = (value) => {
+    handleEpisodeDataChange({ description: value });
+  };
 
   /**
-   * Takes and object and merges it with the current episode object. Callback is called once state has updated.
+   * Takes object and merges it with the current episode object.
    * @param {object} data
-   * @param {func} callback
    */
-  handleEpisodeDataChange(data, callback) {
-    this.setState(
-      (prevState) => ({
-        episode: { ...prevState.episode, ...data },
-      }),
-      callback,
-    );
-  }
+  const handleEpisodeDataChange = (data) => {
+    setEpisode({
+      ...episode,
+      ...data,
+    });
+  };
 
-  handleDocIdBlur(event) {
+  const handleDocIdBlur = (event) => {
     const slugified_id = Slugify(event.target.value);
 
-    this.setState({
-      doc:
-        slugified_id.length > 0
-          ? doc(this.episodeCollection, slugified_id)
-          : doc(this.episodeCollection),
-    });
+    setFirestoreDoc(
+      slugified_id.length > 0
+        ? doc(episodeCollection, slugified_id)
+        : doc(episodeCollection),
+    );
 
     event.target.value = slugified_id;
-  }
+  };
 
-  render() {
-    const handleDateChange = (date) => {
-      date.setHours(0, 0, 0, 0);
-      this.handleEpisodeDataChange({ date });
+  const handleDateChange = (date) => {
+    date.setHours(0, 0, 0, 0);
+    handleEpisodeDataChange({ date });
+  };
+
+  useEffect(() => {
+    if (episodeId) {
+      const loadEpisode = async () => {
+        const snapshot = await getDoc(firestoreDoc);
+        const episodeObject = snapshot.data();
+        episodeObject.date = snapshot.data().date.toDate();
+        handleEpisodeDataChange(episodeObject);
+      };
+      loadEpisode();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [episodeId]);
+
+  useEffect(() => {
+    if (!file) {
+      return;
+    }
+
+    const getFileEnding = () => {
+      const parts = file.name.split('.');
+      return parts.pop();
     };
 
-    return (
-      <Container
-        maxWidth="lg"
-        sx={{
-          padding: 4,
-        }}
-      >
-        <Paper sx={{ padding: 2 }}>
-          <Box
-            component="form"
-            sx={{
-              width: '100%',
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Typography variant="h5" gutterBottom>
-                  {this.state.episode.title || this.t('Upload.defaultTitle')}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <Dropzone
-                  onFilesAdded={this.handleFilesAdded}
-                  disabled={this.state.uploading}
-                  icon={<PublishIcon />}
-                  label={this.t('Upload.dropZone.label')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={9}>
-                <Stack>
-                  <Typography className="Filename">
-                    {this.state.file.name}
-                  </Typography>
-                  {this.state.uploading || this.state.successfullUploaded ? (
-                    <LinearProgress
-                      variant="determinate"
-                      value={this.state.uploadProgress}
-                      color={
-                        this.state.successfullUploaded ? 'success' : 'inherit'
-                      }
-                    />
-                  ) : null}
-                </Stack>
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth required>
-                  <InputLabel htmlFor="id">
-                    {this.t('Upload.form.id')}
-                  </InputLabel>
-                  <OutlinedInput
-                    id="id"
-                    name="id"
-                    onBlur={this.handleDocIdBlur}
-                    defaultValue={this.state.doc.id}
-                    aria-describedby="id-helper-text"
-                    disabled={this.state.wasCreated}
-                  />
-                  <FormHelperText id="id-helper-text">
-                    {this.t('Upload.form.id.helper-text.text')}&nbsp;
-                    <Link
-                      href="https://blog.hubspot.com/website/what-is-wordpress-slug"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {this.t('Upload.form.id.helper-text.more')}
-                    </Link>
-                  </FormHelperText>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label={this.t('Upload.form.date')}
-                    value={this.state.episode.date}
-                    onChange={handleDateChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <FormControl fullWidth required>
-                  <InputLabel id="type">
-                    {this.t('Upload.form.type')}
-                  </InputLabel>
-                  <Select
-                    labelId="type"
-                    id="type"
-                    value={this.state.episode.type}
-                    name="type"
-                    onChange={this.handleFormChange}
-                  >
-                    <MenuItem value="full">
-                      {this.t('Upload.form.type.episode')}
-                    </MenuItem>
-                    <MenuItem value="trailer">
-                      {this.t('Upload.form.type.trailer')}
-                    </MenuItem>
-                    <MenuItem value="bonus">
-                      {this.t('Upload.form.type.bonus')}
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <FormControl fullWidth>
-                  <InputLabel id="intro">
-                    {this.t('Upload.form.intro')}
-                  </InputLabel>
-                  <Select
-                    labelId="intro"
-                    id="intro"
-                    value={this.state.episode.intro}
-                    name="intro"
-                    onChange={this.handleFormChange}
-                  >
-                    <MenuItem value="">
-                      {this.t('Upload.form.intro.empty')}
-                    </MenuItem>
-                    <MenuItem value="main">
-                      {this.t('Upload.form.intro.main')}
-                    </MenuItem>
-                    <MenuItem value="expert">
-                      {this.t('Upload.form.intro.expert')}
-                    </MenuItem>
-                    <MenuItem value="sponsored">
-                      {this.t('Upload.form.intro.sponsored')}
-                    </MenuItem>
-                    <MenuItem value="monologue">
-                      {this.t('Upload.form.intro.monologue')}
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <FormControl fullWidth>
-                  <InputLabel id="outro">
-                    {this.t('Upload.form.outro')}
-                  </InputLabel>
-                  <Select
-                    labelId="outro"
-                    id="outro"
-                    value={this.state.episode.outro}
-                    name="outro"
-                    onChange={this.handleFormChange}
-                  >
-                    <MenuItem value="">
-                      {this.t('Upload.form.outro.empty')}
-                    </MenuItem>
-                    <MenuItem value="default">
-                      {this.t('Upload.form.outro.default')}
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  label={this.t('Upload.form.title')}
-                  name="title"
-                  onChange={this.handleFormChange}
-                  value={this.state.episode.title}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  label={this.t('Upload.form.subtitle')}
-                  name="subtitle"
-                  onChange={this.handleFormChange}
-                  value={this.state.episode.subtitle}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth required>
-                  <MarkdownEditor
-                    id="description"
-                    name="description"
-                    value={this.state.episode.description}
-                    height="500"
-                    onChange={this.handleDescriptionChange}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <Stack
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                  spacing={2}
-                >
-                  <DeleteButton
-                    disabled={!this.state.wasCreated}
-                    doc={this.state.doc}
-                    redirectTo="/"
-                  />
-                  <Button
-                    onClick={this.handleButtonSaveClick}
-                    variant="contained"
-                    color="primary"
-                  >
-                    {this.t('Upload.form.save')}
-                  </Button>
-                </Stack>
-              </Grid>
-            </Grid>
-          </Box>
-        </Paper>
-      </Container>
-    );
-  }
-}
+    const uploadFiles = () => {
+      const storageRef = ref(storage, `podcasts/${podcastId}/episodes`);
 
-export default withTranslation()(withRouter(withAuth(Upload)));
+      setIsUploading(true);
+      setUploadProgress(0);
+
+      let uploadFileName = '';
+      if (file.type.includes('image')) {
+        uploadFileName = `${firestoreDoc.id}.${getFileEnding()}`;
+      } else if (file.type.includes('audio')) {
+        uploadFileName = `original-audio-${Date.now()}.${getFileEnding()}`;
+      } else {
+        uploadFileName = file.name;
+      }
+
+      const fileRef = ref(storageRef, `${firestoreDoc.id}/${uploadFileName}`);
+      const uploadTask = uploadBytesResumable(fileRef, file);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          setUploadProgress(snapshot.bytesTransferred / snapshot.totalBytes);
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          setIsUploading(false);
+          setUploadWasSuccessful(false);
+        },
+        async () => {
+          setIsUploading(false);
+          setUploadWasSuccessful(true);
+
+          const metadata = await getMetadata(fileRef);
+
+          if (metadata.contentType.includes('image')) {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            handleEpisodeDataChange({ image: downloadURL });
+          } else if (metadata.contentType.includes('audio')) {
+            handleEpisodeDataChange({
+              audio_original: fileRef.fullPath,
+              length: uploadTask.snapshot.totalBytes,
+            });
+          }
+        },
+      );
+    };
+    uploadFiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file]);
+
+  useEffect(() => {
+    if (isUploading || !uploadWasSuccessful) {
+      return;
+    }
+
+    saveEpisode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUploading, uploadWasSuccessful]);
+
+  return (
+    <Container
+      maxWidth="lg"
+      sx={{
+        padding: 4,
+      }}
+    >
+      <Paper sx={{ padding: 2 }}>
+        <Box
+          component="form"
+          sx={{
+            width: '100%',
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h5" gutterBottom>
+                {episode.title || t('Upload.defaultTitle')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <Dropzone
+                onFilesAdded={(files) => {
+                  setFile(files[0]);
+                }}
+                disabled={isUploading}
+                icon={<PublishIcon />}
+                label={t('Upload.dropZone.label')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={9}>
+              <Stack>
+                <Typography className="Filename">{file?.name}</Typography>
+                {isUploading || uploadWasSuccessful ? (
+                  <LinearProgress
+                    variant="determinate"
+                    value={uploadProgress * 100}
+                    color={uploadWasSuccessful ? 'success' : 'inherit'}
+                  />
+                ) : null}
+              </Stack>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth required>
+                <InputLabel htmlFor="id">{t('Upload.form.id')}</InputLabel>
+                <OutlinedInput
+                  id="id"
+                  name="id"
+                  onBlur={handleDocIdBlur}
+                  defaultValue={firestoreDoc.id}
+                  aria-describedby="id-helper-text"
+                  disabled={isSaved}
+                />
+                <FormHelperText id="id-helper-text">
+                  {t('Upload.form.id.helper-text.text')}&nbsp;
+                  <Link
+                    href="https://blog.hubspot.com/website/what-is-wordpress-slug"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {t('Upload.form.id.helper-text.more')}
+                  </Link>
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label={t('Upload.form.date')}
+                  value={episode.date}
+                  onChange={handleDateChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <FormControl fullWidth required>
+                <InputLabel id="type">{t('Upload.form.type')}</InputLabel>
+                <Select
+                  labelId="type"
+                  id="type"
+                  value={episode.type}
+                  name="type"
+                  onChange={handleFormChange}
+                >
+                  <MenuItem value="full">
+                    {t('Upload.form.type.episode')}
+                  </MenuItem>
+                  <MenuItem value="trailer">
+                    {t('Upload.form.type.trailer')}
+                  </MenuItem>
+                  <MenuItem value="bonus">
+                    {t('Upload.form.type.bonus')}
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <FormControl fullWidth>
+                <InputLabel id="intro">{t('Upload.form.intro')}</InputLabel>
+                <Select
+                  labelId="intro"
+                  id="intro"
+                  value={episode.intro}
+                  name="intro"
+                  onChange={handleFormChange}
+                >
+                  <MenuItem value="">{t('Upload.form.intro.empty')}</MenuItem>
+                  <MenuItem value="main">
+                    {t('Upload.form.intro.main')}
+                  </MenuItem>
+                  <MenuItem value="expert">
+                    {t('Upload.form.intro.expert')}
+                  </MenuItem>
+                  <MenuItem value="sponsored">
+                    {t('Upload.form.intro.sponsored')}
+                  </MenuItem>
+                  <MenuItem value="monologue">
+                    {t('Upload.form.intro.monologue')}
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <FormControl fullWidth>
+                <InputLabel id="outro">{t('Upload.form.outro')}</InputLabel>
+                <Select
+                  labelId="outro"
+                  id="outro"
+                  value={episode.outro}
+                  name="outro"
+                  onChange={handleFormChange}
+                >
+                  <MenuItem value="">{t('Upload.form.outro.empty')}</MenuItem>
+                  <MenuItem value="default">
+                    {t('Upload.form.outro.default')}
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                label={t('Upload.form.title')}
+                name="title"
+                onChange={handleFormChange}
+                value={episode.title}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                label={t('Upload.form.subtitle')}
+                name="subtitle"
+                onChange={handleFormChange}
+                value={episode.subtitle}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth required>
+                <MarkdownEditor
+                  id="description"
+                  name="description"
+                  value={episode.description}
+                  height={500}
+                  onChange={handleDescriptionChange}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Stack
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+                spacing={2}
+              >
+                <DeleteButton
+                  disabled={!isSaved}
+                  doc={firestoreDoc}
+                  redirectTo="/"
+                />
+                <Button
+                  onClick={handleButtonSaveClick}
+                  variant="contained"
+                  color="primary"
+                >
+                  {t('Upload.form.save')}
+                </Button>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Box>
+      </Paper>
+    </Container>
+  );
+};
+
+export default Upload;
