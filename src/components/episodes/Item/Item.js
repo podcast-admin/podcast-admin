@@ -19,8 +19,10 @@ import { Timestamp } from 'firebase/firestore';
 
 import ItemChips from './ItemChips';
 import Markdown from './Markdown';
+import { useNavigate } from 'react-router-dom';
 
 const Item = ({ episodeId, item }) => {
+  const navigate = useNavigate();
   const { title, subtitle, image, description, url } = item;
   const [t] = useTranslation();
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
@@ -58,7 +60,7 @@ const Item = ({ episodeId, item }) => {
               <Button
                 startIcon={<Edit />}
                 aria-label={t('Item.editEpisode')}
-                href={`episodes/${episodeId}/edit`}
+                onClick={() => navigate(`${episodeId}/edit`)}
                 size="large"
               >
                 {t('Item.editEpisode')}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link as LinkRouter } from 'react-router-dom';
 
 import { CircularProgress, Stack, Link } from '@mui/material';
 
@@ -36,7 +36,7 @@ const Home = () => {
         <p>Mehrere Podcasts</p>
         <Stack>
           {podcasts.map((p) => (
-            <Link key={p} href={`/podcasts/${p}/episodes`}>
+            <Link component={LinkRouter} key={p} to={`/podcasts/${p}/episodes`}>
               {p}
             </Link>
           ))}

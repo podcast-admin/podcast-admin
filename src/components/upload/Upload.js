@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { startOfToday } from 'date-fns';
 import Slugify from '../../helpers/Slugify';
 import useIntroQuery from '../../hooks/useIntroQuery';
@@ -43,6 +43,7 @@ import DeleteButton from '../DeleteButton';
 import MarkdownEditor from '../MarkdownEditor';
 
 const Upload = (props) => {
+  const navigate = useNavigate();
   const params = useParams();
 
   const { episodeId } = props;
@@ -82,7 +83,7 @@ const Upload = (props) => {
 
   const handleButtonSaveClick = async () => {
     await saveEpisode();
-    window.location.href = '/';
+    navigate('/');
   };
 
   const handleFormChange = (event) => {

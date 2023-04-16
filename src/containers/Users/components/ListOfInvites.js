@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as LinkRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { doc, getDoc } from 'firebase/firestore';
 import {
@@ -73,7 +73,9 @@ const ListOfInvites = () => {
       <TableRow>
         <TableCell align="center" colSpan={7}>
           {t('ListOfInvites.noInvites.text')}{' '}
-          <Link href="users/invite">{t('ListOfInvites.noInvites.link')}</Link>
+          <Link component={LinkRouter} to="invite">
+            {t('ListOfInvites.noInvites.link')}
+          </Link>
         </TableCell>
       </TableRow>
     );

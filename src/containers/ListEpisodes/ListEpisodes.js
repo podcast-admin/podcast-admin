@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -21,6 +21,7 @@ import Episodes from '../../components/episodes/Episodes';
 import withAuth from '../../helpers/WithAuth';
 
 const ListEpisodes = (props) => {
+  const navigate = useNavigate();
   const { podcastId } = useParams();
   const [t] = useTranslation();
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
@@ -82,7 +83,7 @@ const ListEpisodes = (props) => {
           }}
           color="primary"
           aria-label="add"
-          href={`episodes/new`}
+          onClick={() => navigate('new')}
         >
           <Add />
         </Fab>

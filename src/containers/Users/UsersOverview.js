@@ -1,4 +1,4 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import withAuth from '../../helpers/WithAuth';
 
@@ -8,6 +8,7 @@ import ListOfUsers from './components/ListOfUsers';
 import ListOfInvites from './components/ListOfInvites';
 
 const UsersOverview = () => {
+  const navigate = useNavigate();
   const [t] = useTranslation();
 
   return (
@@ -21,7 +22,7 @@ const UsersOverview = () => {
         <Typography variant="h3" gutterBottom>
           {t('UsersOverview.title')}
         </Typography>
-        <Button href="users/invite">
+        <Button onClick={() => navigate('invite')}>
           {t('UsersOverview.inviteButtonLabel')}
         </Button>
       </Stack>

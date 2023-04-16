@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, Outlet } from 'react-router-dom';
+import {
+  useNavigate,
+  useParams,
+  Outlet,
+  Link as LinkRouter,
+} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import {
@@ -99,9 +104,10 @@ const NavigationBar = () => {
       <AppBar position="static">
         <Toolbar>
           <Link
+            component={LinkRouter}
             sx={{ display: { xs: 'none', sm: 'inline' }, flexGrow: 1 }}
             variant="h6"
-            href={`/`}
+            to="/"
             color="inherit"
             underline="none"
           >
@@ -111,12 +117,11 @@ const NavigationBar = () => {
             <Box>
               <Button
                 color="inherit"
-                href={`/podcasts/${podcastId}/episodes`}
+                onClick={() => navigate(`/podcasts/${podcastId}/episodes`)}
                 startIcon={<Album />}
               >
                 {t('NavigationBar.allEpisodes')}
               </Button>
-
               <Tooltip title="Podcast settings">
                 <IconButton
                   color="inherit"
@@ -159,19 +164,28 @@ const NavigationBar = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem component={Link} href={`/podcasts/${podcastId}/users`}>
+        <MenuItem
+          component={Link}
+          onClick={() => navigate(`/podcasts/${podcastId}/users`)}
+        >
           <ListItemIcon>
             <People fontSize="small" />
           </ListItemIcon>
           {t('NavigationBar.users')}
         </MenuItem>
-        <MenuItem component={Link} href={`/podcasts/${podcastId}/intro-outro`}>
+        <MenuItem
+          component={Link}
+          onClick={() => navigate(`/podcasts/${podcastId}/intro-outro`)}
+        >
           <ListItemIcon>
             <AudioFile fontSize="small" />
           </ListItemIcon>
           {t('NavigationBar.editIntroOutro')}
         </MenuItem>
-        <MenuItem component={Link} href={`/podcasts/${podcastId}/edit`}>
+        <MenuItem
+          component={Link}
+          onClick={() => navigate(`/podcasts/${podcastId}/edit`)}
+        >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>

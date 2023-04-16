@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as LinkRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { Typography, Link, CircularProgress, Stack } from '@mui/material';
@@ -41,7 +41,9 @@ const Episodes = () => {
     return (
       <Typography align="center">
         {t('Episodes.no-episodes.text')}{' '}
-        <Link href={`episodes/new`}>{t('Episodes.no-episodes.link')}</Link>
+        <Link component={LinkRouter} to="new">
+          {t('Episodes.no-episodes.link')}
+        </Link>
       </Typography>
     );
   }
