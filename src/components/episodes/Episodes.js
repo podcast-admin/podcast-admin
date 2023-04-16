@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { Typography, Link, CircularProgress, Stack } from '@mui/material';
 import { db } from '../../helpers/Firebase';
+import withAuth from '../../helpers/WithAuth';
 
 import Item from './Item';
 
@@ -49,4 +50,4 @@ const Episodes = () => {
   }
 };
 
-export default Episodes;
+export default withAuth(Episodes);
