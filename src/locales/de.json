@@ -88,7 +88,9 @@
     "ItemChips.outro": "Outro: '{{outro}}'",
     "ItemChips.processing": "Audio wird verarbeitet...",
     
-    "Item.editEpisode": "Episode bearbeiten",
+    "Item.editEpisode": "Bearbeiten",
+    "Item.editEpisodeTooltip": "Episode bearbeiten",
+    "Item.copyEpisodeUrl": "Link kopieren",
     "Item.copyEpisodeUrl.toolTip": "Link zur Episode in die Zwischenablage kopieren",
     "Item.copyEpisodeUrl.success": "Link zur Episode in die Zwischenablage kopiert.",
 

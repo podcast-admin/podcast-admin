@@ -88,7 +88,9 @@
     "ItemChips.outro": "Outro: '{{outro}}'",
     "ItemChips.processing": "Mixing audio files...",
     
-    "Item.editEpisode": "Edit Episode",
+    "Item.editEpisode": "Edit",
+    "Item.editEpisodeTooltip": "Edit Episode",
+    "Item.copyEpisodeUrl": "Copy URL",
     "Item.copyEpisodeUrl.toolTip": "Copy episode URL to clipboard",
     "Item.copyEpisodeUrl.success": "Copied episode URL to clipboard.",
 

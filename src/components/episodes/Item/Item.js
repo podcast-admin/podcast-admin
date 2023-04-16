@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   IconButton,
+  Button,
   Tooltip,
   Snackbar,
 } from '@mui/material';
@@ -40,38 +41,40 @@ const Item = ({ episodeId, item }) => {
       </Stack>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={3}>
-          <LazyLoad>
-            <Box
-              component="img"
-              sx={{ width: '100%' }}
-              src={image}
-              alt={title}
-            />
-          </LazyLoad>
           <Stack
-            direction="row"
+            direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
           >
-            <Tooltip title={t('Item.editEpisode')}>
-              <IconButton
+            <LazyLoad>
+              <Box
+                component="img"
+                sx={{ width: '100%' }}
+                src={image}
+                alt={title}
+              />
+            </LazyLoad>
+            <Tooltip title={t('Item.editEpisodeTooltip')}>
+              <Button
+                startIcon={<Edit />}
                 aria-label={t('Item.editEpisode')}
                 href={`episodes/${episodeId}/edit`}
                 size="large"
               >
-                <Edit />
-              </IconButton>
+                {t('Item.editEpisode')}
+              </Button>
             </Tooltip>
             {url && (
               <>
                 <CopyToClipboard text={url} onCopy={setSuccessMessageVisible}>
                   <Tooltip title={t('Item.copyEpisodeUrl.toolTip')}>
-                    <IconButton
+                    <Button
+                      startIcon={<LinkIcon />}
                       aria-label={t('Item.copyEpisodeUrl.toolTip')}
                       size="large"
                     >
-                      <LinkIcon />
-                    </IconButton>
+                      {t('Item.copyEpisodeUrl')}
+                    </Button>
                   </Tooltip>
                 </CopyToClipboard>
                 <Snackbar
