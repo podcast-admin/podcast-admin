@@ -5,6 +5,7 @@ import { startOfToday } from 'date-fns';
 import Slugify from '../../helpers/Slugify';
 import useIntroQuery from '../../hooks/useIntroQuery';
 import useOutroQuery from '../../hooks/useOutroQuery';
+import withAuth from '../../helpers/WithAuth';
 
 import {
   Button,
@@ -404,4 +405,4 @@ const Upload = (props) => {
   );
 };
 
-export default Upload;
+export default withAuth(Upload);
