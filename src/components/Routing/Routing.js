@@ -10,6 +10,7 @@ import PodcastEdit from '../../containers/PodcastEdit';
 import PodcastNew from '../../containers/PodcastNew';
 import Login from '../../containers/Login';
 import Home from '../../containers/Home';
+import Analytics from '../../containers/Analytics';
 import { UsersOverview, UsersInvite } from '../../containers/Users';
 
 const Routing = () => {
@@ -31,6 +32,7 @@ const Routing = () => {
           </Route>
           <Route path="edit" element={<PodcastEdit />} />
           <Route path="intro-outro" element={<ListIntroOutro />} />
+          <Route path="analytics" element={<Analytics />} />
         </Route>
       </Route>
     </Routes>

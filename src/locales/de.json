@@ -114,5 +114,7 @@
     "ListOfInvites.createdAt": "Eingeladen am",
     "ListOfInvites.intlDateTime": "{{val, datetime}}",
     "ListOfInvites.noInvites.text": "Es wurde niemand eingeladen.",
-    "ListOfInvites.noInvites.link": "Lade einen Nutzer ein."
+    "ListOfInvites.noInvites.link": "Lade einen Nutzer ein.",
+
+    "Analytics.title": "TOP 10 Episoden"
 }

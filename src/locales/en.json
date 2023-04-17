@@ -114,5 +114,7 @@
     "ListOfInvites.createdAt": "Invited on",
     "ListOfInvites.intlDateTime": "{{val, datetime}}",
     "ListOfInvites.noInvites.text": "No one is invited.",
-    "ListOfInvites.noInvites.link": "Invite someone."
+    "ListOfInvites.noInvites.link": "Invite someone.",
+
+    "Analytics.title": "TOP 10 Episodes"
 }
