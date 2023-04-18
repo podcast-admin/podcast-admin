@@ -13,7 +13,20 @@ const THUMP_SIZE = {
   height: 800,
 };
 
-const THUMP_PREFIX = 'thumb_';
+function getThumbFileNameSuffix() {
+  return `${THUMP_SIZE.width}x${THUMP_SIZE.height}`;
+}
+
+/**
+ * Returns the filename of the new thumbnail file.
+ *
+ * @param {string} fileName The file name of the original file
+ * @returns {string} The new file name for the thumbnail file
+ */
+function getThumbFileName(fileName) {
+  const [, name, ext] = fileName.match(/(.*)\.(\S+)/);
+  return `${name}_${getThumbFileNameSuffix()}.webp`;
+}
 
 /**
  *
@@ -42,11 +55,11 @@ module.exports = functions
     }
 
     // We add a 'thumb_' prefix to thumbnails file name. That's where we'll upload the thumbnail.
-    const thumbFileName = `${THUMP_PREFIX}${fileName}`;
+    const thumbFileName = getThumbFileName(fileName);
     const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
 
     // Exit if the image is already a thumbnail.
-    if (fileName.startsWith(THUMP_PREFIX)) {
+    if (fileName.includes(getThumbFileNameSuffix())) {
       return functions.logger.log(`Already a thumbnail: ${fileName}`);
     }
 
