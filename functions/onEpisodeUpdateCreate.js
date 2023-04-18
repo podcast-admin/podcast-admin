@@ -37,8 +37,19 @@ exports.onEpisodeUpdate = async (snap, context) => {
     });
   }
 
-  // Generate new feeds
-  await generateFeed(podcastId);
+  if (
+    dataBefore.date.seconds !== dataAfter.date.seconds ||
+    dataBefore.description !== dataAfter.description ||
+    dataBefore.image !== dataAfter.image ||
+    dataBefore.length !== dataAfter.length ||
+    dataBefore.subtitle !== dataAfter.subtitle ||
+    dataBefore.title !== dataAfter.title ||
+    dataBefore.type !== dataAfter.type ||
+    dataBefore.url !== dataAfter.url
+  ) {
+    // Generate new feeds
+    await generateFeed(podcastId);
+  }
 
   return true;
 };
