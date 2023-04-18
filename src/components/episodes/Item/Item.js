@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Item = ({ episodeId, item }) => {
   const navigate = useNavigate();
-  const { title, subtitle, image, description, url } = item;
+  const { title, subtitle, image, imageAlternatives, description, url } = item;
   const [t] = useTranslation();
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
@@ -53,6 +53,9 @@ const Item = ({ episodeId, item }) => {
                 component="img"
                 sx={{ width: '100%' }}
                 src={image}
+                srcSet={imageAlternatives?.map((i) => {
+                  return `${i.url} ${i.width}w,`;
+                })}
                 alt={title}
               />
             </LazyLoad>

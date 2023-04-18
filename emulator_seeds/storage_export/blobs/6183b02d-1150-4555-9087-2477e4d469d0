@@ -4,7 +4,7 @@
         <description><![CDATA[This is my super duper test podcast.]]></description>
         <link>http://example.org</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 23 Feb 2023 19:38:44 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 Apr 2023 19:01:40 GMT</lastBuildDate>
         <atom:link href="http://podcast-admin.firebaseapp.com/feed/my-podcast" rel="self" type="application/rss+xml"/>
         <copyright><![CDATA[My Company]]></copyright>
         <language><![CDATA[English]]></language>
@@ -25,7 +25,7 @@
             <itunes:email>john@doe.com</itunes:email>
         </itunes:owner>
         <item>
-            <title><![CDATA[My Test Wisdom2]]></title>
+            <title><![CDATA[My Test Wisdom]]></title>
             <description><![CDATA[<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h1 id="formatting">Formatting</h1>
 <p>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
@@ -70,7 +70,7 @@ example.com (but not on Github, for example).</p>
             <itunes:author>John Doe</itunes:author>
             <itunes:subtitle>Everything I know</itunes:subtitle>
             <itunes:episodeType>full</itunes:episodeType>
-            <itunes:image href="http://localhost:9199/v0/b/podcast-admin.appspot.com/o/podcasts%2Fmy-podcast%2Fepisodes%2Fmytestwisdom%2Fmytestwisdom.jpg?alt=media&amp;token=7f9e5dce-2ac8-43d1-bf88-3bb83c50dd77"/>
+            <itunes:image href="http://localhost:9199/v0/b/podcast-admin.appspot.com/o/podcasts%2Fmy-podcast%2Fepisodes%2Fmytestwisdom%2Fmytestwisdom.jpg?alt=media&amp;token=24775da2-710c-4e8a-9ebe-a93a98a243ec"/>
             <itunes:duration></itunes:duration>
         </item>
     </channel>

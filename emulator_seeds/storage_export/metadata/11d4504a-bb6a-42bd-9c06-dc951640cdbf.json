@@ -1,0 +1,17 @@
+{
+  "name": "podcasts/my-podcast/episodes/mytestwisdom/mytestwisdom_800x800.webp",
+  "bucket": "podcast-admin.appspot.com",
+  "metageneration": 2,
+  "generation": 1681844495345,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "downloadTokens": [
+    "b28b30ab-b734-489f-a7e6-2737f4b95987"
+  ],
+  "etag": "AqhQY7mQQ45iNTXnFL6qPPlNjFY",
+  "timeCreated": "2023-04-18T19:01:35.345Z",
+  "updated": "2023-04-18T19:01:49.312Z",
+  "size": 41258,
+  "md5Hash": "DFbh5nZl8T5EZXTsUZ9Y0g==",
+  "crc32c": "1729863737"
+}

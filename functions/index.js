@@ -61,3 +61,4 @@ exports.setCustomClaims = require('./setCustomClaims');
 exports.scheduledFirestoreExport = require('./firestoreBackups');
 
 exports.users = require('./users');
+exports.resizeImage = require('./resizeImage');
