@@ -73,15 +73,15 @@ module.exports = functions
       public: true,
     });
 
-    const url = await file.getSignedUrl({
-      action: 'read',
-      expires: Date.now() + 24 * 60 * 1000, // doesn't work long time
-    });
-
     await admin
       .firestore()
       .doc(collectionPath)
-      .set({ imageAlternatives: [{ url, ...THUMP_SIZE }] }, { merge: true });
+      .set(
+        {
+          imageAlternatives: [{ url: file.metadata.mediaLink, ...THUMP_SIZE }],
+        },
+        { merge: true },
+      );
 
     // Once the thumbnail has been uploaded delete the local file to free up disk space.
     return fs.unlinkSync(tempFilePath);
