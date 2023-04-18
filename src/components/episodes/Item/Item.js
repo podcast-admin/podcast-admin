@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import LazyLoad from 'react-lazyload';
 import { useTranslation } from 'react-i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
   Paper,
   Grid,
   Stack,
-  Box,
   Typography,
   IconButton,
   Button,
@@ -16,14 +14,14 @@ import {
 } from '@mui/material';
 import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
 import { Timestamp } from 'firebase/firestore';
-
+import EpisodeImage from '../../EpisodeImage';
 import ItemChips from './ItemChips';
 import Markdown from './Markdown';
 import { useNavigate } from 'react-router-dom';
 
 const Item = ({ episodeId, item }) => {
   const navigate = useNavigate();
-  const { title, subtitle, image, imageAlternatives, description, url } = item;
+  const { title, subtitle, description, url } = item;
   const [t] = useTranslation();
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
@@ -48,17 +46,10 @@ const Item = ({ episodeId, item }) => {
             justifyContent="flex-start"
             alignItems="flex-start"
           >
-            <LazyLoad>
-              <Box
-                component="img"
-                sx={{ width: '100%' }}
-                src={image}
-                srcSet={imageAlternatives?.map((i) => {
-                  return `${i.url} ${i.width}w,`;
-                })}
-                alt={title}
-              />
-            </LazyLoad>
+            <EpisodeImage
+              {...item}
+              onClick={() => navigate(`${episodeId}/edit`)}
+            />
             <Tooltip title={t('Item.editEpisodeTooltip')}>
               <Button
                 startIcon={<Edit />}
