@@ -13,6 +13,10 @@ const THUMP_SIZE = {
   height: 800,
 };
 
+/**
+ * Returns the thumbnail file name based on THUMP_SIZE.
+ * @returns {string} The thumbnail file name
+ */
 function getThumbFileNameSuffix() {
   return `${THUMP_SIZE.width}x${THUMP_SIZE.height}`;
 }
@@ -24,14 +28,10 @@ function getThumbFileNameSuffix() {
  * @returns {string} The new file name for the thumbnail file
  */
 function getThumbFileName(fileName) {
-  const [, name, ext] = fileName.match(/(.*)\.(\S+)/);
+  const [, name] = fileName.match(/(.*)\.(\S+)/);
   return `${name}_${getThumbFileNameSuffix()}.webp`;
 }
 
-/**
- *
- * @param {string} imageUrl The URL to the episode image. Must be on a Google Storage Bucket.
- */
 module.exports = functions
   .region('europe-west1')
   .storage.bucket('podcast-admin.appspot.com')
@@ -86,6 +86,7 @@ module.exports = functions
       public: true,
     });
 
+    // We save the image url to the firestore episode doc.
     await admin
       .firestore()
       .doc(collectionPath)
