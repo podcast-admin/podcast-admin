@@ -4,7 +4,7 @@
         <description><![CDATA[This is my super duper test podcast.]]></description>
         <link>http://example.org</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 23 Feb 2023 19:38:44 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 Apr 2023 17:19:50 GMT</lastBuildDate>
         <atom:link href="http://podcast-admin.firebaseapp.com/feed/my-podcast" rel="self" type="application/rss+xml"/>
         <copyright><![CDATA[My Company]]></copyright>
         <language><![CDATA[English]]></language>
@@ -70,7 +70,7 @@ example.com (but not on Github, for example).</p>
             <itunes:author>John Doe</itunes:author>
             <itunes:subtitle>Everything I know</itunes:subtitle>
             <itunes:episodeType>full</itunes:episodeType>
-            <itunes:image href="http://localhost:9199/v0/b/podcast-admin.appspot.com/o/podcasts%2Fmy-podcast%2Fepisodes%2Fmytestwisdom%2Fmytestwisdom.jpg?alt=media&amp;token=7f9e5dce-2ac8-43d1-bf88-3bb83c50dd77"/>
+            <itunes:image href="http://localhost:9199/v0/b/podcast-admin.appspot.com/o/podcasts%2Fmy-podcast%2Fepisodes%2Fmytestwisdom%2Fmytestwisdom.jpg?alt=media&amp;token=27c3a60f-1738-4787-95fe-e33ec86506ef"/>
             <itunes:duration></itunes:duration>
         </item>
     </channel>

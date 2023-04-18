@@ -1,0 +1,15 @@
+{
+  "name": "podcasts/my-podcast/feed.xml",
+  "bucket": "podcast-admin.appspot.com",
+  "metageneration": 3,
+  "generation": 1681838390034,
+  "contentType": "application/rss+xml",
+  "storageClass": "STANDARD",
+  "downloadTokens": [],
+  "etag": "CWyxzzW0n2zYn6DIbwzR92T10ms",
+  "timeCreated": "2023-04-18T17:19:50.034Z",
+  "updated": "2023-04-18T17:19:50.054Z",
+  "size": 5096,
+  "md5Hash": "Z2vTXm9x2t9rS10jip++pQ==",
+  "crc32c": "2670847484"
+}
