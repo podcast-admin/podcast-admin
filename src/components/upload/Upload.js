@@ -1,11 +1,12 @@
+import { Timestamp } from 'firebase/firestore';
+import PropTypes from 'prop-types';
+import { DocumentSnapshot } from 'firebase/firestore';
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
-import { startOfToday } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 import Slugify from '../../helpers/Slugify';
 import useIntroQuery from '../../hooks/useIntroQuery';
 import useOutroQuery from '../../hooks/useOutroQuery';
-import withAuth from '../../helpers/WithAuth';
 
 import {
   Button,
@@ -29,7 +30,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 import {
   ref,
@@ -43,58 +44,65 @@ import Dropzone from '../Dropzone';
 import DeleteButton from '../DeleteButton';
 import MarkdownEditor from '../MarkdownEditor';
 
-const Upload = (props) => {
+const Upload = ({ podcastId, episodeSnap }) => {
   const navigate = useNavigate();
-  const params = useParams();
-
-  const { episodeId } = props;
-  const podcastId = props.podcastId || params.podcastId;
   const episodeCollection = collection(db, 'podcasts', podcastId, 'episodes');
-  const [firestoreDoc, setFirestoreDoc] = useState(
-    episodeId ? doc(episodeCollection, episodeId) : doc(episodeCollection),
-  );
-  const [isSaved, setIsSaved] = useState(episodeId ? true : false);
+
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadWasSuccessful, setUploadWasSuccessful] = useState();
+  const [isSaved, setIsSaved] = useState(!!episodeSnap);
 
   const [t] = useTranslation();
   const [file, setFile] = useState();
-  const [episode, setEpisode] = useState({
-    title: '',
-    date: startOfToday(),
-    subtitle: '',
-    description: '',
-    type: '',
-    intro: '',
-    outro: 'default',
-    audio_original: '',
-    length: 0,
-    image: '',
-  });
+  const [episode, setEpisode] = useState(
+    episodeSnap
+      ? episodeSnap.data()
+      : {
+          type: '',
+          intro: '',
+          outro: '',
+          title: '',
+          date: Timestamp.fromDate(new Date()),
+          subtitle: '',
+          description: '',
+        },
+  );
 
-  const { isSuccess: isIntrosSuccess, data: intros } = useIntroQuery(podcastId);
+  const [episodeId, setEpisodeId] = useState(
+    episodeSnap ? episodeSnap.id : doc(episodeCollection).id,
+  );
 
-  const { isSuccess: isOutrosSuccess, data: outros } = useOutroQuery(podcastId);
+  const [episodeIdRaw, setEpisodeIdRaw] = useState(episodeId);
+
+  const { isSuccess: isIntrosSuccess, data: intros } = useIntroQuery(
+    podcastId,
+    { initialData: '' },
+  );
+
+  const { isSuccess: isOutrosSuccess, data: outros } = useOutroQuery(
+    podcastId,
+    { initialData: '' },
+  );
+
+  const SlugifyEpisodeId = (value) => {
+    const id = !value.match(/__.*__|.*\/.*|^\.{1,2}$|^\s*$/)
+      ? Slugify(value)
+      : doc(episodeCollection).id;
+
+    setEpisodeId(id);
+    setEpisodeIdRaw(id);
+  };
 
   const saveEpisode = useCallback(async () => {
-    await setDoc(firestoreDoc, episode, { merge: true });
+    await setDoc(doc(episodeCollection, episodeId), episode, { merge: true });
     setIsSaved(true);
-  }, [firestoreDoc, episode]);
-
-  const handleButtonSaveClick = async () => {
-    await saveEpisode();
-    navigate('/');
-  };
+  }, [episodeCollection, episodeId, episode]);
 
   const handleFormChange = (event) => {
     let data = {};
     data[event.target.name] = event.target.value;
     handleEpisodeDataChange(data);
-  };
-
-  const handleDescriptionChange = (value) => {
-    handleEpisodeDataChange({ description: value });
   };
 
   /**
@@ -107,36 +115,6 @@ const Upload = (props) => {
       ...data,
     });
   };
-
-  const handleDocIdBlur = (event) => {
-    const slugified_id = Slugify(event.target.value);
-
-    setFirestoreDoc(
-      slugified_id.length > 0
-        ? doc(episodeCollection, slugified_id)
-        : doc(episodeCollection),
-    );
-
-    event.target.value = slugified_id;
-  };
-
-  const handleDateChange = (date) => {
-    date.setHours(0, 0, 0, 0);
-    handleEpisodeDataChange({ date });
-  };
-
-  useEffect(() => {
-    if (episodeId) {
-      const loadEpisode = async () => {
-        const snapshot = await getDoc(firestoreDoc);
-        const episodeObject = snapshot.data();
-        episodeObject.date = snapshot.data().date.toDate();
-        handleEpisodeDataChange(episodeObject);
-      };
-      loadEpisode();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [episodeId]);
 
   useEffect(() => {
     if (!file) {
@@ -156,14 +134,14 @@ const Upload = (props) => {
 
       let uploadFileName = '';
       if (file.type.includes('image')) {
-        uploadFileName = `${firestoreDoc.id}.${getFileEnding()}`;
+        uploadFileName = `${episodeId}.${getFileEnding()}`;
       } else if (file.type.includes('audio')) {
         uploadFileName = `original-audio-${Date.now()}.${getFileEnding()}`;
       } else {
         uploadFileName = file.name;
       }
 
-      const fileRef = ref(storageRef, `${firestoreDoc.id}/${uploadFileName}`);
+      const fileRef = ref(storageRef, `${episodeId}/${uploadFileName}`);
       const uploadTask = uploadBytesResumable(fileRef, file);
 
       uploadTask.on(
@@ -257,8 +235,9 @@ const Upload = (props) => {
                 <OutlinedInput
                   id="id"
                   name="id"
-                  onBlur={handleDocIdBlur}
-                  defaultValue={firestoreDoc.id}
+                  onChange={(event) => setEpisodeIdRaw(event.target.value)}
+                  onBlur={(event) => SlugifyEpisodeId(event.target.value)}
+                  value={episodeIdRaw}
                   aria-describedby="id-helper-text"
                   disabled={isSaved}
                 />
@@ -278,8 +257,11 @@ const Upload = (props) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label={t('Upload.form.date')}
-                  value={episode.date}
-                  onChange={handleDateChange}
+                  value={episode.date.toDate()}
+                  onChange={(date) => {
+                    date.setHours(0, 0, 0, 0);
+                    handleEpisodeDataChange({ date: Timestamp.fromDate(date) });
+                  }}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
@@ -373,7 +355,9 @@ const Upload = (props) => {
                   name="description"
                   value={episode.description}
                   height={500}
-                  onChange={handleDescriptionChange}
+                  onChange={(description) =>
+                    handleEpisodeDataChange({ description })
+                  }
                 />
               </FormControl>
             </Grid>
@@ -386,11 +370,14 @@ const Upload = (props) => {
               >
                 <DeleteButton
                   disabled={!isSaved}
-                  doc={firestoreDoc}
+                  doc={doc(episodeCollection, episodeId)}
                   redirectTo="/"
                 />
                 <Button
-                  onClick={handleButtonSaveClick}
+                  onClick={async () => {
+                    await saveEpisode();
+                    navigate('/');
+                  }}
                   variant="contained"
                   color="primary"
                 >
@@ -405,4 +392,9 @@ const Upload = (props) => {
   );
 };
 
-export default withAuth(Upload);
+Upload.propTypes = {
+  podcastId: PropTypes.string.isRequired,
+  episodeSnap: PropTypes.instanceOf(DocumentSnapshot),
+};
+
+export default Upload;
