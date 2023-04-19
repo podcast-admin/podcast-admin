@@ -5,7 +5,7 @@ import NavigationBar from '../../components/NavigationBar';
 import Upload from '../../components/upload';
 import ListEpisodes from '../../containers/ListEpisodes';
 import ListIntroOutro from '../../containers/ListIntroOutro';
-import EditEpisode from '../../containers/EditEpisode';
+import EpisodeEdit from '../../containers/EpisodeEdit';
 import PodcastEdit from '../../containers/PodcastEdit';
 import PodcastNew from '../../containers/PodcastNew';
 import Login from '../../containers/Login';
@@ -23,7 +23,7 @@ const Routing = () => {
           <Route path="episodes">
             <Route index element={<ListEpisodes />} />
             <Route path="new" element={<Upload />} />
-            <Route path=":episodeId/edit" element={<EditEpisode />} />
+            <Route path=":episodeId/edit" element={<EpisodeEdit />} />
           </Route>
           <Route path="users">
             <Route index element={<UsersOverview />} />
