@@ -32,6 +32,8 @@ import {
 } from 'react-router-dom';
 
 import { auth } from '../../helpers/Firebase';
+import usePodcastQuery from '../../hooks/usePodcastQuery';
+import LoadingWrapper from '../LoadingWrapper';
 
 const NavigationBar = () => {
   const navigate = useNavigate();
@@ -98,20 +100,34 @@ const NavigationBar = () => {
     });
   }, []);
 
+  const { data, isLoading, isSuccess, isError } = usePodcastQuery(podcastId, {
+    initialData: {
+      data: () => {
+        return { data: 'Podcast Admin' };
+      },
+    },
+  });
+
   return (
     <>
       <AppBar position="static">
         <Toolbar>
-          <Link
-            component={LinkRouter}
-            sx={{ display: { xs: 'none', sm: 'inline' }, flexGrow: 1 }}
-            variant="h6"
-            to="/"
-            color="inherit"
-            underline="none"
+          <LoadingWrapper
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            isError={isError}
           >
-            Podcast Admin
-          </Link>
+            <Link
+              component={LinkRouter}
+              sx={{ display: { xs: 'none', sm: 'inline' }, flexGrow: 1 }}
+              variant="h6"
+              to="/"
+              color="inherit"
+              underline="none"
+            >
+              {data.data().name}
+            </Link>
+          </LoadingWrapper>
           {user ? (
             <Box>
               <Button
