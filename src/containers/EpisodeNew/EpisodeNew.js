@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import Upload from '../../components/upload';
+import Upload from '../../components/Upload';
 import withAuth from '../../helpers/WithAuth';
 
 const EpisodeNew = () => {
