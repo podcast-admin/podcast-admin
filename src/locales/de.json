@@ -94,6 +94,9 @@
     "Item.copyEpisodeUrl.toolTip": "Link zur Episode in die Zwischenablage kopieren",
     "Item.copyEpisodeUrl.success": "Link zur Episode in die Zwischenablage kopiert.",
 
+    "Markdown.showMore": "Mehr",
+    "Markdown.showLess": "Weniger",
+
     "UsersOverview.title": "Nutzer",
     "UsersOverview.displayName": "Name",
     "UsersOverview.email": "E-Mail-Adresse",

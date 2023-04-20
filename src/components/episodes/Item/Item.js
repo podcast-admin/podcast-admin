@@ -98,7 +98,7 @@ const Item = ({ episodeId, item }) => {
           </Stack>
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Markdown>{description}</Markdown>
+          <Markdown text={description} truncateLength={600} />
         </Grid>
       </Grid>
     </Paper>

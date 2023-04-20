@@ -94,6 +94,9 @@
     "Item.copyEpisodeUrl.toolTip": "Copy episode URL to clipboard",
     "Item.copyEpisodeUrl.success": "Copied episode URL to clipboard.",
 
+    "Markdown.showMore": "More",
+    "Markdown.showLess": "Less",
+
     "UsersOverview.title": "Users",
     "UsersOverview.displayName": "Name",
     "UsersOverview.email": "Email Address",
