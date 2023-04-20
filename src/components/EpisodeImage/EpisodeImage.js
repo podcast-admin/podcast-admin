@@ -1,13 +1,15 @@
 import LazyLoad from 'react-lazyload';
 import { Box } from '@mui/material';
 
+import missingImage from '../../images/missingImage.svg';
+
 const EpisodeImage = ({ image, imageAlternatives, title, onClick, sx }) => {
   return (
     <LazyLoad>
       <Box
         component="img"
         sx={{ width: '100%', cursor: onClick ? 'pointer' : undefined, ...sx }}
-        src={image}
+        src={image || missingImage}
         srcSet={imageAlternatives?.map((i) => {
           return `${i.url} ${i.width}w,`;
         })}
