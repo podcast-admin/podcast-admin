@@ -63,7 +63,8 @@ exports.processAudioFile = async ({ podcastId, episodeId }) => {
     );
   }
 
-  const finalEpisodeBucketUrl = await makeFilePublic(finalEpisodeBucketFile);
+  // Get the public URL to our new audio file
+  const finalEpisodeBucketUrl = finalEpisodeBucketFile.metadata.mediaLink;
 
   const duration = await getAudioDurationInSeconds(finalEpisodeLocalPath);
 
@@ -100,14 +101,10 @@ const uploadFile = async (localFilePath, filePath) => {
     resumable: false,
     destination: filePath,
     validation: false,
+    public: true,
   });
 
   return uploadResponse[0];
-};
-
-const makeFilePublic = async (file) => {
-  const [{ object }] = await file.makePublic();
-  return 'https://storage.googleapis.com/' + fileBucket + '/' + object;
 };
 
 const saveEpisode = async (dbPath, duration, epsiodeUrl) => {
