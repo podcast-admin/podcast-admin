@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
 import {
   Paper,
   Grid,
@@ -12,12 +9,16 @@ import {
   Tooltip,
   Snackbar,
 } from '@mui/material';
-import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
 import { Timestamp } from 'firebase/firestore';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
 import EpisodeImage from '../../EpisodeImage';
 import ItemChips from './ItemChips';
 import Markdown from './Markdown';
-import { useNavigate } from 'react-router-dom';
 
 const Item = ({ episodeId, item }) => {
   const navigate = useNavigate();

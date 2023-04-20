@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+
 const generateFeed = require('./lib/generateFeed.js').generateFeed;
 const getFeedXML = require('./lib/podcastFeedXML').getFeedXML;
 
@@ -39,6 +40,6 @@ exports.generateAllFeeds = functions
         await Promise.all(tasks);
       })
       .catch((err) => {
-        console.log('Error getting documents', err);
+        functions.logger.log('Error getting documents', err);
       });
   });

@@ -1,7 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link as LinkRouter } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { doc, getDoc } from 'firebase/firestore';
 import {
   Paper,
   Table,
@@ -13,6 +9,11 @@ import {
   CircularProgress,
   Link,
 } from '@mui/material';
+import { doc, getDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams, Link as LinkRouter } from 'react-router-dom';
+
 import { db } from '../../../helpers/Firebase';
 
 const ListOfInvites = () => {

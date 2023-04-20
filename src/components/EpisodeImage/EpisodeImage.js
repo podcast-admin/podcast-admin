@@ -1,5 +1,5 @@
-import LazyLoad from 'react-lazyload';
 import { Box } from '@mui/material';
+import LazyLoad from 'react-lazyload';
 
 import missingImage from '../../images/missingImage.svg';
 

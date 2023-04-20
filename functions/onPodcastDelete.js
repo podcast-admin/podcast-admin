@@ -1,5 +1,5 @@
-const { info } = require('firebase-functions/logger');
 const { Storage } = require('@google-cloud/storage');
+const { info } = require('firebase-functions/logger');
 
 exports.onPodcastDelete = async (snap, context) => {
   const storage = new Storage();

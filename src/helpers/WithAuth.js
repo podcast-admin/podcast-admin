@@ -1,7 +1,8 @@
+import { Stack, CircularProgress } from '@mui/material';
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
-import { Stack, CircularProgress } from '@mui/material';
+
 import { auth } from '../helpers/Firebase';
 
 const SIGNED_IN = 'SIGNED_IN';

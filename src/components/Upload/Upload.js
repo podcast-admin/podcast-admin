@@ -1,13 +1,4 @@
-import { Timestamp } from 'firebase/firestore';
-import PropTypes from 'prop-types';
-import { DocumentSnapshot } from 'firebase/firestore';
-import { useState, useEffect, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import Slugify from '../../helpers/Slugify';
-import useIntroQuery from '../../hooks/useIntroQuery';
-import useOutroQuery from '../../hooks/useOutroQuery';
-
+import PublishIcon from '@mui/icons-material/Publish';
 import {
   Button,
   Box,
@@ -26,22 +17,29 @@ import {
   LinearProgress,
   Link,
 } from '@mui/material';
-import PublishIcon from '@mui/icons-material/Publish';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { Timestamp } from 'firebase/firestore';
+import { DocumentSnapshot } from 'firebase/firestore';
 import { collection, doc, setDoc } from 'firebase/firestore';
-
 import {
   ref,
   uploadBytesResumable,
   getMetadata,
   getDownloadURL,
 } from 'firebase/storage';
+import PropTypes from 'prop-types';
+import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { db, storage } from '../../helpers/Firebase';
-import Dropzone from '../Dropzone';
+import Slugify from '../../helpers/Slugify';
+import useIntroQuery from '../../hooks/useIntroQuery';
+import useOutroQuery from '../../hooks/useOutroQuery';
 import DeleteButton from '../DeleteButton';
+import Dropzone from '../Dropzone';
 import MarkdownEditor from '../MarkdownEditor';
 
 const Upload = ({ podcastId, episodeSnap }) => {

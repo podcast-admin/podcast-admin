@@ -1,9 +1,9 @@
 import { httpsCallable } from 'firebase/functions';
-import withAuth from '../../helpers/WithAuth';
-import { functions, auth } from '../../helpers/Firebase';
+import { useNavigate } from 'react-router-dom';
 
 import PodcastForm from '../../components/PodcastForm';
-import { useNavigate } from 'react-router-dom';
+import { functions, auth } from '../../helpers/Firebase';
+import withAuth from '../../helpers/WithAuth';
 
 const PodcastNew = () => {
   const navigate = useNavigate();

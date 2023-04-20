@@ -1,8 +1,7 @@
+const { BigQuery } = require('@google-cloud/bigquery');
+const csv = require('csv-parser');
 const admin = require('firebase-admin');
 const { info, error } = require('firebase-functions/logger');
-const { BigQuery } = require('@google-cloud/bigquery');
-
-const csv = require('csv-parser');
 const UserAgentParser = require('podcast-user-agent-parser');
 
 // Instantiates a client

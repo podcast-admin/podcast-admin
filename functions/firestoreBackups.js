@@ -1,6 +1,6 @@
+const firestore = require('@google-cloud/firestore');
 const functions = require('firebase-functions');
 const { info } = require('firebase-functions/logger');
-const firestore = require('@google-cloud/firestore');
 const client = new firestore.v1.FirestoreAdminClient();
 
 const bucket = 'gs://podcast-admin-backups';

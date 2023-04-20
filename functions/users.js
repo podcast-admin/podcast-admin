@@ -1,6 +1,6 @@
-const functions = require('firebase-functions');
 const { getAuth } = require('firebase-admin/auth');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
+const functions = require('firebase-functions');
 
 const db = getFirestore();
 const collectionRef = db.collection('podcasts');

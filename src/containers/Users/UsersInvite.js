@@ -1,10 +1,3 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { db } from '../../helpers/Firebase';
-import withAuth from '../../helpers/WithAuth';
-
 import {
   Container,
   Paper,
@@ -13,6 +6,13 @@ import {
   TextField,
   Button,
 } from '@mui/material';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams, useNavigate } from 'react-router-dom';
+
+import { db } from '../../helpers/Firebase';
+import withAuth from '../../helpers/WithAuth';
 
 const UsersInvite = () => {
   const { podcastId } = useParams();

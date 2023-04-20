@@ -1,10 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-
+import { Add, Close } from '@mui/icons-material';
 import {
   Container,
   Fab,
@@ -15,7 +9,11 @@ import {
   Button,
   Grid,
 } from '@mui/material';
-import { Add, Close } from '@mui/icons-material';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import Episodes from '../../components/episodes/Episodes';
 import withAuth from '../../helpers/WithAuth';

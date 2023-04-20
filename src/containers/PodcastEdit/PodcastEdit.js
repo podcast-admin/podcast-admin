@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import withAuth from '../../helpers/WithAuth';
 
 import PodcastForm from '../../components/PodcastForm';
+import withAuth from '../../helpers/WithAuth';
 
 const PodcastEdit = () => {
   const { podcastId } = useParams();

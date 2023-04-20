@@ -1,11 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import withAuth from '../../helpers/WithAuth';
-
 import { Container, Stack, Button, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import ListOfUsers from './components/ListOfUsers';
+import withAuth from '../../helpers/WithAuth';
 import ListOfInvites from './components/ListOfInvites';
+import ListOfUsers from './components/ListOfUsers';
 
 const UsersOverview = () => {
   const navigate = useNavigate();

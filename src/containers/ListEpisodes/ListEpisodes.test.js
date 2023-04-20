@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+
 import ListEpisodes from './';
 
 jest.mock('../../helpers/WithAuth', () => (Component) => (props) => (

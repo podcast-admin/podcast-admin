@@ -1,15 +1,13 @@
-import React from 'react';
+import { StyledEngineProvider } from '@mui/material/styles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { StyledEngineProvider } from '@mui/material/styles';
-
-import * as serviceWorker from './serviceWorker';
-
-import './helpers/i18n';
 
 import App from './App';
+import './helpers/i18n';
+import * as serviceWorker from './serviceWorker';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

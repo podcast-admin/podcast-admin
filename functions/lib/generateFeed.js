@@ -1,4 +1,6 @@
 const admin = require('firebase-admin');
+const functions = require('firebase-functions');
+
 const podcastFeed = require('./podcastFeedXML');
 
 /**
@@ -15,6 +17,6 @@ exports.generateFeed = async (podcastId) => {
     await file.setMetadata({ contentType: 'application/rss+xml' });
     await file.makePublic();
   } catch (e) {
-    console.log(e);
+    functions.logger.log(e);
   }
 };

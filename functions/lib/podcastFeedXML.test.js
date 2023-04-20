@@ -1,11 +1,11 @@
 const admin = require('firebase-admin');
-const sinon = require('sinon');
-const { XmlDocument } = require('xmldoc');
-const { getFeedXML } = require('./podcastFeedXML');
-
 const test = require('firebase-functions-test')({
   projectId: process.env.GCLOUD_PROJECT,
 });
+const sinon = require('sinon');
+const { XmlDocument } = require('xmldoc');
+
+const { getFeedXML } = require('./podcastFeedXML');
 
 describe('PodcastFeedXML library', () => {
   beforeAll(() => {

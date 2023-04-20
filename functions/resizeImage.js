@@ -1,9 +1,9 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-const sharp = require('sharp');
-const path = require('path');
-const os = require('os');
 const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const sharp = require('sharp');
 
 /**
  * The dimensions of the thumbnail image.

@@ -1,10 +1,9 @@
-const admin = require('firebase-admin');
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
-
-const ffmpeg = require('fluent-ffmpeg');
 const pathToFfmpeg = require('ffmpeg-static');
+const admin = require('firebase-admin');
+const ffmpeg = require('fluent-ffmpeg');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 
 const fileBucket = 'podcast-admin.appspot.com'; // The Storage bucket that contains the file.
 var podcastFolder = 'podcasts',

@@ -1,12 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
-import withAuth from '../../helpers/WithAuth';
-
 import { Container, Typography, Grid, Paper } from '@mui/material';
-
-import Dropzone from '../../components/Dropzone';
-
 import {
   doc,
   getDoc,
@@ -17,8 +9,14 @@ import {
   updateDoc,
   onSnapshot,
 } from 'firebase/firestore';
-import { db, storage } from '../../helpers/Firebase';
 import { ref, uploadBytesResumable } from 'firebase/storage';
+import React, { useState, useEffect } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+
+import Dropzone from '../../components/Dropzone';
+import { db, storage } from '../../helpers/Firebase';
+import withAuth from '../../helpers/WithAuth';
 
 const ListIntroOutro = () => {
   const { podcastId } = useParams();

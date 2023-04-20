@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
-import LazyLoad from 'react-lazyload';
-import { Box, Link, Button, Typography } from '@mui/material';
 import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
+import { Box, Link, Button, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import LazyLoad from 'react-lazyload';
+import ReactMarkdown from 'react-markdown';
 
 const Markdown = ({ text, truncateLength }) => {
   const [t] = useTranslation();

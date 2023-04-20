@@ -1,7 +1,6 @@
+import { CircularProgress, Stack, Link } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Navigate, Link as LinkRouter } from 'react-router-dom';
-
-import { CircularProgress, Stack, Link } from '@mui/material';
 
 import { auth } from '../../helpers/Firebase';
 import withAuth from '../../helpers/WithAuth';

@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import { CircularProgress, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const LoadingWrapper = ({
   children,

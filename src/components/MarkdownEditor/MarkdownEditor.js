@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import MDEditor, { commands } from '@uiw/react-md-editor';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const MarkdownEditor = ({ id, name, value, height, onChange }) => {
   const [t] = useTranslation();

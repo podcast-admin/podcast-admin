@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
 import {
-  useNavigate,
-  useParams,
-  Outlet,
-  Link as LinkRouter,
-} from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { signOut, onAuthStateChanged } from 'firebase/auth';
+  MoreVert,
+  Album,
+  AudioFile,
+  Settings,
+  Logout,
+  Language,
+  People,
+} from '@mui/icons-material';
 import {
   AppBar,
   Toolbar,
@@ -21,16 +21,15 @@ import {
   Link,
   Avatar,
 } from '@mui/material';
-
+import { signOut, onAuthStateChanged } from 'firebase/auth';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  MoreVert,
-  Album,
-  AudioFile,
-  Settings,
-  Logout,
-  Language,
-  People,
-} from '@mui/icons-material';
+  useNavigate,
+  useParams,
+  Outlet,
+  Link as LinkRouter,
+} from 'react-router-dom';
 
 import { auth } from '../../helpers/Firebase';
 

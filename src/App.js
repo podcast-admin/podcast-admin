@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, useMediaQuery } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import React, { useMemo } from 'react';
+
 import Routing from './components/Routing';
 
 function App() {

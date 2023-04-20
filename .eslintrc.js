@@ -48,6 +48,24 @@ module.exports = {
     'react/jsx-curly-brace-presence': 'off',
     'react/jsx-fragments': 'off',
     'import/no-useless-path-segments': 'off',
+    'import/order': [
+      'warn',
+      {
+        pathGroupsExcludedImportTypes: ['builtin'],
+        groups: [
+          ['builtin', 'external'],
+          'internal',
+          ['parent', 'sibling', 'index'],
+        ],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+        warnOnUnassignedImports: true,
+      },
+    ],
+
     'react/no-access-state-in-setstate': 'off',
     'no-else-return': 'off',
     'jsx-a11y/label-has-associated-control': 'off',

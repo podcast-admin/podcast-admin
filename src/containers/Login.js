@@ -1,10 +1,9 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { httpsCallable } from 'firebase/functions';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-
 import { Button, Container, Paper, Typography } from '@mui/material';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { httpsCallable } from 'firebase/functions';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { functions, auth } from '../helpers/Firebase';
 

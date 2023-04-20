@@ -43,8 +43,8 @@
     "deploy": "firebase deploy",
     "test": "react-scripts test --no-cache",
     "eject": "react-scripts eject",
-    "lint": "eslint --debug src/",
-    "lint:fix": "eslint --debug src/ --fix",
+    "lint": "eslint --debug src/ functions/",
+    "lint:fix": "eslint --debug src/ functions/ --fix",
     "prettier": "prettier --write src/**/*.js"
   },
   "eslintConfig": {

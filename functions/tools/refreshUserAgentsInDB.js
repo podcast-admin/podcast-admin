@@ -1,20 +1,19 @@
+/* eslint-disable no-console */
 /**
  * This file downloads the entire bigquery logs, parses user agents for each log entry and then
  * upload-replaces the bigquery database with that enriched data.
  */
 
 // Import the Google Cloud client library using default credentials
-const {BigQuery} = require('@google-cloud/bigquery');
+const { BigQuery } = require('@google-cloud/bigquery');
+const bigquery = new BigQuery();
+const fs = require('fs');
+const jsonexport = require('jsonexport');
 const PodcastUserAgentParser = require('podcast-user-agent-parser');
 
-const bigquery = new BigQuery();
-const fs = require('fs')
-const jsonexport = require('jsonexport');
-
 async function query() {
-  
   const datasetId = 'storageanalysis';
-  const tableId = 'episode_requests'
+  const tableId = 'episode_requests';
 
   const query = `
     SELECT *
@@ -36,30 +35,30 @@ async function query() {
   const parser = await new PodcastUserAgentParser();
   const results = [];
 
-  rows.forEach(row => {
+  rows.forEach((row) => {
     let userAgent = parser.parse(row.cs_user_agent);
-    if(userAgent) {
+    if (userAgent) {
       results.push({
         ...row,
-        'cs_user_agent_device': userAgent.device,
-        'cs_user_agent_os': userAgent.os,
-        'cs_user_agent_app': userAgent.app,
-        'cs_user_agent_bot': userAgent.bot ? true : false
+        cs_user_agent_device: userAgent.device,
+        cs_user_agent_os: userAgent.os,
+        cs_user_agent_app: userAgent.app,
+        cs_user_agent_bot: userAgent.bot ? true : false,
       });
-    }else{
+    } else {
       results.push(row);
     }
   });
 
   const csv = await jsonexport(results, {
     forceTextDelimiter: true,
-    includeHeaders: false
+    includeHeaders: false,
   });
 
-  fs.writeFile('data.csv', csv, err => {
+  fs.writeFile('data.csv', csv, (err) => {
     if (err) {
-      console.error(err)
-      return
+      console.error(err);
+      return;
     }
   });
 
@@ -69,7 +68,7 @@ async function query() {
   // for a full list of supported values.
   //-
   const metadata = {
-    writeDisposition: "WRITE_TRUNCATE"
+    writeDisposition: 'WRITE_TRUNCATE',
   };
 
   await bigquery

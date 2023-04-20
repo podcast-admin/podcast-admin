@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import { Stack, Chip } from '@mui/material';
 import { Timestamp } from 'firebase/firestore';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Item = ({
   item: {

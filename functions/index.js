@@ -1,14 +1,13 @@
-const functions = require('firebase-functions');
-
 const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 admin.initializeApp();
 
 const loadAnalytics = require('./load-analytics').loadFile;
+const onEpisodeDelete = require('./onEpisodeDelete');
+const onEpisodeUpdateCreate = require('./onEpisodeUpdateCreate');
+const onPodcastDelete = require('./onPodcastDelete');
 const onPodcastUpdateCreate =
   require('./onPodcastUpdateCreate').onPodcastUpdateCreate;
-const onEpisodeUpdateCreate = require('./onEpisodeUpdateCreate');
-const onEpisodeDelete = require('./onEpisodeDelete');
-const onPodcastDelete = require('./onPodcastDelete');
 
 const longerTimeout = {
   timeoutSeconds: 540,

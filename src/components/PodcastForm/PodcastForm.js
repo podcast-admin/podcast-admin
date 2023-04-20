@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import Slugify from '../../helpers/Slugify';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
   Container,
@@ -17,10 +15,12 @@ import {
   Snackbar,
   IconButton,
 } from '@mui/material';
-
-import CloseIcon from '@mui/icons-material/Close';
 import { doc, getDoc, setDoc, collection } from 'firebase/firestore';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+
 import { db, auth } from '../../helpers/Firebase';
+import Slugify from '../../helpers/Slugify';
 
 class PodcastForm extends Component {
   constructor(props) {
