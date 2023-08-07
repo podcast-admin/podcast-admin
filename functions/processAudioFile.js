@@ -1,3 +1,4 @@
+const { info } = require("firebase-functions/logger");
 const pathToFfmpeg = require('ffmpeg-static');
 const admin = require('firebase-admin');
 const ffmpeg = require('fluent-ffmpeg');
@@ -19,6 +20,8 @@ exports.processAudioFile = async ({ podcastId, episodeId }) => {
     episodeFolder,
     episodeId,
   ].join('/');
+
+  info(`Processing ${episodeFolderBucketPath}...`);
 
   const rawEpisodeBucketPath = await getOriginalAudioPath(episodeId); // File path in the bucket.
 
@@ -107,18 +110,22 @@ const uploadFile = async (localFilePath, filePath) => {
 };
 
 const saveEpisode = async (dbPath, duration, epsiodeUrl) => {
+  const data = {
+    duration: Math.round(duration),
+    url: epsiodeUrl,
+    processing: 'done',
+    audioProcessedAt: new Date(),
+  }
+
   await admin
     .firestore()
     .doc(dbPath)
     .set(
-      {
-        duration: Math.round(duration),
-        url: epsiodeUrl,
-        processing: 'done',
-        audioProcessedAt: new Date(),
-      },
+      data,
       { merge: true },
     );
+
+    info('Updated episode doc in Firestore. See data in jsonPayload.', data);
 };
 
 const getIntroOutroFilePath = async () => {
