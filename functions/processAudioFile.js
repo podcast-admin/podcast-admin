@@ -1,16 +1,16 @@
-const { info } = require("firebase-functions/logger");
 const pathToFfmpeg = require('ffmpeg-static');
 const admin = require('firebase-admin');
+const { info } = require('firebase-functions/logger');
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
 const fileBucket = 'podcast-admin.appspot.com'; // The Storage bucket that contains the file.
-var podcastFolder = 'podcasts',
-  episodeFolder = 'episodes',
-  podcastFolderBucketPath = '',
-  episodeFolderBucketPath = '';
+const podcastFolder = 'podcasts';
+const episodeFolder = 'episodes';
+let podcastFolderBucketPath = '';
+let episodeFolderBucketPath = '';
 
 exports.processAudioFile = async ({ podcastId, episodeId }) => {
   podcastFolderBucketPath = [podcastFolder, podcastId].join('/');
@@ -28,8 +28,8 @@ exports.processAudioFile = async ({ podcastId, episodeId }) => {
   const finalEpisodeBucketPath =
     episodeFolderBucketPath + '/' + episodeId + '.mp3';
 
-  var finalEpisodeBucketFile = '',
-    finalEpisodeLocalPath = '';
+  let finalEpisodeBucketFile = '';
+  let finalEpisodeLocalPath = '';
 
   const rawEpisodeLocalPath = await downloadFile(
     fileBucket,
@@ -115,17 +115,11 @@ const saveEpisode = async (dbPath, duration, epsiodeUrl) => {
     url: epsiodeUrl,
     processing: 'done',
     audioProcessedAt: new Date(),
-  }
+  };
 
-  await admin
-    .firestore()
-    .doc(dbPath)
-    .set(
-      data,
-      { merge: true },
-    );
+  await admin.firestore().doc(dbPath).set(data, { merge: true });
 
-    info('Updated episode doc in Firestore. See data in jsonPayload.', data);
+  info('Updated episode doc in Firestore. See data in jsonPayload.', data);
 };
 
 const getIntroOutroFilePath = async () => {
@@ -150,7 +144,7 @@ const getOriginalAudioPath = async (episodeId) => {
 };
 
 const getAudioDurationInSeconds = (path) => {
-  var duration = 0;
+  let duration = 0;
 
   return new Promise((resolve, reject) => {
     ffmpeg()
@@ -162,7 +156,7 @@ const getAudioDurationInSeconds = (path) => {
         // Do nothing, maybe log something: console.log('Spawned Ffmpeg with command: ' + commandLine);
       })
       .on('progress', function (progress) {
-        var a = progress.timemark.split(':');
+        const a = progress.timemark.split(':');
         duration = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
       })
       .on('end', function () {

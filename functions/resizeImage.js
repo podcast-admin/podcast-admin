@@ -15,7 +15,7 @@ const THUMP_SIZE = {
 
 /**
  * Returns the thumbnail file name based on THUMP_SIZE.
- * @returns {string} The thumbnail file name
+ * @return {string} The thumbnail file name
  */
 function getThumbFileNameSuffix() {
   return `${THUMP_SIZE.width}x${THUMP_SIZE.height}`;
@@ -25,7 +25,7 @@ function getThumbFileNameSuffix() {
  * Returns the filename of the new thumbnail file.
  *
  * @param {string} fileName The file name of the original file
- * @returns {string} The new file name for the thumbnail file
+ * @return {string} The new file name for the thumbnail file
  */
 function getThumbFileName(fileName) {
   const [, name] = fileName.match(/(.*)\.(\S+)/);

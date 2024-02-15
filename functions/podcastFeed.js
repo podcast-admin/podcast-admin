@@ -28,12 +28,12 @@ exports.generateAllFeeds = functions
   .pubsub.schedule('0 1 * * *')
   .timeZone('Europe/Berlin')
   .onRun(async () => {
-    let podcastsRef = admin.firestore().collection('podcasts');
+    const podcastsRef = admin.firestore().collection('podcasts');
 
     return podcastsRef
       .get()
       .then(async (snapshot) => {
-        var tasks = [];
+        const tasks = [];
         snapshot.forEach((podcast) => {
           tasks.push(generateFeed(podcast.id));
         });

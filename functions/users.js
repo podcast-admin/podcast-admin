@@ -24,7 +24,7 @@ exports.list = functions
     const userList = [];
     const podcastSnap = await collectionRef.doc(podcastId).get();
 
-    for (let uid of podcastSnap.data().admins) {
+    for (const uid of podcastSnap.data().admins) {
       const userRecord = await getAuth().getUser(uid);
 
       userList.push({
@@ -50,7 +50,7 @@ exports.processInvites = functions
       .where('invitedAdmins', 'array-contains', email)
       .get();
 
-    let podcastIds = [];
+    const podcastIds = [];
     for (const doc of podcastsSnap.docs) {
       podcastIds.push(doc.id);
       await doc.ref.update({

@@ -36,7 +36,7 @@ exports.loadFile = async (data, context) => {
     const rows = await getRows;
 
     const result = [];
-    for (var i = 0; i < rows.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
       if (rows[i].cs_uri.includes('.mp3')) {
         const userAgent = parser.parse(rows[i].cs_user_agent);
         if (userAgent) {

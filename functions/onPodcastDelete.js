@@ -6,13 +6,13 @@ exports.onPodcastDelete = async (snap, context) => {
   const bucket = storage.bucket('podcast-admin.appspot.com');
 
   // Get the episodeId from the environment
-  let episodeId = context.params.episodeId;
+  const episodeId = context.params.episodeId;
 
   // List all the files under the bucket
-  let [files] = await bucket.getFiles();
+  const [files] = await bucket.getFiles();
 
   // Filter only files that belong to "folder" episodeId, aka their file.name contains "episodeId/"
-  let dirFiles = files.filter((f) =>
+  const dirFiles = files.filter((f) =>
     f.name.includes('/episodes/' + episodeId + '/'),
   );
 

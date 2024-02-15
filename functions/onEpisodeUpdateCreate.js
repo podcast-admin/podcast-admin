@@ -3,8 +3,8 @@ const processAudioFile = require('./processAudioFile.js').processAudioFile;
 
 exports.onEpisodeCreate = async (snap, context) => {
   // Get the podcastId from the environment
-  let podcastId = context.params.podcastId;
-  let data = snap.data();
+  const podcastId = context.params.podcastId;
+  const data = snap.data();
 
   if (data.audio_original) {
     await processAudioFile({
@@ -21,9 +21,9 @@ exports.onEpisodeCreate = async (snap, context) => {
 
 exports.onEpisodeUpdate = async (snap, context) => {
   // Get the podcastId from the environment
-  let podcastId = context.params.podcastId;
-  let dataBefore = snap.before.data();
-  let dataAfter = snap.after.data();
+  const podcastId = context.params.podcastId;
+  const dataBefore = snap.before.data();
+  const dataAfter = snap.after.data();
 
   if (
     dataAfter.processing === 'restart' ||

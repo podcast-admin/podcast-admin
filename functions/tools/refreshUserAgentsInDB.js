@@ -36,7 +36,7 @@ async function query() {
   const results = [];
 
   rows.forEach((row) => {
-    let userAgent = parser.parse(row.cs_user_agent);
+    const userAgent = parser.parse(row.cs_user_agent);
     if (userAgent) {
       results.push({
         ...row,
@@ -62,11 +62,11 @@ async function query() {
     }
   });
 
-  //-
+  // -
   // You may also pass in metadata in the format of a Jobs resource. See
   // (https://cloud.google.com/bigquery/docs/reference/rest/v2/Job#JobConfigurationLoad)
   // for a full list of supported values.
-  //-
+  // -
   const metadata = {
     writeDisposition: 'WRITE_TRUNCATE',
   };

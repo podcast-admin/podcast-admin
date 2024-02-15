@@ -3,7 +3,7 @@ const RSS = require('rss');
 const showdown = require('showdown');
 
 const getUrl = (episodeData) => {
-  let url = new URL(episodeData.url);
+  const url = new URL(episodeData.url);
   if (episodeData.audioProcessedAt) {
     url.searchParams.set('t', episodeData.audioProcessedAt.toDate().getTime());
   }
@@ -20,8 +20,8 @@ exports.getFeedXML = async (podcastId) => {
   const converter = new showdown.Converter({
     requireSpaceBeforeHeadingText: true,
   });
-  var podcastRef = collectionRef.doc(podcastId);
-  var episodesRef = collectionRef.doc(podcastId).collection('episodes');
+  const podcastRef = collectionRef.doc(podcastId);
+  const episodesRef = collectionRef.doc(podcastId).collection('episodes');
 
   const podcastDoc = await podcastRef.get();
   if (podcastDoc.exists) {
@@ -84,7 +84,7 @@ exports.getFeedXML = async (podcastId) => {
       .get();
 
     querySnapshot.forEach((episodeDoc) => {
-      var episodeData = episodeDoc.data();
+      const episodeData = episodeDoc.data();
 
       feed.item({
         guid: episodeDoc.id,
