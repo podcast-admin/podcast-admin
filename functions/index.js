@@ -62,3 +62,4 @@ exports.scheduledFirestoreExport = require('./firestoreBackups');
 
 exports.users = require('./users');
 exports.resizeImage = require('./resizeImage');
+exports.transcribeAudioFile = require('./lib/transcribeAudioFile');
