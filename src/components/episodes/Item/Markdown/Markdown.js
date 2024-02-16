@@ -3,7 +3,7 @@ import { Box, Link, Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import LazyLoad from 'react-lazyload';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown';
 
 const Markdown = ({ text, truncateLength }) => {
@@ -29,15 +29,13 @@ const Markdown = ({ text, truncateLength }) => {
         components={{
           img: ({ alt, src, title }) => {
             return (
-              <LazyLoad>
-                <Box
-                  component="img"
-                  sx={{ width: '100%' }}
-                  src={src}
-                  title={title}
-                  alt={alt}
-                />
-              </LazyLoad>
+              <Box
+                component={LazyLoadImage}
+                sx={{ width: '100%' }}
+                src={src}
+                title={title}
+                alt={alt}
+              />
             );
           },
           a: ({ children, href, target, title }) => {

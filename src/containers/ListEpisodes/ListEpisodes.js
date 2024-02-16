@@ -18,7 +18,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Episodes from '../../components/episodes/Episodes';
 import withAuth from '../../helpers/WithAuth';
 
-const ListEpisodes = (props) => {
+const ListEpisodes = () => {
   const navigate = useNavigate();
   const { podcastId } = useParams();
   const [t] = useTranslation();

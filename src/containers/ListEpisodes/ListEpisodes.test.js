@@ -1,5 +1,4 @@
-import { shallow } from 'enzyme';
-
+import { render } from '../../helpers/test-helpers';
 import ListEpisodes from './';
 
 jest.mock('../../helpers/WithAuth', () => (Component) => (props) => (
@@ -13,15 +12,18 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
+const mockCopyToClipboard = jest.fn().mockImplementation(() => <div />);
+jest.mock('react-copy-to-clipboard', () => ({
+  ...jest.requireActual('react-router-dom'),
+  CopyToClipboard: (props) => mockCopyToClipboard(props),
+}));
+
 describe('Given a podcastId', () => {
-  it('should allow users uto copy feed URL to clipboard', () => {
-    const wrapper = shallow(<ListEpisodes />)
-      .find('ListEpisodes')
-      .dive();
-    expect(
-      wrapper.find('CopyToClipboard').find({
-        text: 'https://podcast-admin.firebaseapp.com/feed/some-podcast-id',
-      }),
-    ).toHaveLength(1);
+  it('should allow users to copy feed URL to clipboard', () => {
+    render(<ListEpisodes />);
+
+    expect(mockCopyToClipboard.mock.calls[0][0].text).toBe(
+      'https://podcast-admin.firebaseapp.com/feed/some-podcast-id',
+    );
   });
 });
