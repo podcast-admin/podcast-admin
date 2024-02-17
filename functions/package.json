@@ -23,7 +23,7 @@
     "ffmpeg-static": "^4.2.8",
     "ffprobe-static": "^3.1.0",
     "firebase-admin": "^11.5.0",
-    "firebase-functions": "^4.2.1",
+    "firebase-functions": "^4.7.0",
     "fluent-ffmpeg": "^2.1.2",
     "js2xmlparser": "^4.0.1",
     "jsonexport": "^3.2.0",
