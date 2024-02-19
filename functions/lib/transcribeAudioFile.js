@@ -1,4 +1,4 @@
-const speech = require('@google-cloud/speech');
+const { SpeechClient } = require('@google-cloud/speech').v2;
 const pathToFfmpeg = require('ffmpeg-static');
 const { path: pathToFfprobe } = require('ffprobe-static');
 const admin = require('firebase-admin');
@@ -10,6 +10,10 @@ const path = require('path');
 const BUCKET = 'podcast-admin.appspot.com';
 const FILE =
   'podcasts/2T9aVqEJhvd1Fck2vVPp/episodes/digitale-services-in-2024/original-audio-1708153834380.wav';
+
+const client = new SpeechClient({
+  apiEndpoint: 'europe-west4-speech.googleapis.com',
+});
 
 const downloadFile = async (fileBucket, filePath) => {
   const fileName = path.basename(filePath);
@@ -57,27 +61,25 @@ const transcribeAudio = async (gcsUri, encoding, sampleRateHertz) => {
   // https://cloud.google.com/speech-to-text/docs/reference/rest/v1/RecognitionConfig#audioencoding
   const languageCode = 'de-DE';
 
-  const client = new speech.SpeechClient();
-
-  const config = {
-    encoding: encoding,
-    sampleRateHertz: sampleRateHertz,
-    languageCode: languageCode,
-  };
-
-  const audio = {
-    uri: gcsUri,
-  };
-
   const request = {
-    config: config,
-    audio: audio,
-    outputConfig: {
-      gcsUri: `gs://${BUCKET}/podcasts/2T9aVqEJhvd1Fck2vVPp/episodes/digitale-services-in-2024/transcript.json`,
+    recognizer:
+      'projects/podcast-admin/locations/europe-west4/recognizers/podcast-de-chirp',
+    config: {
+      // encoding: encoding,
+      // sampleRateHertz: sampleRateHertz,
+      autoDecodingConfig: {},
+    },
+    files: [{ uri: gcsUri }],
+    recognitionOutputConfig: {
+      gcsOutputConfig: {
+        uri: `gs://${BUCKET}/podcasts/2T9aVqEJhvd1Fck2vVPp/episodes/digitale-services-in-2024/transcript.json`,
+      },
     },
   };
 
-  return await client.longRunningRecognize(request); // Not sure if it works... we need to list running processes
+  const [operation] = await client.batchRecognize(request); // Not sure if it works... we need to list running processes
+  const [response] = await operation.promise();
+  return response;
 };
 
 const getEncoding = (codec) => {
@@ -91,7 +93,7 @@ const getEncoding = (codec) => {
   }
 };
 
-module.exports = onRequest(async (req, res) => {
+exports.run = onRequest(async (req, res) => {
   try {
     const { codec_name, sample_rate } = await getAudioMetadata(FILE);
     const result = await transcribeAudio(
@@ -100,6 +102,17 @@ module.exports = onRequest(async (req, res) => {
       sample_rate,
     );
     res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+exports.check = onRequest(async (req, res) => {
+  try {
+    const operation = await client.checkLongRunningRecognizeProgress(
+      req.query.name,
+    );
+    res.send(operation);
   } catch (e) {
     res.status(500).send(e);
   }
