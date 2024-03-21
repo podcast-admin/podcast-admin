@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import NavigationBar from '../../components/NavigationBar';
+import EpisodeAssistant from '../../containers/EpisodeAssistant/EpisodeAssistant';
 import EpisodeEdit from '../../containers/EpisodeEdit';
 import EpisodeNew from '../../containers/EpisodeNew';
 import Home from '../../containers/Home';
@@ -24,6 +25,7 @@ const Routing = () => {
             <Route index element={<ListEpisodes />} />
             <Route path="new" element={<EpisodeNew />} />
             <Route path=":episodeId/edit" element={<EpisodeEdit />} />
+            <Route path=":episodeId/assistant" element={<EpisodeAssistant />} />
           </Route>
           <Route path="users">
             <Route index element={<UsersOverview />} />
