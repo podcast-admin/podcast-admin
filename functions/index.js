@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 admin.initializeApp();
+const { setGlobalOptions } = require('firebase-functions/v2');
 
 const loadAnalytics = require('./load-analytics').loadFile;
 const onEpisodeDelete = require('./onEpisodeDelete');
@@ -8,6 +9,9 @@ const onEpisodeUpdateCreate = require('./onEpisodeUpdateCreate');
 const onPodcastDelete = require('./onPodcastDelete');
 const onPodcastUpdateCreate =
   require('./onPodcastUpdateCreate').onPodcastUpdateCreate;
+
+// locate all functions closest to users
+setGlobalOptions({ region: 'europe-west1' });
 
 exports.feed = require('./podcastFeed');
 

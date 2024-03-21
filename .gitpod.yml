@@ -14,7 +14,7 @@ tasks:
       mkdir /home/gitpod/.config/configstore
       echo $FIREBASE_CONFIG > /home/gitpod/.config/configstore/firebase-tools.json
       firebase functions:config:get > .runtimeconfig.json
-      firebase emulators:start --only functions,firestore,storage,auth --inspect-functions --import=./emulator_seeds
+      firebase emulators:start --only functions,firestore,storage,auth,pubsub --inspect-functions --import=./emulator_seeds
 
 ports:
   - port: 3000
