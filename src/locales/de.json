@@ -1,6 +1,7 @@
 {
   "DeleteButton.label": "Löschen",
   "DeleteButton.message": "Diese Episode wirklich löschen?",
+  "EpisodeAssistant.title": "Episode Assistant",
   "Episodes.no-episodes.link": "Erstelle eine neue.",
   "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
   "Item.copyEpisodeUrl": "Link kopieren",
@@ -18,6 +19,8 @@
   "ItemChips.missing.title": "Titel fehlt",
   "ItemChips.outro": "Outro: '{{outro}}'",
   "ItemChips.processing": "Audio wird verarbeitet...",
+  "ItemChips.transcript.done": "Transkribiert",
+  "ItemChips.transcript.processing": "Transkribtion läuft...",
   "ListEpisodes.copyFeedURL.buttonLabel": "Feed-URL kopieren",
   "ListEpisodes.copyFeedURL.successMessage": "Feed-URL in die Zwischenablage kopiert.",
   "ListEpisodes.createNew": "Neue Episode erstellen",
