@@ -39,7 +39,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint --debug src/ functions/",
     "lint:fix": "eslint --debug src/ functions/ --fix",
-    "prettier": "prettier --write src/**/*.js"
+    "prettier": "prettier --write src/**/*.js",
+    "i18n-sync": "i18next-scanner"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -65,6 +66,7 @@
     "enzyme": "^3.11.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.4.0",
-    "eslint-plugin-prettier": "^4.0.0"
+    "eslint-plugin-prettier": "^4.0.0",
+    "i18next-scanner": "^4.4.0"
   }
 }
