@@ -221,7 +221,7 @@ const NavigationBar = () => {
           <ListItemIcon>
             <Language fontSize="small" />
           </ListItemIcon>
-          {t(`NavigationBar.langSwitch.${i18n.language}`)}
+          {t('NavigationBar.langSwitch')}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleSignOut}>
