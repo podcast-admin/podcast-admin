@@ -1,6 +1,7 @@
 const { PubSub } = require('@google-cloud/pubsub');
 const { SpeechClient } = require('@google-cloud/speech').v2;
 const { getFirestore } = require('firebase-admin/firestore');
+const { getStorage } = require('firebase-admin/storage');
 const {
   logger: { error, info },
   https: { HttpsError },
@@ -9,11 +10,10 @@ const { onCall } = require('firebase-functions/v2/https');
 const { onMessagePublished } = require('firebase-functions/v2/pubsub');
 const yup = require('yup');
 
-const BUCKET = 'podcast-admin.appspot.com';
-const PUBSUB_TOPIC = 'elearning-report';
-
+const bucket = getStorage().bucket();
 const db = getFirestore();
-const collectionRef = db.collection('podcasts');
+
+const PUBSUB_TOPIC = 'elearning-report';
 
 const client = new SpeechClient({
   apiEndpoint: 'europe-west4-speech.googleapis.com',
@@ -88,15 +88,7 @@ exports.uiEndpoint = onCall(
         );
       }
 
-      // Getting original audio file and updating firestore should happen in pubsub func
-      const episodeDoc = collectionRef
-        .doc(podcastId)
-        .collection('episodes')
-        .doc(episodeId);
-      const episodeSnap = await episodeDoc.get();
-      const audioOriginalPath = episodeSnap.data().audio_original;
-
-      const data = Buffer.from(audioOriginalPath);
+      const data = Buffer.from(`podcasts/${podcastId}/episodes/${episodeId}`);
       const pubSubClient = new PubSub();
       pubSubClient
         .topic(PUBSUB_TOPIC)
@@ -110,15 +102,35 @@ exports.pubsubEndpoint = onMessagePublished(
   { topic: PUBSUB_TOPIC },
   (event) =>
     new Promise(async (resolve, reject) => {
-      const gcsUri = atob(event.data.message.data);
-      transcribeAudio(`gs://${BUCKET}/${gcsUri}`)
+      const episodeDoc = db.doc(atob(event.data.message.data));
+      await episodeDoc.update({
+        'transcript.status': 'processing',
+      });
+      const episodeSnap = await episodeDoc.get();
+      const gcsUri = episodeSnap.data().audio_original;
+
+      transcribeAudio(`gs://${bucket.id}/${gcsUri}`)
         .then((result) => {
-          info(`Transcription of ${gcsUri} finished.`, result);
-          resolve();
+          const transcriptGcsUri = result.results[gcsUri].uri;
+          episodeDoc
+            .update({
+              transcript: { gcsUri: transcriptGcsUri, status: 'done' },
+            })
+            .then(() => {
+              info(`Transcription of ${gcsUri} finished.`, { result });
+              resolve();
+            })
+            .catch((e) => {
+              error(`Saving transcription data ${gcsUri} failed.`, e),
+                reject(e);
+            });
         })
-        .catch((e) => {
-          error(`Transcription of ${gcsUri} failed.`, e);
-          reject();
+        .catch(async (e) => {
+          error(`Transcription of ${gcsUri} failed.`, { e });
+          episodeDoc.update({
+            transcript: { errorMessage: e.message, status: 'error' },
+          });
+          reject(e);
         });
     }),
 );

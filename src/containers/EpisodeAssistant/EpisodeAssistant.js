@@ -21,7 +21,13 @@ const EpisodeAssistant = () => {
     'transcribeAudioFile-uiEndpoint',
   );
 
-  const { isError } = useEpisodeQuery(
+  const refetch = () =>
+    setTimeout(() => {
+      refetchQuery();
+      isLoading && refetch();
+    }, 1000);
+
+  const { isError, refetch: refetchQuery } = useEpisodeQuery(
     {
       podcastId,
       episodeId,
@@ -34,7 +40,11 @@ const EpisodeAssistant = () => {
           getBlob(pathReference).then((data) =>
             data.text().then((data) => {
               setTranscript(
-                JSON.parse(data).results[0].alternatives[0].transcript,
+                JSON.parse(data).results.map((result) =>
+                  result.alternatives.map(
+                    (alternative) => alternative.transcript,
+                  ),
+                ),
               );
               setIsLoading(false);
             }),
@@ -55,7 +65,13 @@ const EpisodeAssistant = () => {
       >
         <Box>
           {transcript || (
-            <Button onClick={() => transcribeAudio({ podcastId, episodeId })}>
+            <Button
+              onClick={() => {
+                transcribeAudio({ podcastId, episodeId });
+                setIsLoading(true);
+                refetch();
+              }}
+            >
               Transcibe
             </Button>
           )}
