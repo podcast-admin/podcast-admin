@@ -1,4 +1,5 @@
 import { Box, Button } from '@mui/material';
+import { httpsCallable } from 'firebase/functions';
 import { ref, getBlob } from 'firebase/storage';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +7,7 @@ import { useParams } from 'react-router-dom';
 
 import LoadingWrapper from '../../components/LoadingWrapper';
 import PageContainer from '../../components/PageContainer/PageContainer';
-import { storage } from '../../helpers/Firebase';
+import { storage, functions } from '../../helpers/Firebase';
 import useEpisodeQuery from '../../hooks/useEpisodeQuery';
 
 const EpisodeAssistant = () => {
@@ -14,6 +15,11 @@ const EpisodeAssistant = () => {
   const [t] = useTranslation();
   const [transcript, setTranscript] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  const transcribeAudio = httpsCallable(
+    functions,
+    'transcribeAudioFile-uiEndpoint',
+  );
 
   const { isError } = useEpisodeQuery(
     {
@@ -47,7 +53,13 @@ const EpisodeAssistant = () => {
         isSuccess={!isLoading}
         isError={isError}
       >
-        <Box>{transcript || <Button>Transcibe</Button>}</Box>
+        <Box>
+          {transcript || (
+            <Button onClick={() => transcribeAudio({ podcastId, episodeId })}>
+              Transcibe
+            </Button>
+          )}
+        </Box>
       </LoadingWrapper>
     </PageContainer>
   );
