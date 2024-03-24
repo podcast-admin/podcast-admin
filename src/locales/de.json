@@ -20,7 +20,7 @@
   "ItemChips.outro": "Outro: '{{outro}}'",
   "ItemChips.processing": "Audio wird verarbeitet...",
   "ItemChips.transcript.done": "Transkribiert",
-  "ItemChips.transcript.processing": "Transkribtion läuft...",
+  "ItemChips.transcript.processing": "Transkription läuft...",
   "ListEpisodes.copyFeedURL.buttonLabel": "Feed-URL kopieren",
   "ListEpisodes.copyFeedURL.successMessage": "Feed-URL in die Zwischenablage kopiert.",
   "ListEpisodes.createNew": "Neue Episode erstellen",
