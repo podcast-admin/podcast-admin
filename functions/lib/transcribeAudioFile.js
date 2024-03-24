@@ -10,6 +10,8 @@ const { onCall } = require('firebase-functions/v2/https');
 const { onMessagePublished } = require('firebase-functions/v2/pubsub');
 const yup = require('yup');
 
+const { IS_DEBUG } = require('../constants');
+
 const bucket = getStorage().bucket();
 const db = getFirestore();
 
@@ -88,13 +90,26 @@ exports.uiEndpoint = onCall(
         );
       }
 
-      const data = Buffer.from(`podcasts/${podcastId}/episodes/${episodeId}`);
+      const episodePath = `podcasts/${podcastId}/episodes/${episodeId}`;
+
+      const episodeDoc = db.doc(episodePath);
+      await episodeDoc.update({
+        'transcript.status': 'processing',
+      });
+
+      const data = Buffer.from(episodePath);
       const pubSubClient = new PubSub();
-      pubSubClient
-        .topic(PUBSUB_TOPIC)
-        .publishMessage({ data })
-        .then(() => resolve())
-        .catch((e) => reject(e));
+
+      // Speech recognition can't run against emulators so we skip it in dev
+      if (!IS_DEBUG) {
+        pubSubClient
+          .topic(PUBSUB_TOPIC)
+          .publishMessage({ data })
+          .then(() => resolve())
+          .catch((e) => reject(e));
+      } else {
+        resolve();
+      }
     }),
 );
 
@@ -103,9 +118,6 @@ exports.pubsubEndpoint = onMessagePublished(
   (event) =>
     new Promise(async (resolve, reject) => {
       const episodeDoc = db.doc(atob(event.data.message.data));
-      await episodeDoc.update({
-        'transcript.status': 'processing',
-      });
       const episodeSnap = await episodeDoc.get();
       const gcsUri = episodeSnap.data().audio_original;
 
@@ -126,7 +138,7 @@ exports.pubsubEndpoint = onMessagePublished(
             });
         })
         .catch(async (e) => {
-          error(`Transcription of ${gcsUri} failed.`, { e });
+          error(`Transcription of ${gcsUri} failed.`, e);
           episodeDoc.update({
             transcript: { errorMessage: e.message, status: 'error' },
           });

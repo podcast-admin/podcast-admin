@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material';
 import { httpsCallable } from 'firebase/functions';
 import { ref, getBlob } from 'firebase/storage';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -15,28 +15,29 @@ const EpisodeAssistant = () => {
   const [t] = useTranslation();
   const [transcript, setTranscript] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [autoRefetch, setAutoRefetch] = useState(true);
 
   const transcribeAudio = httpsCallable(
     functions,
     'transcribeAudioFile-uiEndpoint',
   );
 
-  const refetch = () =>
-    setTimeout(() => {
-      refetchQuery();
-      isLoading && refetch();
-    }, 1000);
-
-  const { isError, refetch: refetchQuery } = useEpisodeQuery(
+  const query = useEpisodeQuery(
     {
       podcastId,
       episodeId,
     },
     {
-      onSuccess: (data) => {
-        const transcriptGcsUri = data?.data()?.transcript?.gcsUri;
-        if (transcriptGcsUri) {
-          const pathReference = ref(storage, transcriptGcsUri);
+      refetchInterval: autoRefetch ? 1000 : false,
+    },
+  );
+
+  useEffect(() => {
+    if (query.data) {
+      const transcript = query.data?.data()?.transcript;
+      switch (transcript?.status) {
+        case 'done':
+          const pathReference = ref(storage, transcript.gcsUri);
           getBlob(pathReference).then((data) =>
             data.text().then((data) => {
               setTranscript(
@@ -49,27 +50,32 @@ const EpisodeAssistant = () => {
               setIsLoading(false);
             }),
           );
-        } else {
+          break;
+        case 'processing':
+          // Do nothing
+          break;
+        default:
+          setAutoRefetch(false);
           setIsLoading(false);
-        }
-      },
-    },
-  );
+      }
+    }
+  }, [query.data]);
 
   return (
     <PageContainer title={t('EpisodeAssistant.title')}>
       <LoadingWrapper
         isLoading={isLoading}
         isSuccess={!isLoading}
-        isError={isError}
+        isError={query.isError}
       >
         <Box>
           {transcript || (
             <Button
-              onClick={() => {
-                transcribeAudio({ podcastId, episodeId });
+              onClick={async () => {
+                await transcribeAudio({ podcastId, episodeId });
+
                 setIsLoading(true);
-                refetch();
+                setAutoRefetch(true);
               }}
             >
               Transcibe
