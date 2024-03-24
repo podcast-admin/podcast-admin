@@ -97,14 +97,13 @@ exports.uiEndpoint = onCall(
         'transcript.status': 'processing',
       });
 
-      const data = Buffer.from(episodePath);
       const pubSubClient = new PubSub();
 
       // Speech recognition can't run against emulators so we skip it in dev
       if (!IS_DEBUG) {
         pubSubClient
           .topic(PUBSUB_TOPIC)
-          .publishMessage({ data })
+          .publishMessage({ data: Buffer.from(episodePath) })
           .then(() => resolve())
           .catch((e) => reject(e));
       } else {
@@ -119,26 +118,41 @@ exports.pubsubEndpoint = onMessagePublished(
     new Promise(async (resolve, reject) => {
       const episodeDoc = db.doc(atob(event.data.message.data));
       const episodeSnap = await episodeDoc.get();
-      const gcsUri = episodeSnap.data().audio_original;
+      const audioOriginal = episodeSnap.data().audio_original;
+      const gcsUri = `gs://${bucket.id}/${audioOriginal}`;
 
-      transcribeAudio(`gs://${bucket.id}/${gcsUri}`)
-        .then((result) => {
-          const transcriptGcsUri = result.results[gcsUri].uri;
-          episodeDoc
-            .update({
-              transcript: { gcsUri: transcriptGcsUri, status: 'done' },
-            })
-            .then(() => {
+      transcribeAudio(gcsUri)
+        .then(async (result) => {
+          try {
+            const ourResult = result.results[gcsUri];
+            if (ourResult.error) {
+              await episodeDoc.update({
+                transcript: {
+                  errorMessage: ourResult.error.message,
+                  status: 'error',
+                },
+              });
+              error(`Transcription of ${gcsUri} failed.`, {
+                error: ourResult.error,
+                result,
+              });
+              reject(ourResult.error);
+            } else {
+              const transcriptGcsUri = ourResult.uri;
+              await episodeDoc.update({
+                transcript: { gcsUri: transcriptGcsUri, status: 'done' },
+              });
+
               info(`Transcription of ${gcsUri} finished.`, { result });
               resolve();
-            })
-            .catch((e) => {
-              error(`Saving transcription data ${gcsUri} failed.`, e),
-                reject(e);
-            });
+            }
+          } catch (e) {
+            error(`Saving transcription data ${gcsUri} failed.`, { e, result });
+            reject(e);
+          }
         })
         .catch(async (e) => {
-          error(`Transcription of ${gcsUri} failed.`, e);
+          error(`Transcription of ${gcsUri} failed.`, { e });
           episodeDoc.update({
             transcript: { errorMessage: e.message, status: 'error' },
           });
