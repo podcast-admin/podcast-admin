@@ -47,6 +47,7 @@ const EpisodeAssistant = () => {
                   ),
                 ),
               );
+              setAutoRefetch(false);
               setIsLoading(false);
             }),
           );
