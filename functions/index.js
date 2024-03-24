@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 admin.initializeApp();
+const { setGlobalOptions } = require('firebase-functions/v2');
 
 const loadAnalytics = require('./load-analytics').loadFile;
 const onEpisodeDelete = require('./onEpisodeDelete');
@@ -13,6 +14,9 @@ const longerTimeout = {
   timeoutSeconds: 540,
   memory: '512MB',
 };
+
+// locate all functions closest to users
+setGlobalOptions({ region: 'europe-west1' });
 
 exports.feed = require('./podcastFeed');
 
@@ -61,3 +65,4 @@ exports.scheduledFirestoreExport = require('./firestoreBackups');
 
 exports.users = require('./users');
 exports.resizeImage = require('./resizeImage');
+exports.transcribeAudioFile = require('./lib/transcribeAudioFile');

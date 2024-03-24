@@ -15,6 +15,7 @@ const Item = ({
     intro,
     outro,
     processing,
+    transcript,
   },
 }) => {
   const [t] = useTranslation();
@@ -86,9 +87,15 @@ const Item = ({
 
       {intro && <Chip label={t('ItemChips.intro', { intro })} size="small" />}
       {outro && <Chip label={t('ItemChips.outro', { outro })} size="small" />}
-      {processing === 'restart' ? (
+      {processing === 'restart' && (
         <Chip label={t('ItemChips.processing')} color="primary" size="small" />
-      ) : null}
+      )}
+      {transcript && transcript.status === 'done' && (
+        <Chip label={t('ItemChips.transcript.done')} size="small" />
+      )}
+      {transcript && transcript.status === 'processing' && (
+        <Chip label={t('ItemChips.transcript.processing')} size="small" />
+      )}
     </Stack>
   );
 };
