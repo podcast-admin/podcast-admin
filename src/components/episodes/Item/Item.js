@@ -1,4 +1,9 @@
-import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
+import {
+  Edit,
+  Link as LinkIcon,
+  Close,
+  AutoFixHigh,
+} from '@mui/icons-material';
 import {
   Paper,
   Grid,
@@ -59,6 +64,16 @@ const Item = ({ episodeId, item }) => {
                 size="large"
               >
                 {t('Item.editEpisode')}
+              </Button>
+            </Tooltip>
+            <Tooltip title={t('Item.assistant.tooltip')}>
+              <Button
+                startIcon={<AutoFixHigh />}
+                aria-label={t('Item.assistant.label')}
+                onClick={() => navigate(`${episodeId}/assistant`)}
+                size="large"
+              >
+                {t('Item.assistant.label')}
               </Button>
             </Tooltip>
             {url && (
