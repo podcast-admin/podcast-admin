@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { httpsCallable } from 'firebase/functions';
 import { ref, getBlob } from 'firebase/storage';
 import { useState, useEffect } from 'react';
@@ -64,6 +64,10 @@ const EpisodeAssistant = () => {
 
   return (
     <PageContainer title={t('EpisodeAssistant.title')}>
+      <Typography gutterBottom>{t('EpisodeAssistant.betaIntro')}</Typography>
+      <Typography variant="h3" gutterBottom>
+        {t('EpisodeAssistant.transcript.headline')}
+      </Typography>
       <LoadingWrapper
         isLoading={isLoading}
         isSuccess={!isLoading}
@@ -71,16 +75,18 @@ const EpisodeAssistant = () => {
       >
         <Box>
           {transcript || (
-            <Button
-              onClick={async () => {
-                await transcribeAudio({ podcastId, episodeId });
+            <>
+              <Button
+                onClick={async () => {
+                  await transcribeAudio({ podcastId, episodeId });
 
-                setIsLoading(true);
-                setAutoRefetch(true);
-              }}
-            >
-              Transcibe
-            </Button>
+                  setIsLoading(true);
+                  setAutoRefetch(true);
+                }}
+              >
+                {t('EpisodeAssistant.button.transcribe')}
+              </Button>
+            </>
           )}
         </Box>
       </LoadingWrapper>
