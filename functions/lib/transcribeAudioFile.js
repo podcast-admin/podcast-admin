@@ -15,7 +15,7 @@ const { IS_DEBUG } = require('../constants');
 const bucket = getStorage().bucket();
 const db = getFirestore();
 
-const PUBSUB_TOPIC = 'elearning-report';
+const PUBSUB_TOPIC = 'episode-transcript';
 
 const client = new SpeechClient({
   apiEndpoint: 'europe-west4-speech.googleapis.com',

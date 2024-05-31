@@ -2,10 +2,12 @@ import { Box, Button, Typography } from '@mui/material';
 import { httpsCallable } from 'firebase/functions';
 import { ref, getBlob } from 'firebase/storage';
 import { useState, useEffect } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import LoadingWrapper from '../../components/LoadingWrapper';
+import Markdown from '../../components/Markdown';
 import PageContainer from '../../components/PageContainer/PageContainer';
 import { storage, functions } from '../../helpers/Firebase';
 import useEpisodeQuery from '../../hooks/useEpisodeQuery';
@@ -16,6 +18,7 @@ const EpisodeAssistant = () => {
   const [transcript, setTranscript] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [autoRefetch, setAutoRefetch] = useState(true);
+  const [promptResult, setPromptResult] = useState('');
 
   const transcribeAudio = httpsCallable(
     functions,
@@ -79,7 +82,28 @@ const EpisodeAssistant = () => {
         isError={query.isError}
       >
         <Box>
-          {transcript || (
+          {transcript ? (
+            <>
+              <CopyToClipboard text={transcript}>
+                <Button>Abschrift kopieren</Button>
+              </CopyToClipboard>
+              <Markdown text={promptResult} />
+              <Button
+                onClick={async () => {
+                  const runPrompt = httpsCallable(
+                    functions,
+                    'genai-runEpisodePrompt',
+                  );
+
+                  const result = await runPrompt({ podcastId, episodeId });
+
+                  setPromptResult(result.data);
+                }}
+              >
+                Titel erstellen
+              </Button>
+            </>
+          ) : (
             <>
               <Button
                 onClick={async () => {
