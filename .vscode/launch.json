@@ -3,8 +3,6 @@
   // Hover to view descriptions of existing attributes.
   "version": "0.2.0",
   "configurations": [
-
-  
     {
       "type": "node-terminal",
       "name": "Debug Firebase functions",
@@ -30,7 +28,7 @@
       "type": "node-terminal",
       "name": "Run Firebase emulators",
       "request": "launch",
-      "command": "firebase emulators:start --only functions,firestore,storage,auth --inspect-functions --import=./emulator_seeds",
+      "command": "firebase emulators:start --only functions,firestore,storage,auth,pubsub --inspect-functions --import=./emulator_seeds",
       "cwd": "${workspaceFolder}"
     },
     {
