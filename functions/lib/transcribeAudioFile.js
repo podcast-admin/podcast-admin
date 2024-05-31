@@ -46,7 +46,9 @@ const transcribeAudio = async (gcsUri) => {
     },
   };
 
+  info(`Transcribing ${gcsUri}...`);
   const [operation] = await client.batchRecognize(request);
+  info(`Transcription of ${gcsUri} started... `, { operation });
   const [response] = await operation.promise();
   return response;
 };

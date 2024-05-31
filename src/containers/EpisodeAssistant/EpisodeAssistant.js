@@ -55,6 +55,11 @@ const EpisodeAssistant = () => {
         case 'processing':
           // Do nothing
           break;
+        case 'error':
+          setTranscript(transcript.errorMessage);
+          setAutoRefetch(false);
+          setIsLoading(false);
+          break;
         default:
           setAutoRefetch(false);
           setIsLoading(false);
