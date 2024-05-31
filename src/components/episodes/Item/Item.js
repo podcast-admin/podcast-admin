@@ -22,8 +22,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import EpisodeImage from '../../EpisodeImage';
+import Markdown from '../../Markdown';
 import ItemChips from './ItemChips';
-import Markdown from './Markdown';
 
 const Item = ({ episodeId, item }) => {
   const navigate = useNavigate();
