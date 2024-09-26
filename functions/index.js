@@ -11,7 +11,7 @@ const onPodcastUpdateCreate =
   require('./onPodcastUpdateCreate').onPodcastUpdateCreate;
 
 // locate all functions closest to users
-setGlobalOptions({ region: 'europe-west1' });
+setGlobalOptions({ region: 'europe-west3' });
 
 exports.feed = require('./podcastFeed');
 

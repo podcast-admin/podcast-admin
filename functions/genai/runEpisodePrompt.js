@@ -4,7 +4,7 @@ const { getStorage } = require('firebase-admin/storage');
 const { onCall } = require('firebase-functions/v2/https');
 const yup = require('yup');
 
-const { error } = require('../lib/logging');
+const { info, error } = require('../lib/logging');
 
 const bucket = getStorage().bucket();
 const db = getFirestore();
@@ -14,13 +14,13 @@ const vertex_ai = new VertexAI({
   project: 'podcast-admin',
   location: 'europe-west3',
 });
-const model = 'gemini-1.5-flash-001';
+const model = 'gemini-1.5-flash-002';
 
 // Instantiate the models
 const generativeModel = vertex_ai.preview.getGenerativeModel({
   model: model,
   generationConfig: {
-    maxOutputTokens: 1035,
+    maxOutputTokens: 8192,
     temperature: 1,
     topP: 0.95,
   },
@@ -48,6 +48,7 @@ module.exports = onCall(async (request) => {
   const requestDataSchema = yup.object({
     podcastId: yup.string().required(),
     episodeId: yup.string().required(),
+    promptId: yup.string().required(),
   });
 
   // Reject the call if the required data is not provided
@@ -62,6 +63,7 @@ module.exports = onCall(async (request) => {
 
   const podcastId = request.data.podcastId;
   const episodeId = request.data.episodeId;
+  const promptId = request.data.promptId;
 
   // Reject the call if the user is not authenticated
   if (!request.auth) {
@@ -78,6 +80,12 @@ module.exports = onCall(async (request) => {
       request,
     );
   }
+
+  const podastDoc = db.doc(`podcasts/${podcastId}`);
+  const podcast = await podastDoc.get();
+  const podcastData = podcast.data();
+
+  const { prompt } = podcastData.genAiPrompts.find(({ id }) => id === promptId);
 
   const episodePath = `podcasts/${podcastId}/episodes/${episodeId}`;
 
@@ -121,12 +129,19 @@ module.exports = onCall(async (request) => {
         parts: [
           { text: transcript },
           {
-            text: 'Der Text ist eine Abschrift einer Podcast-Episode. Bitte erstelle Vorschläge für passende Titel für diese Episode. Sei kreativ.',
+            text: prompt,
           },
         ],
       },
     ],
   };
+
+  info(`Running Gen AI Job for ${episodeId}`, {
+    podcastId,
+    episodeId,
+    promptId,
+    prompt,
+  });
 
   const contentResult = await generativeModel.generateContent(req);
 

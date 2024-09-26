@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, Grid2 as Grid } from '@mui/material';
 import { httpsCallable } from 'firebase/functions';
 import { ref, getBlob } from 'firebase/storage';
 import { useState, useEffect } from 'react';
@@ -11,6 +11,7 @@ import Markdown from '../../components/Markdown';
 import PageContainer from '../../components/PageContainer/PageContainer';
 import { storage, functions } from '../../helpers/Firebase';
 import useEpisodeQuery from '../../hooks/useEpisodeQuery';
+import usePodcastQuery from '../../hooks/usePodcastQuery';
 
 const EpisodeAssistant = () => {
   const { podcastId, episodeId } = useParams();
@@ -25,7 +26,7 @@ const EpisodeAssistant = () => {
     'transcribeAudioFile-uiEndpoint',
   );
 
-  const query = useEpisodeQuery(
+  const episodeQuery = useEpisodeQuery(
     {
       podcastId,
       episodeId,
@@ -35,9 +36,11 @@ const EpisodeAssistant = () => {
     },
   );
 
+  const podcastQuery = usePodcastQuery(podcastId);
+
   useEffect(() => {
-    if (query.data) {
-      const transcript = query.data?.data()?.transcript;
+    if (episodeQuery.data) {
+      const transcript = episodeQuery.data?.data()?.transcript;
       switch (transcript?.status) {
         case 'done':
           const pathReference = ref(storage, transcript.gcsUri);
@@ -68,18 +71,20 @@ const EpisodeAssistant = () => {
           setIsLoading(false);
       }
     }
-  }, [query.data]);
+  }, [episodeQuery.data]);
+
+  const runPrompt = httpsCallable(functions, 'genai-runEpisodePrompt');
 
   return (
     <PageContainer title={t('EpisodeAssistant.title')}>
-      <Typography gutterBottom>{t('EpisodeAssistant.betaIntro')}</Typography>
       <Typography variant="h3" gutterBottom>
         {t('EpisodeAssistant.transcript.headline')}
       </Typography>
+      <Typography gutterBottom>{t('EpisodeAssistant.betaIntro')}</Typography>
       <LoadingWrapper
         isLoading={isLoading}
         isSuccess={!isLoading}
-        isError={query.isError}
+        isError={episodeQuery.isError}
       >
         <Box>
           {transcript ? (
@@ -87,21 +92,48 @@ const EpisodeAssistant = () => {
               <CopyToClipboard text={transcript}>
                 <Button>Abschrift kopieren</Button>
               </CopyToClipboard>
-              <Markdown text={promptResult} />
-              <Button
-                onClick={async () => {
-                  const runPrompt = httpsCallable(
-                    functions,
-                    'genai-runEpisodePrompt',
-                  );
+              <Typography variant="h3" gutterBottom>
+                Texte generieren
+              </Typography>
+              <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                  {podcastQuery.isSuccess &&
+                    podcastQuery.data
+                      ?.data()
+                      .genAiPrompts.map(({ id, title, description }) => (
+                        <>
+                          <Grid size={4}>{title}</Grid>
+                          <Grid size={6}>{description}</Grid>
+                          <Grid size={2}>
+                            <Button
+                              onClick={async () => {
+                                const result = await runPrompt({
+                                  podcastId,
+                                  episodeId,
+                                  promptId: id,
+                                });
 
-                  const result = await runPrompt({ podcastId, episodeId });
-
-                  setPromptResult(result.data);
-                }}
-              >
-                Titel erstellen
-              </Button>
+                                setPromptResult(result.data);
+                              }}
+                            >
+                              Ausführen
+                            </Button>
+                          </Grid>
+                        </>
+                      ))}
+                </Grid>
+              </Box>
+              {promptResult && (
+                <>
+                  <Typography variant="h3" gutterBottom>
+                    Ergebnis
+                  </Typography>
+                  <Markdown text={promptResult} />
+                  <CopyToClipboard text={promptResult}>
+                    <Button>Ergebnis kopieren</Button>
+                  </CopyToClipboard>
+                </>
+              )}
             </>
           ) : (
             <>
