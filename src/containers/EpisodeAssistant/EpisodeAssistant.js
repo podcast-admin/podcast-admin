@@ -1,4 +1,10 @@
-import { Box, Button, Typography, Grid2 as Grid } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography,
+  Grid2 as Grid,
+  CircularProgress,
+} from '@mui/material';
 import { httpsCallable } from 'firebase/functions';
 import { ref, getBlob } from 'firebase/storage';
 import { useState, useEffect } from 'react';
@@ -11,6 +17,7 @@ import Markdown from '../../components/Markdown';
 import PageContainer from '../../components/PageContainer/PageContainer';
 import { storage, functions } from '../../helpers/Firebase';
 import useEpisodeQuery from '../../hooks/useEpisodeQuery';
+import useGenAiPromptMutation from '../../hooks/useGenAiPromptMutation';
 import usePodcastQuery from '../../hooks/usePodcastQuery';
 
 const EpisodeAssistant = () => {
@@ -19,7 +26,6 @@ const EpisodeAssistant = () => {
   const [transcript, setTranscript] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [autoRefetch, setAutoRefetch] = useState(true);
-  const [promptResult, setPromptResult] = useState('');
 
   const transcribeAudio = httpsCallable(
     functions,
@@ -37,6 +43,8 @@ const EpisodeAssistant = () => {
   );
 
   const podcastQuery = usePodcastQuery(podcastId);
+
+  const genAiPromptMutation = useGenAiPromptMutation();
 
   useEffect(() => {
     if (episodeQuery.data) {
@@ -73,8 +81,6 @@ const EpisodeAssistant = () => {
     }
   }, [episodeQuery.data]);
 
-  const runPrompt = httpsCallable(functions, 'genai-runEpisodePrompt');
-
   return (
     <PageContainer title={t('EpisodeAssistant.title')}>
       <Typography variant="h3" gutterBottom>
@@ -106,14 +112,13 @@ const EpisodeAssistant = () => {
                           <Grid size={6}>{description}</Grid>
                           <Grid size={2}>
                             <Button
-                              onClick={async () => {
-                                const result = await runPrompt({
+                              disabled={genAiPromptMutation.isPending}
+                              onClick={() => {
+                                genAiPromptMutation.mutate({
                                   podcastId,
                                   episodeId,
                                   promptId: id,
                                 });
-
-                                setPromptResult(result.data);
                               }}
                             >
                               Ausführen
@@ -123,17 +128,27 @@ const EpisodeAssistant = () => {
                       ))}
                 </Grid>
               </Box>
-              {promptResult && (
-                <>
-                  <Typography variant="h3" gutterBottom>
-                    Ergebnis
-                  </Typography>
-                  <Markdown text={promptResult} />
-                  <CopyToClipboard text={promptResult}>
-                    <Button>Ergebnis kopieren</Button>
-                  </CopyToClipboard>
-                </>
-              )}
+              <>
+                <Typography variant="h3" gutterBottom>
+                  Ergebnis
+                </Typography>
+                {(() => {
+                  switch (genAiPromptMutation.status) {
+                    case 'success':
+                      return (
+                        <>
+                          <Markdown text={genAiPromptMutation.data} />
+                          <CopyToClipboard text={genAiPromptMutation.data}>
+                            <Button>Ergebnis kopieren</Button>
+                          </CopyToClipboard>
+                        </>
+                      );
+                    case 'pending':
+                      return <CircularProgress />;
+                    default:
+                  }
+                })()}
+              </>
             </>
           ) : (
             <>
