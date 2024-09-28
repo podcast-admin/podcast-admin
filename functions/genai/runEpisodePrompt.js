@@ -118,7 +118,7 @@ module.exports = onCall(async (request) => {
   const transcriptRaw = await readJsonFromFile(episodeData.transcript.gcsUri);
   const transcript = JSON.parse(transcriptRaw)
     .results.map((result) =>
-      result.alternatives.map((alternative) => alternative.transcript),
+      result.alternatives?.map((alternative) => alternative.transcript),
     )
     .join('');
 

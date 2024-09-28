@@ -56,7 +56,7 @@ const EpisodeAssistant = () => {
             data.text().then((data) => {
               setTranscript(
                 JSON.parse(data).results.map((result) =>
-                  result.alternatives.map(
+                  result.alternatives?.map(
                     (alternative) => alternative.transcript,
                   ),
                 ),
@@ -154,9 +154,8 @@ const EpisodeAssistant = () => {
             <>
               <Button
                 onClick={async () => {
-                  await transcribeAudio({ podcastId, episodeId });
-
                   setIsLoading(true);
+                  await transcribeAudio({ podcastId, episodeId });
                   setAutoRefetch(true);
                 }}
               >
