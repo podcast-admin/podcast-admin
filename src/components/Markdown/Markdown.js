@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 
 const Markdown = ({ text, truncateLength }) => {
   const [t] = useTranslation();
-  const [isReadMore, setIsReadMore] = useState(false);
+  const [isReadMore, setIsReadMore] = useState(truncateLength === undefined);
 
   const truncateString = (string, length) => {
     //trim the string to the maximum length
@@ -69,13 +69,15 @@ const Markdown = ({ text, truncateLength }) => {
           },
         }}
       />
-      <Button
-        size="small"
-        onClick={() => setIsReadMore(!isReadMore)}
-        startIcon={isReadMore ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-      >
-        {isReadMore ? t('Markdown.showLess') : t('Markdown.showMore')}
-      </Button>
+      {truncateLength && (
+        <Button
+          size="small"
+          onClick={() => setIsReadMore(!isReadMore)}
+          startIcon={isReadMore ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+        >
+          {isReadMore ? t('Markdown.showLess') : t('Markdown.showMore')}
+        </Button>
+      )}
     </>
   );
 };
