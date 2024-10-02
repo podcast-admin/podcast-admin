@@ -1,10 +1,10 @@
 {
   "DeleteButton.label": "Löschen",
   "DeleteButton.message": "Diese Episode wirklich löschen?",
-  "EpisodeAssistant.betaIntro": "Der Assistent ist noch in der Entwicklung. Aktuell lassen sich nur Abschriften von deutschen Ausgaben erstellen, die dann zum Beispiel durch ein LLM wie Goolgle Gemini in Social Media Posts oder Presseartikel umgewandelt werden können. Manchmal funktioniert die Abschrift aber noch nicht. Um eine Abschrift zu starten, einfach auf den Button klicken und warten. Wenn es funktioniert hat, erscheint nach ein paar Minuten eine Abschrift. Die Seite kann derweil geschlossen werden. Jede Abschrift kostet übrigens Geld. ;)",
-  "EpisodeAssistant.button.transcribe": "Transkript erstellen",
+  "EpisodeAssistant.intro": "Der Assistent ist noch in der Entwicklung. Aktuell lassen sich nur Abschriften von deutschen Ausgaben erstellen. Um eine Abschrift zu starten, einfach auf den Button klicken und warten. Wenn es funktioniert hat, lassen sich nach ein paar Minuten diverse Texte generieren. Die Seite kann derweil geschlossen werden.",
+  "EpisodeAssistant.button.transcribe": "Abschrift erstellen",
   "EpisodeAssistant.title": "Episode Assistant",
-  "EpisodeAssistant.transcript.headline": "Transkript",
+  "EpisodeAssistant.transcript.headline": "Abschrift",
   "Episodes.no-episodes.link": "Erstelle eine neue.",
   "Episodes.no-episodes.text": "Du hast noch keine Episoden.",
   "Item.assistant.label": "Assistant",

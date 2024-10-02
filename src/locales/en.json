@@ -1,7 +1,7 @@
 {
   "DeleteButton.label": "Delete",
   "DeleteButton.message": "Do you really want to delete this episode?",
-  "EpisodeAssistant.betaIntro": "The assistant is still in development. Currently, you can only create transcripts of episodes in German, which can then be converted into social media posts or press articles, for example through an LLM like Goolgle Gemini. Sometimes the transcription doesn't work yet. To start a transcription, simply click on the button and wait. If it worked, a transcript will appear after a few minutes. The site can be closed in the meantime. By the way, every copy costs money. ;)",
+  "EpisodeAssistant.intro": "The assistant is still under development. Currently, only transcripts of German editions can be created. To start a transcript, simply click on the button and wait. If it works, various texts can be generated after a few minutes. The page can be closed in the meantime.",
   "EpisodeAssistant.button.transcribe": "Transcribe",
   "EpisodeAssistant.title": "Episode Assistant",
   "EpisodeAssistant.transcript.headline": "Transcript",

@@ -86,7 +86,6 @@ const EpisodeAssistant = () => {
       <Typography variant="h3" gutterBottom>
         {t('EpisodeAssistant.transcript.headline')}
       </Typography>
-      <Typography gutterBottom>{t('EpisodeAssistant.betaIntro')}</Typography>
       <LoadingWrapper
         isLoading={isLoading}
         isSuccess={!isLoading}
@@ -152,6 +151,9 @@ const EpisodeAssistant = () => {
             </>
           ) : (
             <>
+              <Typography gutterBottom>
+                {t('EpisodeAssistant.intro')}
+              </Typography>
               <Button
                 onClick={async () => {
                   setIsLoading(true);
