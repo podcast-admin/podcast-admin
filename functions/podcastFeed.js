@@ -5,7 +5,7 @@ const generateFeed = require('./lib/generateFeed.js').generateFeed;
 const getFeedXML = require('./lib/podcastFeedXML').getFeedXML;
 
 exports.getFeed = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .https.onRequest(async (req, res) => {
     const podcastId = req.path.substr(1, req.path.length);
 
@@ -24,7 +24,7 @@ exports.getFeed = functions
   });
 
 exports.generateAllFeeds = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .pubsub.schedule('0 1 * * *')
   .timeZone('Europe/Berlin')
   .onRun(async () => {

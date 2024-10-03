@@ -6,7 +6,7 @@ const client = new firestore.v1.FirestoreAdminClient();
 const bucket = 'gs://podcast-admin-backups';
 
 module.exports = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .pubsub.schedule('every 24 hours')
   .onRun(async (context) => {
     const projectId = process.env.GCP_PROJECT || process.env.GCLOUD_PROJECT;

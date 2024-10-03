@@ -22,17 +22,17 @@ exports.loadAnalytics = functions
   .onFinalize(loadAnalytics);
 
 exports.onPodcastDelete = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .firestore.document('podcasts/{podcastId}/episodes/{episodeId}')
   .onDelete(onPodcastDelete.onPodcastDelete);
 
 exports.onPodcastUpdate = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .firestore.document('podcasts/{podcastId}')
   .onUpdate(onPodcastUpdateCreate);
 
 exports.onPodcastCreate = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .firestore.document('podcasts/{podcastId}')
   .onCreate(onPodcastUpdateCreate);
 
@@ -55,7 +55,7 @@ exports.onEpisodeCreate = functions
   .onCreate(onEpisodeUpdateCreate.onEpisodeCreate);
 
 exports.onEpisodeDelete = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .firestore.document('podcasts/{podcastId}/episodes/{episodeId}')
   .onDelete(onEpisodeDelete);
 

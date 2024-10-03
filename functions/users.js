@@ -6,7 +6,7 @@ const db = getFirestore();
 const collectionRef = db.collection('podcasts');
 
 exports.list = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .https.onCall(async (data, context) => {
     const { podcastId } = data;
     if (!context.auth) {
@@ -41,7 +41,7 @@ exports.list = functions
   });
 
 exports.processInvites = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .https.onCall(async (data, context) => {
     const { uid, email } = context.auth.token;
     let shouldRefreshIdToken = false;

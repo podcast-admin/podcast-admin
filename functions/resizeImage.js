@@ -33,7 +33,7 @@ function getThumbFileName(fileName) {
 }
 
 module.exports = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .storage.bucket('podcast-admin.appspot.com')
   .object()
   .onFinalize(async (object) => {
