@@ -16,6 +16,7 @@ import LoadingWrapper from '../../components/LoadingWrapper';
 import Markdown from '../../components/Markdown';
 import PageContainer from '../../components/PageContainer/PageContainer';
 import { storage, functions } from '../../helpers/Firebase';
+import withAuth from '../../helpers/WithAuth';
 import useEpisodeQuery from '../../hooks/useEpisodeQuery';
 import useGenAiPromptMutation from '../../hooks/useGenAiPromptMutation';
 import usePodcastQuery from '../../hooks/usePodcastQuery';
@@ -171,4 +172,4 @@ const EpisodeAssistant = () => {
   );
 };
 
-export default EpisodeAssistant;
+export default withAuth(EpisodeAssistant);
