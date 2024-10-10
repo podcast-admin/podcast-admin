@@ -9,11 +9,6 @@ const onPodcastDelete = require('./onPodcastDelete');
 const onPodcastUpdateCreate =
   require('./onPodcastUpdateCreate').onPodcastUpdateCreate;
 
-const longerTimeout = {
-  timeoutSeconds: 540,
-  memory: '512MB',
-};
-
 exports.feed = require('./podcastFeed');
 
 exports.loadAnalytics = functions
@@ -39,13 +34,19 @@ exports.onPodcastCreate = functions
 
 exports.onEpisodeUpdate = functions
   .region('europe-west1')
-  .runWith(longerTimeout)
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '1GB',
+  })
   .firestore.document('podcasts/{podcastId}/episodes/{episodeId}')
   .onUpdate(onEpisodeUpdateCreate.onEpisodeUpdate);
 
 exports.onEpisodeCreate = functions
   .region('europe-west1')
-  .runWith(longerTimeout)
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '1GB',
+  })
   .firestore.document('podcasts/{podcastId}/episodes/{episodeId}')
   .onCreate(onEpisodeUpdateCreate.onEpisodeCreate);
 
