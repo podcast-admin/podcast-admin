@@ -3,7 +3,7 @@ const { getAuth } = require('firebase-admin/auth');
 const functions = require('firebase-functions');
 
 module.exports = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .https.onRequest(async (req, res) => {
     const db = admin.firestore();
     const uid = req.query.uid;

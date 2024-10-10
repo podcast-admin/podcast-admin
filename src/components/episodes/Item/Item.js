@@ -1,4 +1,9 @@
-import { Edit, Link as LinkIcon, Close } from '@mui/icons-material';
+import {
+  Edit,
+  Link as LinkIcon,
+  Close,
+  AutoFixHigh,
+} from '@mui/icons-material';
 import {
   Paper,
   Grid,
@@ -17,8 +22,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import EpisodeImage from '../../EpisodeImage';
+import Markdown from '../../Markdown';
 import ItemChips from './ItemChips';
-import Markdown from './Markdown';
 
 const Item = ({ episodeId, item }) => {
   const navigate = useNavigate();
@@ -59,6 +64,16 @@ const Item = ({ episodeId, item }) => {
                 size="large"
               >
                 {t('Item.editEpisode')}
+              </Button>
+            </Tooltip>
+            <Tooltip title={t('Item.assistant.tooltip')}>
+              <Button
+                startIcon={<AutoFixHigh />}
+                aria-label={t('Item.assistant.label')}
+                onClick={() => navigate(`${episodeId}/assistant`)}
+                size="large"
+              >
+                {t('Item.assistant.label')}
               </Button>
             </Tooltip>
             {url && (

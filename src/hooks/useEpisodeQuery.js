@@ -3,10 +3,10 @@ import { doc, getDoc } from 'firebase/firestore';
 
 import { db } from '../helpers/Firebase';
 
-const useEpisodeQuery = ({ podcastId, episodeId }, options = undefined) => {
+const useEpisodeQuery = ({ podcastId, episodeId }, options = {}) => {
   return useQuery({
     queryKey: ['episode', podcastId, episodeId],
-    queryFn: async (context) => {
+    queryFn: async () => {
       const episodeRef = doc(db, 'podcasts', podcastId, 'episodes', episodeId);
       return await getDoc(episodeRef);
     },

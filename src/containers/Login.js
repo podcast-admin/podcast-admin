@@ -3,28 +3,27 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { httpsCallable } from 'firebase/functions';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { functions, auth } from '../helpers/Firebase';
 
 const Login = (props) => {
   const processInvites = httpsCallable(functions, 'users-processInvites');
   const navigate = useNavigate();
+  const location = useLocation();
   const [t] = useTranslation();
 
   const handleSignIn = () => {
-    signInWithPopup(getAuth(), new GoogleAuthProvider())
-      .then(async () => {
-        const result = await processInvites();
-        const { shouldRefreshIdToken } = result.data;
-        if (shouldRefreshIdToken) {
-          await auth.currentUser.getIdToken(true);
-        }
-        navigate('/');
-      })
-      .catch(() => {
-        // TODO: Error handling
-      });
+    signInWithPopup(getAuth(), new GoogleAuthProvider()).then(async () => {
+      const result = await processInvites();
+      const { shouldRefreshIdToken } = result.data;
+      if (shouldRefreshIdToken) {
+        await auth.currentUser.getIdToken(true);
+      }
+      location.state?.redirectTo
+        ? navigate(location.state.redirectTo)
+        : navigate('/');
+    });
   };
 
   return (

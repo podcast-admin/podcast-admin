@@ -1,7 +1,7 @@
 import { Stack, CircularProgress } from '@mui/material';
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { auth } from '../helpers/Firebase';
 
@@ -11,6 +11,7 @@ const LOADING = 'LOADING';
 
 const withAuth = (Component) => (props) => {
   const [state, setState] = useState(LOADING);
+  const location = useLocation();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -32,7 +33,9 @@ const withAuth = (Component) => (props) => {
     // eslint-disable-next-line react/jsx-props-no-spreading
     return <Component {...props} />;
   } else {
-    return <Navigate to="/login" replace />;
+    return (
+      <Navigate to="/login" state={{ redirectTo: location.pathname }} replace />
+    );
   }
 };
 
