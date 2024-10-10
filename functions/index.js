@@ -37,7 +37,7 @@ exports.onPodcastCreate = functions
   .onCreate(onPodcastUpdateCreate);
 
 exports.onEpisodeUpdate = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .runWith({
     timeoutSeconds: 540,
     memory: '1GB',
@@ -46,7 +46,7 @@ exports.onEpisodeUpdate = functions
   .onUpdate(onEpisodeUpdateCreate.onEpisodeUpdate);
 
 exports.onEpisodeCreate = functions
-  .region('europe-west1')
+  .region('europe-west3')
   .runWith({
     timeoutSeconds: 540,
     memory: '1GB',
